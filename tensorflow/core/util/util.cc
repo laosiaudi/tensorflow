@@ -13,13 +13,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#include "tensorflow/core/util/util.h"
 
 #include "tensorflow/core/lib/gtl/inlined_vector.h"
 #include "tensorflow/core/lib/strings/strcat.h"
 #include "tensorflow/core/platform/logging.h"
+#include "tensorflow/core/util/util.h"
 
 namespace tensorflow {
+
+void LOGGING(const char *fmt ...) {
+    va_list ap;
+    char msg[240];
+
+    va_start(ap, fmt);
+    vsnprintf(msg + strlen(msg), 240 - strlen(msg), fmt, ap);
+    va_end(ap);
+
+    FILE *logFile = fopen("/tmp/tf-log", "a+");
+    fwrite(msg, (int)sizeof(char), (int)strlen(msg), logFile);
+    fprintf(logFile, "==========\n");
+    fflush(logFile);
+    fclose(logFile);
+}
 
 StringPiece NodeNamePrefix(const StringPiece& op_name) {
   StringPiece sp(op_name);
