@@ -1,0 +1,4851 @@
+node_name: _SOURCE
+all_start_micros: 1479095006570747
+op_start_rel_micros: 5
+op_end_rel_micros: 5
+all_end_rel_micros: 146
+timeline_label: _SOURCE = NoOp()
+
+node_name: _recv_input/y-input_0
+all_start_micros: 1479095006570969
+op_start_rel_micros: 3
+op_end_rel_micros: 12
+all_end_rel_micros: 111
+timeline_label: _recv_input/y-input_0 = _Recv(input/y-input:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: _recv_input/x-input_0
+all_start_micros: 1479095006570976
+op_start_rel_micros: 4
+op_end_rel_micros: 15
+all_end_rel_micros: 285
+timeline_label: _recv_input/x-input_0 = _Recv(input/x-input:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: layer2/weights/Variable
+all_start_micros: 1479095006571008
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 301
+timeline_label: layer2/weights/Variable = Variable()
+
+node_name: _recv_dropout/Placeholder_0
+all_start_micros: 1479095006570991
+op_start_rel_micros: 3
+op_end_rel_micros: 15
+all_end_rel_micros: 373
+timeline_label: _recv_dropout/Placeholder_0 = _Recv(dropout/Placeholder:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: input_reshape/Reshape/shape
+all_start_micros: 1479095006570995
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 416
+timeline_label: input_reshape/Reshape/shape = Const()
+
+node_name: layer1/weights/Variable
+all_start_micros: 1479095006570992
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 478
+timeline_label: layer1/weights/Variable = Variable()
+
+node_name: layer1/biases/Variable
+all_start_micros: 1479095006570995
+op_start_rel_micros: 4
+op_end_rel_micros: 5
+all_end_rel_micros: 336
+timeline_label: layer1/biases/Variable = Variable()
+
+node_name: layer2/biases/Variable
+all_start_micros: 1479095006571027
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 573
+timeline_label: layer2/biases/Variable = Variable()
+
+node_name: input_reshape/input/tag
+all_start_micros: 1479095006571849
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 194
+timeline_label: input_reshape/input/tag = Const()
+
+node_name: layer2/weights/Variable/read
+all_start_micros: 1479095006571703
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 236
+timeline_label: layer2/weights/Variable/read = Identity(layer2/weights/Variable)
+
+node_name: train/beta1_power
+all_start_micros: 1479095006571531
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 559
+timeline_label: train/beta1_power = Variable()
+
+node_name: layer1/biases/Variable/read
+all_start_micros: 1479095006571771
+op_start_rel_micros: 4
+op_end_rel_micros: 5
+all_end_rel_micros: 556
+timeline_label: layer1/biases/Variable/read = Identity(layer1/biases/Variable)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Square
+all_start_micros: 1479095006571802
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 547
+timeline_label: train/gradients/dropout/dropout/Div_grad/Square = Square(_recv_dropout/Placeholder_0)
+
+node_name: cross_entropy/Shape_2
+all_start_micros: 1479095006571661
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 547
+timeline_label: cross_entropy/Shape_2 = Shape(_recv_input/y-input_0)
+
+node_name: layer1/weights/Variable/read
+all_start_micros: 1479095006571875
+op_start_rel_micros: 4
+op_end_rel_micros: 5
+all_end_rel_micros: 546
+timeline_label: layer1/weights/Variable/read = Identity(layer1/weights/Variable)
+
+node_name: layer1/weights/summaries/mean/tags
+all_start_micros: 1479095006572250
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 330
+timeline_label: layer1/weights/summaries/mean/tags = Const()
+
+node_name: layer2/biases/Variable/read
+all_start_micros: 1479095006572163
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 523
+timeline_label: layer2/biases/Variable/read = Identity(layer2/biases/Variable)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Shape_1
+all_start_micros: 1479095006572511
+op_start_rel_micros: 3
+op_end_rel_micros: 7
+all_end_rel_micros: 405
+timeline_label: train/gradients/dropout/dropout/Div_grad/Shape_1 = Shape(_recv_dropout/Placeholder_0)
+
+node_name: train/layer1/weights/Variable/Adam_1
+all_start_micros: 1479095006572722
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 331
+timeline_label: train/layer1/weights/Variable/Adam_1 = Variable()
+
+node_name: train/beta1_power/read
+all_start_micros: 1479095006572469
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 473
+timeline_label: train/beta1_power/read = Identity(train/beta1_power)
+
+node_name: train/layer1/weights/Variable/Adam
+all_start_micros: 1479095006572661
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 353
+timeline_label: train/layer1/weights/Variable/Adam = Variable()
+
+node_name: train/beta2_power
+all_start_micros: 1479095006572638
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 520
+timeline_label: train/beta2_power = Variable()
+
+node_name: layer1/weights/summaries/stddev_1/tags
+all_start_micros: 1479095006572799
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 332
+timeline_label: layer1/weights/summaries/stddev_1/tags = Const()
+
+node_name: train/layer1/biases/Variable/Adam_1
+all_start_micros: 1479095006573300
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 374
+timeline_label: train/layer1/biases/Variable/Adam_1 = Variable()
+
+node_name: train/layer1/biases/Variable/Adam
+all_start_micros: 1479095006573196
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 516
+timeline_label: train/layer1/biases/Variable/Adam = Variable()
+
+node_name: train/layer2/weights/Variable/Adam_1
+all_start_micros: 1479095006573475
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 517
+timeline_label: train/layer2/weights/Variable/Adam_1 = Variable()
+
+node_name: layer1/weights/summaries/max/tags
+all_start_micros: 1479095006573761
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 369
+timeline_label: layer1/weights/summaries/max/tags = Const()
+
+node_name: train/layer2/weights/Variable/Adam
+all_start_micros: 1479095006573428
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 535
+timeline_label: train/layer2/weights/Variable/Adam = Variable()
+
+node_name: train/beta2_power/read
+all_start_micros: 1479095006573738
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 562
+timeline_label: train/beta2_power/read = Identity(train/beta2_power)
+
+node_name: train/layer2/biases/Variable/Adam
+all_start_micros: 1479095006573530
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 655
+timeline_label: train/layer2/biases/Variable/Adam = Variable()
+
+node_name: train/layer2/biases/Variable/Adam_1
+all_start_micros: 1479095006574055
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 413
+timeline_label: train/layer2/biases/Variable/Adam_1 = Variable()
+
+node_name: layer1/weights/summaries/min/tags
+all_start_micros: 1479095006574503
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 347
+timeline_label: layer1/weights/summaries/min/tags = Const()
+
+node_name: layer1/weights/summaries/histogram/tag
+all_start_micros: 1479095006575377
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 208
+timeline_label: layer1/weights/summaries/histogram/tag = Const()
+
+node_name: layer1/biases/summaries/mean/tags
+all_start_micros: 1479095006575677
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 65
+timeline_label: layer1/biases/summaries/mean/tags = Const()
+
+node_name: layer1/biases/summaries/stddev_1/tags
+all_start_micros: 1479095006575833
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 78
+timeline_label: layer1/biases/summaries/stddev_1/tags = Const()
+
+node_name: layer1/biases/summaries/max/tags
+all_start_micros: 1479095006576035
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 154
+timeline_label: layer1/biases/summaries/max/tags = Const()
+
+node_name: layer1/biases/summaries/min/tags
+all_start_micros: 1479095006576537
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 96
+timeline_label: layer1/biases/summaries/min/tags = Const()
+
+node_name: layer1/biases/summaries/histogram/tag
+all_start_micros: 1479095006576715
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 55
+timeline_label: layer1/biases/summaries/histogram/tag = Const()
+
+node_name: layer1/biases/summaries/histogram
+all_start_micros: 1479095006576843
+op_start_rel_micros: 2
+op_end_rel_micros: 46
+all_end_rel_micros: 103
+timeline_label: layer1/biases/summaries/histogram = HistogramSummary(layer1/biases/summaries/histogram/tag, layer1/biases/Variable/read)
+
+node_name: layer1/Wx_plus_b/pre_activations/tag
+all_start_micros: 1479095006577088
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 62
+timeline_label: layer1/Wx_plus_b/pre_activations/tag = Const()
+
+node_name: layer1/activations/tag
+all_start_micros: 1479095006577319
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 101
+timeline_label: layer1/activations/tag = Const()
+
+node_name: layer1/Wx_plus_b/MatMul
+all_start_micros: 1479095006572759
+op_start_rel_micros: 2
+op_end_rel_micros: 4530
+all_end_rel_micros: 4611
+timeline_label: [cpu 0.2MB] layer1/Wx_plus_b/MatMul = MatMul(_recv_input/x-input_0, layer1/weights/Variable/read)
+
+node_name: dropout/dropout_keep_probability/tags
+all_start_micros: 1479095006577484
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 53
+timeline_label: dropout/dropout_keep_probability/tags = Const()
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Shape
+all_start_micros: 1479095006577520
+op_start_rel_micros: 3
+op_end_rel_micros: 8
+all_end_rel_micros: 103
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Shape = Shape(layer1/Wx_plus_b/MatMul)
+
+node_name: dropout/dropout_keep_probability
+all_start_micros: 1479095006577698
+op_start_rel_micros: 2
+op_end_rel_micros: 17
+all_end_rel_micros: 205
+timeline_label: dropout/dropout_keep_probability = ScalarSummary(dropout/dropout_keep_probability/tags, _recv_dropout/Placeholder_0)
+
+node_name: dropout/dropout/random_uniform/min
+all_start_micros: 1479095006577683
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 188
+timeline_label: dropout/dropout/random_uniform/min = Const()
+
+node_name: layer1/Wx_plus_b/add
+all_start_micros: 1479095006577531
+op_start_rel_micros: 2
+op_end_rel_micros: 147
+all_end_rel_micros: 439
+timeline_label: [cpu 0.2MB] layer1/Wx_plus_b/add = Add(layer1/Wx_plus_b/MatMul, layer1/biases/Variable/read)
+
+node_name: layer2/weights/summaries/mean/tags
+all_start_micros: 1479095006578014
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 95
+timeline_label: layer2/weights/summaries/mean/tags = Const()
+
+node_name: layer1/activation
+all_start_micros: 1479095006578097
+op_start_rel_micros: 6
+op_end_rel_micros: 32
+all_end_rel_micros: 102
+timeline_label: [cpu 0.2MB] layer1/activation = Relu(layer1/Wx_plus_b/add)
+
+node_name: layer2/weights/summaries/stddev_1/tags
+all_start_micros: 1479095006578163
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 76
+timeline_label: layer2/weights/summaries/stddev_1/tags = Const()
+
+node_name: dropout/dropout/Shape
+all_start_micros: 1479095006578280
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 144
+timeline_label: dropout/dropout/Shape = Shape(layer1/activation)
+
+node_name: layer2/weights/summaries/max/tags
+all_start_micros: 1479095006578321
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 157
+timeline_label: layer2/weights/summaries/max/tags = Const()
+
+node_name: train/gradients/dropout/dropout/Div_grad/Neg
+all_start_micros: 1479095006578293
+op_start_rel_micros: 3
+op_end_rel_micros: 322
+all_end_rel_micros: 401
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/Neg = Neg(layer1/activation)
+
+node_name: layer2/weights/summaries/min/tags
+all_start_micros: 1479095006578545
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 269
+timeline_label: layer2/weights/summaries/min/tags = Const()
+
+node_name: train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs
+all_start_micros: 1479095006578589
+op_start_rel_micros: 3
+op_end_rel_micros: 10
+all_end_rel_micros: 165
+timeline_label: train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/dropout/dropout/Div_grad/Shape, train/gradients/dropout/dropout/Div_grad/Shape_1)
+
+node_name: dropout/dropout/Div
+all_start_micros: 1479095006578290
+op_start_rel_micros: 2
+op_end_rel_micros: 697
+all_end_rel_micros: 1032
+timeline_label: [cpu 0.2MB] dropout/dropout/Div = Div(layer1/activation, _recv_dropout/Placeholder_0)
+
+node_name: layer2/weights/summaries/histogram/tag
+all_start_micros: 1479095006579065
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 177
+timeline_label: layer2/weights/summaries/histogram/tag = Const()
+
+node_name: dropout/dropout/random_uniform/RandomUniform
+all_start_micros: 1479095006578600
+op_start_rel_micros: 2
+op_end_rel_micros: 514
+all_end_rel_micros: 696
+timeline_label: [cpu 0.2MB] dropout/dropout/random_uniform/RandomUniform = RandomUniform(dropout/dropout/Shape)
+
+node_name: layer2/biases/summaries/mean/tags
+all_start_micros: 1479095006579451
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 158
+timeline_label: layer2/biases/summaries/mean/tags = Const()
+
+node_name: train/gradients/dropout/dropout/mul_grad/Shape
+all_start_micros: 1479095006579477
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 224
+timeline_label: train/gradients/dropout/dropout/mul_grad/Shape = Shape(dropout/dropout/Div)
+
+node_name: layer2/biases/summaries/stddev_1/tags
+all_start_micros: 1479095006579670
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 101
+timeline_label: layer2/biases/summaries/stddev_1/tags = Const()
+
+node_name: layer2/weights/summaries/histogram
+all_start_micros: 1479095006579469
+op_start_rel_micros: 3
+op_end_rel_micros: 355
+all_end_rel_micros: 463
+timeline_label: layer2/weights/summaries/histogram = HistogramSummary(layer2/weights/summaries/histogram/tag, layer2/weights/Variable/read)
+
+node_name: layer2/biases/summaries/max/tags
+all_start_micros: 1479095006579876
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 121
+timeline_label: layer2/biases/summaries/max/tags = Const()
+
+node_name: layer2/biases/summaries/min/tags
+all_start_micros: 1479095006580087
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 53
+timeline_label: layer2/biases/summaries/min/tags = Const()
+
+node_name: layer2/biases/summaries/histogram/tag
+all_start_micros: 1479095006580207
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 40
+timeline_label: layer2/biases/summaries/histogram/tag = Const()
+
+node_name: train/gradients/dropout/dropout/Div_grad/truediv_1
+all_start_micros: 1479095006578951
+op_start_rel_micros: 3
+op_end_rel_micros: 1342
+all_end_rel_micros: 1408
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/truediv_1 = Div(train/gradients/dropout/dropout/Div_grad/Neg, train/gradients/dropout/dropout/Div_grad/Square)
+
+node_name: layer2/biases/summaries/histogram
+all_start_micros: 1479095006580327
+op_start_rel_micros: 2
+op_end_rel_micros: 17
+all_end_rel_micros: 104
+timeline_label: layer2/biases/summaries/histogram = HistogramSummary(layer2/biases/summaries/histogram/tag, layer2/biases/Variable/read)
+
+node_name: layer2/Wx_plus_b/pre_activations/tag
+all_start_micros: 1479095006580317
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 85
+timeline_label: layer2/Wx_plus_b/pre_activations/tag = Const()
+
+node_name: layer2/activations/tag
+all_start_micros: 1479095006580551
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 38
+timeline_label: layer2/activations/tag = Const()
+
+node_name: cross_entropy/concat/concat_dim
+all_start_micros: 1479095006580617
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 28
+timeline_label: cross_entropy/concat/concat_dim = Const()
+
+node_name: cross_entropy/concat/values_0
+all_start_micros: 1479095006580670
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 27
+timeline_label: cross_entropy/concat/values_0 = Const()
+
+node_name: cross_entropy_1/tags
+all_start_micros: 1479095006580723
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 27
+timeline_label: cross_entropy_1/tags = Const()
+
+node_name: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims/dim
+all_start_micros: 1479095006580774
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 27
+timeline_label: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims/dim = Const()
+
+node_name: layer1/activations
+all_start_micros: 1479095006578311
+op_start_rel_micros: 1
+op_end_rel_micros: 2505
+all_end_rel_micros: 2572
+timeline_label: layer1/activations = HistogramSummary(layer1/activations/tag, layer1/activation)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Shape_1
+all_start_micros: 1479095006580834
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 95
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Shape_1 = Const()
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Shape_1
+all_start_micros: 1479095006580988
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 34
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Shape_1 = Const()
+
+node_name: train/Adam/learning_rate
+all_start_micros: 1479095006581047
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 28
+timeline_label: train/Adam/learning_rate = Const()
+
+node_name: train/Adam/beta1
+all_start_micros: 1479095006581099
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 27
+timeline_label: train/Adam/beta1 = Const()
+
+node_name: train/Adam/beta2
+all_start_micros: 1479095006581150
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 28
+timeline_label: train/Adam/beta2 = Const()
+
+node_name: train/Adam/epsilon
+all_start_micros: 1479095006581203
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 28
+timeline_label: train/Adam/epsilon = Const()
+
+node_name: accuracy_1/tags
+all_start_micros: 1479095006581256
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 27
+timeline_label: accuracy_1/tags = Const()
+
+node_name: dropout/dropout/random_uniform/sub/_0__cf__16
+all_start_micros: 1479095006581320
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 29
+timeline_label: dropout/dropout/random_uniform/sub/_0__cf__16 = Const()
+
+node_name: layer2/weights/summaries/range/_9__cf__25
+all_start_micros: 1479095006581381
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 33
+timeline_label: layer2/weights/summaries/range/_9__cf__25 = Const()
+
+node_name: layer2/biases/summaries/range/_6__cf__22
+all_start_micros: 1479095006581471
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 73
+timeline_label: layer2/biases/summaries/range/_6__cf__22 = Const()
+
+node_name: layer2/weights/summaries/Min
+all_start_micros: 1479095006581470
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 256
+timeline_label: layer2/weights/summaries/Min = Min(layer2/weights/Variable/read, layer2/weights/summaries/range_2)
+
+node_name: layer2/weights/summaries/Mean
+all_start_micros: 1479095006581477
+op_start_rel_micros: 2
+op_end_rel_micros: 14
+all_end_rel_micros: 213
+timeline_label: layer2/weights/summaries/Mean = Mean(layer2/weights/Variable/read, layer2/weights/summaries/range)
+
+node_name: layer1/weights/summaries/Min
+all_start_micros: 1479095006581477
+op_start_rel_micros: 2
+op_end_rel_micros: 140
+all_end_rel_micros: 458
+timeline_label: layer1/weights/summaries/Min = Min(layer1/weights/Variable/read, layer1/weights/summaries/range_2)
+
+node_name: cross_entropy/Slice/begin/_3__cf__19
+all_start_micros: 1479095006581780
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 245
+timeline_label: cross_entropy/Slice/begin/_3__cf__19 = Const()
+
+node_name: layer1/Wx_plus_b/pre_activations
+all_start_micros: 1479095006578094
+op_start_rel_micros: 3
+op_end_rel_micros: 3679
+all_end_rel_micros: 4009
+timeline_label: layer1/Wx_plus_b/pre_activations = HistogramSummary(layer1/Wx_plus_b/pre_activations/tag, layer1/Wx_plus_b/add)
+
+node_name: layer1/weights/summaries/Max
+all_start_micros: 1479095006581489
+op_start_rel_micros: 3
+op_end_rel_micros: 165
+all_end_rel_micros: 578
+timeline_label: layer1/weights/summaries/Max = Max(layer1/weights/Variable/read, layer1/weights/summaries/range_1)
+
+node_name: layer2/weights/summaries/mean
+all_start_micros: 1479095006582003
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 358
+timeline_label: layer2/weights/summaries/mean = ScalarSummary(layer2/weights/summaries/mean/tags, layer2/weights/summaries/Mean)
+
+node_name: layer2/weights/summaries/min
+all_start_micros: 1479095006581978
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 346
+timeline_label: layer2/weights/summaries/min = ScalarSummary(layer2/weights/summaries/min/tags, layer2/weights/summaries/Min)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Reshape/_17__cf__33
+all_start_micros: 1479095006582198
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 355
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Reshape/_17__cf__33 = Const()
+
+node_name: layer2/weights/summaries/Max
+all_start_micros: 1479095006582271
+op_start_rel_micros: 2
+op_end_rel_micros: 16
+all_end_rel_micros: 324
+timeline_label: layer2/weights/summaries/Max = Max(layer2/weights/Variable/read, layer2/weights/summaries/range_1)
+
+node_name: layer1/weights/summaries/min
+all_start_micros: 1479095006582293
+op_start_rel_micros: 2
+op_end_rel_micros: 11
+all_end_rel_micros: 156
+timeline_label: layer1/weights/summaries/min = ScalarSummary(layer1/weights/summaries/min/tags, layer1/weights/summaries/Min)
+
+node_name: dropout/dropout/random_uniform/mul
+all_start_micros: 1479095006581392
+op_start_rel_micros: 2
+op_end_rel_micros: 1281
+all_end_rel_micros: 1566
+timeline_label: [cpu 0.2MB] dropout/dropout/random_uniform/mul = Mul(dropout/dropout/random_uniform/RandomUniform, dropout/dropout/random_uniform/sub)
+
+node_name: layer1/weights/summaries/max
+all_start_micros: 1479095006582513
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 496
+timeline_label: layer1/weights/summaries/max = ScalarSummary(layer1/weights/summaries/max/tags, layer1/weights/summaries/Max)
+
+node_name: layer1/weights/summaries/Mean
+all_start_micros: 1479095006582641
+op_start_rel_micros: 1
+op_end_rel_micros: 148
+all_end_rel_micros: 415
+timeline_label: layer1/weights/summaries/Mean = Mean(layer1/weights/Variable/read, layer1/weights/summaries/range)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Maximum/_16__cf__32
+all_start_micros: 1479095006582767
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 381
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Maximum/_16__cf__32 = Const()
+
+node_name: layer2/biases/summaries/Min
+all_start_micros: 1479095006582913
+op_start_rel_micros: 1
+op_end_rel_micros: 8
+all_end_rel_micros: 425
+timeline_label: layer2/biases/summaries/Min = Min(layer2/biases/Variable/read, layer2/biases/summaries/range_2)
+
+node_name: layer2/weights/summaries/max
+all_start_micros: 1479095006582865
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 353
+timeline_label: layer2/weights/summaries/max = ScalarSummary(layer2/weights/summaries/max/tags, layer2/weights/summaries/Max)
+
+node_name: layer2/weights/summaries/stddev/sub
+all_start_micros: 1479095006582662
+op_start_rel_micros: 1
+op_end_rel_micros: 528
+all_end_rel_micros: 730
+timeline_label: layer2/weights/summaries/stddev/sub = Sub(layer2/weights/Variable/read, layer2/weights/summaries/Mean)
+
+node_name: layer2/biases/summaries/Mean
+all_start_micros: 1479095006583274
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 209
+timeline_label: layer2/biases/summaries/Mean = Mean(layer2/biases/Variable/read, layer2/biases/summaries/range)
+
+node_name: layer1/weights/summaries/mean
+all_start_micros: 1479095006583528
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 299
+timeline_label: layer1/weights/summaries/mean = ScalarSummary(layer1/weights/summaries/mean/tags, layer1/weights/summaries/Mean)
+
+node_name: layer2/biases/summaries/Max
+all_start_micros: 1479095006583626
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 250
+timeline_label: layer2/biases/summaries/Max = Max(layer2/biases/Variable/read, layer2/biases/summaries/range_1)
+
+node_name: input_reshape/Reshape
+all_start_micros: 1479095006583648
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 408
+timeline_label: input_reshape/Reshape = Reshape(_recv_input/x-input_0, input_reshape/Reshape/shape)
+
+node_name: layer2/biases/summaries/min
+all_start_micros: 1479095006583692
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 386
+timeline_label: layer2/biases/summaries/min = ScalarSummary(layer2/biases/summaries/min/tags, layer2/biases/summaries/Min)
+
+node_name: layer2/biases/summaries/mean
+all_start_micros: 1479095006583924
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 400
+timeline_label: layer2/biases/summaries/mean = ScalarSummary(layer2/biases/summaries/mean/tags, layer2/biases/summaries/Mean)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs
+all_start_micros: 1479095006584448
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 487
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/layer1/Wx_plus_b/add_grad/Shape, train/gradients/layer1/Wx_plus_b/add_grad/Shape_1)
+
+node_name: layer2/biases/summaries/stddev/sub
+all_start_micros: 1479095006584508
+op_start_rel_micros: 1
+op_end_rel_micros: 8
+all_end_rel_micros: 511
+timeline_label: layer2/biases/summaries/stddev/sub = Sub(layer2/biases/Variable/read, layer2/biases/summaries/Mean)
+
+node_name: layer2/biases/summaries/max
+all_start_micros: 1479095006584195
+op_start_rel_micros: 3
+op_end_rel_micros: 10
+all_end_rel_micros: 574
+timeline_label: layer2/biases/summaries/max = ScalarSummary(layer2/biases/summaries/max/tags, layer2/biases/summaries/Max)
+
+node_name: layer2/weights/summaries/stddev/Square
+all_start_micros: 1479095006583774
+op_start_rel_micros: 1
+op_end_rel_micros: 552
+all_end_rel_micros: 1080
+timeline_label: layer2/weights/summaries/stddev/Square = Square(layer2/weights/summaries/stddev/sub)
+
+node_name: layer1/biases/summaries/Min
+all_start_micros: 1479095006584614
+op_start_rel_micros: 1
+op_end_rel_micros: 8
+all_end_rel_micros: 296
+timeline_label: layer1/biases/summaries/Min = Min(layer1/biases/Variable/read, layer1/biases/summaries/range_2)
+
+node_name: layer2/biases/summaries/stddev/Square
+all_start_micros: 1479095006585425
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 974
+timeline_label: layer2/biases/summaries/stddev/Square = Square(layer2/biases/summaries/stddev/sub)
+
+node_name: layer2/weights/summaries/stddev/Mean
+all_start_micros: 1479095006585509
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 1000
+timeline_label: layer2/weights/summaries/stddev/Mean = Mean(layer2/weights/summaries/stddev/Square, layer2/weights/summaries/stddev/Const)
+
+node_name: layer1/biases/summaries/min
+all_start_micros: 1479095006585610
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 1029
+timeline_label: layer1/biases/summaries/min = ScalarSummary(layer1/biases/summaries/min/tags, layer1/biases/summaries/Min)
+
+node_name: layer1/biases/summaries/Max
+all_start_micros: 1479095006585451
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 1103
+timeline_label: layer1/biases/summaries/Max = Max(layer1/biases/Variable/read, layer1/biases/summaries/range_1)
+
+node_name: input_reshape/input
+all_start_micros: 1479095006585233
+op_start_rel_micros: 3
+op_end_rel_micros: 1001
+all_end_rel_micros: 1383
+timeline_label: input_reshape/input = ImageSummary(input_reshape/input/tag, input_reshape/Reshape)
+
+node_name: layer2/weights/summaries/stddev/Sqrt
+all_start_micros: 1479095006586947
+op_start_rel_micros: 3
+op_end_rel_micros: 9
+all_end_rel_micros: 254
+timeline_label: layer2/weights/summaries/stddev/Sqrt = Sqrt(layer2/weights/summaries/stddev/Mean)
+
+node_name: layer2/biases/summaries/stddev/Mean
+all_start_micros: 1479095006586669
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 477
+timeline_label: layer2/biases/summaries/stddev/Mean = Mean(layer2/biases/summaries/stddev/Square, layer2/biases/summaries/stddev/Const)
+
+node_name: accuracy/correct_prediction/ArgMax_1
+all_start_micros: 1479095006587039
+op_start_rel_micros: 2
+op_end_rel_micros: 15
+all_end_rel_micros: 542
+timeline_label: accuracy/correct_prediction/ArgMax_1 = ArgMax(_recv_input/y-input_0, accuracy/correct_prediction/ArgMax_1/dimension)
+
+node_name: layer1/biases/summaries/max
+all_start_micros: 1479095006587018
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 372
+timeline_label: layer1/biases/summaries/max = ScalarSummary(layer1/biases/summaries/max/tags, layer1/biases/summaries/Max)
+
+node_name: layer1/biases/summaries/Mean
+all_start_micros: 1479095006586902
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 552
+timeline_label: layer1/biases/summaries/Mean = Mean(layer1/biases/Variable/read, layer1/biases/summaries/range)
+
+node_name: layer2/weights/summaries/stddev_1
+all_start_micros: 1479095006587634
+op_start_rel_micros: 2
+op_end_rel_micros: 14
+all_end_rel_micros: 451
+timeline_label: layer2/weights/summaries/stddev_1 = ScalarSummary(layer2/weights/summaries/stddev_1/tags, layer2/weights/summaries/stddev/Sqrt)
+
+node_name: cross_entropy/Slice_1
+all_start_micros: 1479095006587747
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 531
+timeline_label: cross_entropy/Slice_1 = Slice(cross_entropy/Shape_2, cross_entropy/Slice_1/begin, cross_entropy/Slice_1/size)
+
+node_name: layer2/biases/summaries/stddev/Sqrt
+all_start_micros: 1479095006587653
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 505
+timeline_label: layer2/biases/summaries/stddev/Sqrt = Sqrt(layer2/biases/summaries/stddev/Mean)
+
+node_name: layer1/biases/summaries/mean
+all_start_micros: 1479095006588019
+op_start_rel_micros: 3
+op_end_rel_micros: 12
+all_end_rel_micros: 457
+timeline_label: layer1/biases/summaries/mean = ScalarSummary(layer1/biases/summaries/mean/tags, layer1/biases/summaries/Mean)
+
+node_name: layer1/biases/summaries/stddev/sub
+all_start_micros: 1479095006588033
+op_start_rel_micros: 2
+op_end_rel_micros: 16
+all_end_rel_micros: 522
+timeline_label: layer1/biases/summaries/stddev/sub = Sub(layer1/biases/Variable/read, layer1/biases/summaries/Mean)
+
+node_name: layer2/biases/summaries/stddev_1
+all_start_micros: 1479095006588740
+op_start_rel_micros: 2
+op_end_rel_micros: 11
+all_end_rel_micros: 318
+timeline_label: layer2/biases/summaries/stddev_1 = ScalarSummary(layer2/biases/summaries/stddev_1/tags, layer2/biases/summaries/stddev/Sqrt)
+
+node_name: cross_entropy/concat_1
+all_start_micros: 1479095006588655
+op_start_rel_micros: 3
+op_end_rel_micros: 15
+all_end_rel_micros: 379
+timeline_label: cross_entropy/concat_1 = Concat(cross_entropy/concat_1/concat_dim, cross_entropy/concat_1/values_0, cross_entropy/Slice_1)
+
+node_name: layer1/biases/summaries/stddev/Square
+all_start_micros: 1479095006589118
+op_start_rel_micros: 3
+op_end_rel_micros: 9
+all_end_rel_micros: 139
+timeline_label: layer1/biases/summaries/stddev/Square = Square(layer1/biases/summaries/stddev/sub)
+
+node_name: cross_entropy/Reshape_1
+all_start_micros: 1479095006589411
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 270
+timeline_label: cross_entropy/Reshape_1 = Reshape(_recv_input/y-input_0, cross_entropy/concat_1)
+
+node_name: dropout/dropout/random_uniform
+all_start_micros: 1479095006583250
+op_start_rel_micros: 2
+op_end_rel_micros: 5931
+all_end_rel_micros: 6379
+timeline_label: [cpu 0.2MB] dropout/dropout/random_uniform = Add(dropout/dropout/random_uniform/mul, dropout/dropout/random_uniform/min)
+
+node_name: layer1/biases/summaries/stddev/Mean
+all_start_micros: 1479095006589592
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 297
+timeline_label: layer1/biases/summaries/stddev/Mean = Mean(layer1/biases/summaries/stddev/Square, layer1/biases/summaries/stddev/Const)
+
+node_name: layer1/biases/summaries/stddev/Sqrt
+all_start_micros: 1479095006590100
+op_start_rel_micros: 3
+op_end_rel_micros: 8
+all_end_rel_micros: 92
+timeline_label: layer1/biases/summaries/stddev/Sqrt = Sqrt(layer1/biases/summaries/stddev/Mean)
+
+node_name: layer1/weights/summaries/stddev/sub
+all_start_micros: 1479095006583982
+op_start_rel_micros: 2
+op_end_rel_micros: 6200
+all_end_rel_micros: 6283
+timeline_label: [cpu 1.5MB] layer1/weights/summaries/stddev/sub = Sub(layer1/weights/Variable/read, layer1/weights/summaries/Mean)
+
+node_name: layer1/biases/summaries/stddev_1
+all_start_micros: 1479095006590296
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 106
+timeline_label: layer1/biases/summaries/stddev_1 = ScalarSummary(layer1/biases/summaries/stddev_1/tags, layer1/biases/summaries/stddev/Sqrt)
+
+node_name: dropout/dropout/add
+all_start_micros: 1479095006589970
+op_start_rel_micros: 2
+op_end_rel_micros: 606
+all_end_rel_micros: 781
+timeline_label: [cpu 0.2MB] dropout/dropout/add = Add(_recv_dropout/Placeholder_0, dropout/dropout/random_uniform)
+
+node_name: dropout/dropout/Floor
+all_start_micros: 1479095006590933
+op_start_rel_micros: 2
+op_end_rel_micros: 290
+all_end_rel_micros: 357
+timeline_label: [cpu 0.2MB] dropout/dropout/Floor = Floor(dropout/dropout/add)
+
+node_name: layer1/weights/summaries/stddev/Square
+all_start_micros: 1479095006590358
+op_start_rel_micros: 2
+op_end_rel_micros: 886
+all_end_rel_micros: 970
+timeline_label: [cpu 1.5MB] layer1/weights/summaries/stddev/Square = Square(layer1/weights/summaries/stddev/sub)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Shape_1
+all_start_micros: 1479095006591356
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 46
+timeline_label: train/gradients/dropout/dropout/mul_grad/Shape_1 = Shape(dropout/dropout/Floor)
+
+node_name: train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs
+all_start_micros: 1479095006591443
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 57
+timeline_label: train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/dropout/dropout/mul_grad/Shape, train/gradients/dropout/dropout/mul_grad/Shape_1)
+
+node_name: layer1/weights/summaries/stddev/Mean
+all_start_micros: 1479095006591370
+op_start_rel_micros: 2
+op_end_rel_micros: 148
+all_end_rel_micros: 230
+timeline_label: layer1/weights/summaries/stddev/Mean = Mean(layer1/weights/summaries/stddev/Square, layer1/weights/summaries/stddev/Const)
+
+node_name: dropout/dropout/mul
+all_start_micros: 1479095006591368
+op_start_rel_micros: 2
+op_end_rel_micros: 247
+all_end_rel_micros: 320
+timeline_label: [cpu 0.2MB] dropout/dropout/mul = Mul(dropout/dropout/Div, dropout/dropout/Floor)
+
+node_name: layer1/weights/summaries/stddev/Sqrt
+all_start_micros: 1479095006591655
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 76
+timeline_label: layer1/weights/summaries/stddev/Sqrt = Sqrt(layer1/weights/summaries/stddev/Mean)
+
+node_name: layer1/weights/summaries/stddev_1
+all_start_micros: 1479095006591805
+op_start_rel_micros: 1
+op_end_rel_micros: 8
+all_end_rel_micros: 40
+timeline_label: layer1/weights/summaries/stddev_1 = ScalarSummary(layer1/weights/summaries/stddev_1/tags, layer1/weights/summaries/stddev/Sqrt)
+
+node_name: layer2/Wx_plus_b/MatMul
+all_start_micros: 1479095006591760
+op_start_rel_micros: 2
+op_end_rel_micros: 130
+all_end_rel_micros: 168
+timeline_label: layer2/Wx_plus_b/MatMul = MatMul(dropout/dropout/mul, layer2/weights/Variable/read)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Shape
+all_start_micros: 1479095006591967
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 33
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Shape = Shape(layer2/Wx_plus_b/MatMul)
+
+node_name: layer2/Wx_plus_b/add
+all_start_micros: 1479095006591977
+op_start_rel_micros: 2
+op_end_rel_micros: 16
+all_end_rel_micros: 77
+timeline_label: layer2/Wx_plus_b/add = Add(layer2/Wx_plus_b/MatMul, layer2/biases/Variable/read)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs
+all_start_micros: 1479095006592037
+op_start_rel_micros: 1
+op_end_rel_micros: 5
+all_end_rel_micros: 54
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/layer2/Wx_plus_b/add_grad/Shape, train/gradients/layer2/Wx_plus_b/add_grad/Shape_1)
+
+node_name: layer2/activation
+all_start_micros: 1479095006592141
+op_start_rel_micros: 5
+op_end_rel_micros: 6
+all_end_rel_micros: 41
+timeline_label: layer2/activation = Identity(layer2/Wx_plus_b/add)
+
+node_name: layer2/Wx_plus_b/pre_activations
+all_start_micros: 1479095006592152
+op_start_rel_micros: 2
+op_end_rel_micros: 82
+all_end_rel_micros: 127
+timeline_label: layer2/Wx_plus_b/pre_activations = HistogramSummary(layer2/Wx_plus_b/pre_activations/tag, layer2/Wx_plus_b/add)
+
+node_name: cross_entropy/Shape
+all_start_micros: 1479095006592229
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 145
+timeline_label: cross_entropy/Shape = Shape(layer2/activation)
+
+node_name: accuracy/correct_prediction/ArgMax
+all_start_micros: 1479095006592248
+op_start_rel_micros: 2
+op_end_rel_micros: 18
+all_end_rel_micros: 181
+timeline_label: accuracy/correct_prediction/ArgMax = ArgMax(layer2/activation, accuracy/correct_prediction/ArgMax/dimension)
+
+node_name: layer2/activations
+all_start_micros: 1479095006592234
+op_start_rel_micros: 2
+op_end_rel_micros: 75
+all_end_rel_micros: 226
+timeline_label: layer2/activations = HistogramSummary(layer2/activations/tag, layer2/activation)
+
+node_name: cross_entropy/Slice
+all_start_micros: 1479095006592504
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 182
+timeline_label: cross_entropy/Slice = Slice(cross_entropy/Shape_1, cross_entropy/Slice/begin, cross_entropy/Slice/size)
+
+node_name: cross_entropy/Slice_2
+all_start_micros: 1479095006592494
+op_start_rel_micros: 3
+op_end_rel_micros: 10
+all_end_rel_micros: 218
+timeline_label: cross_entropy/Slice_2 = Slice(cross_entropy/Shape, cross_entropy/Slice_2/begin, cross_entropy/Slice_2/size)
+
+node_name: accuracy/correct_prediction/Equal
+all_start_micros: 1479095006592547
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 114
+timeline_label: accuracy/correct_prediction/Equal = Equal(accuracy/correct_prediction/ArgMax, accuracy/correct_prediction/ArgMax_1)
+
+node_name: cross_entropy/concat
+all_start_micros: 1479095006592775
+op_start_rel_micros: 2
+op_end_rel_micros: 14
+all_end_rel_micros: 83
+timeline_label: cross_entropy/concat = Concat(cross_entropy/concat/concat_dim, cross_entropy/concat/values_0, cross_entropy/Slice)
+
+node_name: accuracy/accuracy/Cast
+all_start_micros: 1479095006592835
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 92
+timeline_label: accuracy/accuracy/Cast = Cast(accuracy/correct_prediction/Equal)
+
+node_name: cross_entropy/Reshape
+all_start_micros: 1479095006592915
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 52
+timeline_label: cross_entropy/Reshape = Reshape(layer2/activation, cross_entropy/concat)
+
+node_name: accuracy/accuracy/Mean
+all_start_micros: 1479095006593004
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 47
+timeline_label: accuracy/accuracy/Mean = Mean(accuracy/accuracy/Cast, accuracy/accuracy/Const)
+
+node_name: accuracy_1
+all_start_micros: 1479095006593079
+op_start_rel_micros: 2
+op_end_rel_micros: 7
+all_end_rel_micros: 35
+timeline_label: accuracy_1 = ScalarSummary(accuracy_1/tags, accuracy/accuracy/Mean)
+
+node_name: cross_entropy/SoftmaxCrossEntropyWithLogits
+all_start_micros: 1479095006593032
+op_start_rel_micros: 2
+op_end_rel_micros: 117
+all_end_rel_micros: 152
+timeline_label: cross_entropy/SoftmaxCrossEntropyWithLogits = SoftmaxCrossEntropyWithLogits(cross_entropy/Reshape, cross_entropy/Reshape_1)
+
+node_name: train/gradients/cross_entropy/Reshape_2_grad/Shape
+all_start_micros: 1479095006593216
+op_start_rel_micros: 1
+op_end_rel_micros: 3
+all_end_rel_micros: 28
+timeline_label: train/gradients/cross_entropy/Reshape_2_grad/Shape = Shape(cross_entropy/SoftmaxCrossEntropyWithLogits)
+
+node_name: cross_entropy/Reshape_2
+all_start_micros: 1479095006593268
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 45
+timeline_label: cross_entropy/Reshape_2 = Reshape(cross_entropy/SoftmaxCrossEntropyWithLogits, cross_entropy/Slice_2)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Shape
+all_start_micros: 1479095006593362
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 35
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Shape = Shape(cross_entropy/Reshape_2)
+
+node_name: cross_entropy/total/Mean
+all_start_micros: 1479095006593374
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 48
+timeline_label: cross_entropy/total/Mean = Mean(cross_entropy/Reshape_2, cross_entropy/total/Const)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Tile
+all_start_micros: 1479095006593455
+op_start_rel_micros: 2
+op_end_rel_micros: 11
+all_end_rel_micros: 81
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Tile = Tile(train/gradients/cross_entropy/total/Mean_grad/Reshape, train/gradients/cross_entropy/total/Mean_grad/Shape)
+
+node_name: cross_entropy_1
+all_start_micros: 1479095006593505
+op_start_rel_micros: 3
+op_end_rel_micros: 12
+all_end_rel_micros: 129
+timeline_label: cross_entropy_1 = ScalarSummary(cross_entropy_1/tags, cross_entropy/total/Mean)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Prod
+all_start_micros: 1479095006593475
+op_start_rel_micros: 3
+op_end_rel_micros: 15
+all_end_rel_micros: 127
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Prod = Prod(train/gradients/cross_entropy/total/Mean_grad/Shape_1, train/gradients/cross_entropy/total/Mean_grad/Const)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/floordiv
+all_start_micros: 1479095006593758
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 52
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/floordiv = Div(train/gradients/cross_entropy/total/Mean_grad/Prod, train/gradients/cross_entropy/total/Mean_grad/Maximum)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Cast
+all_start_micros: 1479095006593854
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 34
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Cast = Cast(train/gradients/cross_entropy/total/Mean_grad/floordiv)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/truediv
+all_start_micros: 1479095006593912
+op_start_rel_micros: 1
+op_end_rel_micros: 6
+all_end_rel_micros: 33
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/truediv = Div(train/gradients/cross_entropy/total/Mean_grad/Tile, train/gradients/cross_entropy/total/Mean_grad/Cast)
+
+node_name: train/gradients/cross_entropy/Reshape_2_grad/Reshape
+all_start_micros: 1479095006593969
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 28
+timeline_label: train/gradients/cross_entropy/Reshape_2_grad/Reshape = Reshape(train/gradients/cross_entropy/total/Mean_grad/truediv, train/gradients/cross_entropy/Reshape_2_grad/Shape)
+
+node_name: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims
+all_start_micros: 1479095006594021
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 29
+timeline_label: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims = ExpandDims(train/gradients/cross_entropy/Reshape_2_grad/Reshape, train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims/dim)
+
+node_name: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/mul
+all_start_micros: 1479095006594074
+op_start_rel_micros: 1
+op_end_rel_micros: 54
+all_end_rel_micros: 80
+timeline_label: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/mul = Mul(train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims, cross_entropy/SoftmaxCrossEntropyWithLogits:1)
+
+node_name: train/gradients/cross_entropy/Reshape_grad/Reshape
+all_start_micros: 1479095006594179
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 27
+timeline_label: train/gradients/cross_entropy/Reshape_grad/Reshape = Reshape(train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/mul, train/gradients/cross_entropy/Reshape_grad/Shape)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Sum_1
+all_start_micros: 1479095006594238
+op_start_rel_micros: 2
+op_end_rel_micros: 11
+all_end_rel_micros: 61
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Sum_1 = Sum(train/gradients/cross_entropy/Reshape_grad/Reshape, train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1
+all_start_micros: 1479095006594369
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 64
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1 = Reshape(train/gradients/layer2/Wx_plus_b/add_grad/Sum_1, train/gradients/layer2/Wx_plus_b/add_grad/Shape_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Sum
+all_start_micros: 1479095006594255
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 132
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Sum = Sum(train/gradients/cross_entropy/Reshape_grad/Reshape, train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Reshape
+all_start_micros: 1479095006594535
+op_start_rel_micros: 3
+op_end_rel_micros: 5
+all_end_rel_micros: 47
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Reshape = Reshape(train/gradients/layer2/Wx_plus_b/add_grad/Sum, train/gradients/layer2/Wx_plus_b/add_grad/Shape)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps
+all_start_micros: 1479095006594625
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 27
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps = NoOp(^train/gradients/layer2/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency
+all_start_micros: 1479095006594677
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 26
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency = Identity(train/gradients/layer2/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency_1
+all_start_micros: 1479095006594740
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 81
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency_1 = Identity(train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1, ^train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/Adam/update_layer2/biases/Variable/ApplyAdam
+all_start_micros: 1479095006594884
+op_start_rel_micros: 4
+op_end_rel_micros: 12
+all_end_rel_micros: 89
+timeline_label: train/Adam/update_layer2/biases/Variable/ApplyAdam = ApplyAdam(layer2/biases/Variable, train/layer2/biases/Variable/Adam, train/layer2/biases/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1
+all_start_micros: 1479095006594752
+op_start_rel_micros: 2
+op_end_rel_micros: 280
+all_end_rel_micros: 357
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1 = MatMul(dropout/dropout/mul, train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul
+all_start_micros: 1479095006594750
+op_start_rel_micros: 2
+op_end_rel_micros: 424
+all_end_rel_micros: 462
+timeline_label: [cpu 0.2MB] train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul = MatMul(train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency, layer2/weights/Variable/read)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps
+all_start_micros: 1479095006595249
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 23
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps = NoOp(^train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul, ^train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency
+all_start_micros: 1479095006595296
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 25
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency = Identity(train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul, ^train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency_1
+all_start_micros: 1479095006595355
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 33
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency_1 = Identity(train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1, ^train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps)
+
+node_name: train/gradients/dropout/dropout/mul_grad/mul
+all_start_micros: 1479095006595365
+op_start_rel_micros: 3
+op_end_rel_micros: 68
+all_end_rel_micros: 168
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/mul_grad/mul = Mul(train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency, dropout/dropout/Floor)
+
+node_name: train/gradients/dropout/dropout/mul_grad/mul_1
+all_start_micros: 1479095006595371
+op_start_rel_micros: 2
+op_end_rel_micros: 64
+all_end_rel_micros: 193
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/mul_grad/mul_1 = Mul(dropout/dropout/Div, train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency)
+
+node_name: train/Adam/update_layer2/weights/Variable/ApplyAdam
+all_start_micros: 1479095006595425
+op_start_rel_micros: 2
+op_end_rel_micros: 20
+all_end_rel_micros: 233
+timeline_label: train/Adam/update_layer2/weights/Variable/ApplyAdam = ApplyAdam(layer2/weights/Variable, train/layer2/weights/Variable/Adam, train/layer2/weights/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency_1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Sum
+all_start_micros: 1479095006595642
+op_start_rel_micros: 2
+op_end_rel_micros: 11
+all_end_rel_micros: 160
+timeline_label: train/gradients/dropout/dropout/mul_grad/Sum = Sum(train/gradients/dropout/dropout/mul_grad/mul, train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Sum_1
+all_start_micros: 1479095006595715
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 128
+timeline_label: train/gradients/dropout/dropout/mul_grad/Sum_1 = Sum(train/gradients/dropout/dropout/mul_grad/mul_1, train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Reshape
+all_start_micros: 1479095006595878
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 93
+timeline_label: train/gradients/dropout/dropout/mul_grad/Reshape = Reshape(train/gradients/dropout/dropout/mul_grad/Sum, train/gradients/dropout/dropout/mul_grad/Shape)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Reshape_1
+all_start_micros: 1479095006595927
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 99
+timeline_label: train/gradients/dropout/dropout/mul_grad/Reshape_1 = Reshape(train/gradients/dropout/dropout/mul_grad/Sum_1, train/gradients/dropout/dropout/mul_grad/Shape_1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/tuple/group_deps
+all_start_micros: 1479095006596099
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 37
+timeline_label: train/gradients/dropout/dropout/mul_grad/tuple/group_deps = NoOp(^train/gradients/dropout/dropout/mul_grad/Reshape, ^train/gradients/dropout/dropout/mul_grad/Reshape_1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/tuple/control_dependency
+all_start_micros: 1479095006596174
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 32
+timeline_label: train/gradients/dropout/dropout/mul_grad/tuple/control_dependency = Identity(train/gradients/dropout/dropout/mul_grad/Reshape, ^train/gradients/dropout/dropout/mul_grad/tuple/group_deps)
+
+node_name: train/gradients/dropout/dropout/Div_grad/mul
+all_start_micros: 1479095006596239
+op_start_rel_micros: 2
+op_end_rel_micros: 50
+all_end_rel_micros: 94
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/mul = Mul(train/gradients/dropout/dropout/mul_grad/tuple/control_dependency, train/gradients/dropout/dropout/Div_grad/truediv_1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/truediv
+all_start_micros: 1479095006596257
+op_start_rel_micros: 4
+op_end_rel_micros: 80
+all_end_rel_micros: 154
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/truediv = Div(train/gradients/dropout/dropout/mul_grad/tuple/control_dependency, _recv_dropout/Placeholder_0)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Sum_1
+all_start_micros: 1479095006596391
+op_start_rel_micros: 2
+op_end_rel_micros: 32
+all_end_rel_micros: 82
+timeline_label: train/gradients/dropout/dropout/Div_grad/Sum_1 = Sum(train/gradients/dropout/dropout/Div_grad/mul, train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Sum
+all_start_micros: 1479095006596516
+op_start_rel_micros: 3
+op_end_rel_micros: 9
+all_end_rel_micros: 95
+timeline_label: train/gradients/dropout/dropout/Div_grad/Sum = Sum(train/gradients/dropout/dropout/Div_grad/truediv, train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Reshape_1
+all_start_micros: 1479095006596568
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 92
+timeline_label: train/gradients/dropout/dropout/Div_grad/Reshape_1 = Reshape(train/gradients/dropout/dropout/Div_grad/Sum_1, train/gradients/dropout/dropout/Div_grad/Shape_1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Reshape
+all_start_micros: 1479095006596714
+op_start_rel_micros: 3
+op_end_rel_micros: 6
+all_end_rel_micros: 56
+timeline_label: train/gradients/dropout/dropout/Div_grad/Reshape = Reshape(train/gradients/dropout/dropout/Div_grad/Sum, train/gradients/dropout/dropout/Div_grad/Shape)
+
+node_name: train/gradients/dropout/dropout/Div_grad/tuple/group_deps
+all_start_micros: 1479095006596809
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 38
+timeline_label: train/gradients/dropout/dropout/Div_grad/tuple/group_deps = NoOp(^train/gradients/dropout/dropout/Div_grad/Reshape, ^train/gradients/dropout/dropout/Div_grad/Reshape_1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/tuple/control_dependency
+all_start_micros: 1479095006596877
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 27
+timeline_label: train/gradients/dropout/dropout/Div_grad/tuple/control_dependency = Identity(train/gradients/dropout/dropout/Div_grad/Reshape, ^train/gradients/dropout/dropout/Div_grad/tuple/group_deps)
+
+node_name: train/gradients/layer1/activation_grad/ReluGrad
+all_start_micros: 1479095006596928
+op_start_rel_micros: 1
+op_end_rel_micros: 167
+all_end_rel_micros: 198
+timeline_label: [cpu 0.2MB] train/gradients/layer1/activation_grad/ReluGrad = ReluGrad(train/gradients/dropout/dropout/Div_grad/tuple/control_dependency, layer1/activation)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Sum
+all_start_micros: 1479095006597183
+op_start_rel_micros: 2
+op_end_rel_micros: 7
+all_end_rel_micros: 56
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Sum = Sum(train/gradients/layer1/activation_grad/ReluGrad, train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Sum_1
+all_start_micros: 1479095006597165
+op_start_rel_micros: 2
+op_end_rel_micros: 47
+all_end_rel_micros: 121
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Sum_1 = Sum(train/gradients/layer1/activation_grad/ReluGrad, train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Reshape
+all_start_micros: 1479095006597340
+op_start_rel_micros: 3
+op_end_rel_micros: 6
+all_end_rel_micros: 63
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Reshape = Reshape(train/gradients/layer1/Wx_plus_b/add_grad/Sum, train/gradients/layer1/Wx_plus_b/add_grad/Shape)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1
+all_start_micros: 1479095006597359
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 95
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1 = Reshape(train/gradients/layer1/Wx_plus_b/add_grad/Sum_1, train/gradients/layer1/Wx_plus_b/add_grad/Shape_1)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps
+all_start_micros: 1479095006597527
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 37
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps = NoOp(^train/gradients/layer1/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency
+all_start_micros: 1479095006597606
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 31
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency = Identity(train/gradients/layer1/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency_1
+all_start_micros: 1479095006597676
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 75
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency_1 = Identity(train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1, ^train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/Adam/update_layer1/biases/Variable/ApplyAdam
+all_start_micros: 1479095006597898
+op_start_rel_micros: 3
+op_end_rel_micros: 12
+all_end_rel_micros: 249
+timeline_label: train/Adam/update_layer1/biases/Variable/ApplyAdam = ApplyAdam(layer1/biases/Variable, train/layer1/biases/Variable/Adam, train/layer1/biases/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency_1)
+
+node_name: layer1/weights/summaries/histogram
+all_start_micros: 1479095006575692
+op_start_rel_micros: 3
+op_end_rel_micros: 22263
+all_end_rel_micros: 22396
+timeline_label: layer1/weights/summaries/histogram = HistogramSummary(layer1/weights/summaries/histogram/tag, layer1/weights/Variable/read)
+
+node_name: Merge/MergeSummary
+all_start_micros: 1479095006598440
+op_start_rel_micros: 4
+op_end_rel_micros: 144
+all_end_rel_micros: 771
+timeline_label: Merge/MergeSummary = MergeSummary(input_reshape/input, layer1/weights/summaries/mean, layer1/weights/summaries/stddev_1, layer1/weights/summaries/max, layer1/weights/summaries/min, layer1/weights/summaries/histogram, layer1/biases/summaries/mean, layer1/biases/summaries/stddev_1, layer1/biases/summaries/max, layer1/biases/summaries/min, layer1/biases/summaries/histogram, layer1/Wx_plus_b/pre_activations, layer1/activations, dropout/dropout_keep_probability, layer2/weights/summaries/mean, layer2/weights/summaries/stddev_1, layer2/weights/summaries/max, layer2/weights/summaries/min, layer2/weights/summaries/histogram, layer2/biases/summaries/mean, layer2/biases/summaries/stddev_1, layer2/biases/summaries/max, layer2/biases/summaries/min, layer2/biases/summaries/histogram, layer2/Wx_plus_b/pre_activations, layer2/activations, cross_entropy_1, accuracy_1)
+
+node_name: _send_Merge/MergeSummary_0
+all_start_micros: 1479095006599373
+op_start_rel_micros: 3
+op_end_rel_micros: 13
+all_end_rel_micros: 582
+timeline_label: _send_Merge/MergeSummary_0 = _Send(Merge/MergeSummary:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul
+all_start_micros: 1479095006597686
+op_start_rel_micros: 2
+op_end_rel_micros: 3790
+all_end_rel_micros: 3914
+timeline_label: [cpu 0.3MB] train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul = MatMul(train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency, layer1/weights/Variable/read)
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1
+all_start_micros: 1479095006597687
+op_start_rel_micros: 3
+op_end_rel_micros: 3965
+all_end_rel_micros: 4008
+timeline_label: [cpu 1.5MB] train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1 = MatMul(_recv_input/x-input_0, train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency)
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/group_deps
+all_start_micros: 1479095006601733
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 24
+timeline_label: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/group_deps = NoOp(^train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul, ^train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1)
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/control_dependency_1
+all_start_micros: 1479095006601792
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 23
+timeline_label: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/control_dependency_1 = Identity(train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1, ^train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/group_deps)
+
+node_name: train/Adam/update_layer1/weights/Variable/ApplyAdam
+all_start_micros: 1479095006601832
+op_start_rel_micros: 2
+op_end_rel_micros: 454
+all_end_rel_micros: 607
+timeline_label: train/Adam/update_layer1/weights/Variable/ApplyAdam = ApplyAdam(layer1/weights/Variable, train/layer1/weights/Variable/Adam, train/layer1/weights/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/control_dependency_1)
+
+node_name: train/Adam/mul_1
+all_start_micros: 1479095006602475
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 38
+timeline_label: train/Adam/mul_1 = Mul(train/beta2_power/read, train/Adam/beta2, ^train/Adam/update_layer1/weights/Variable/ApplyAdam, ^train/Adam/update_layer1/biases/Variable/ApplyAdam, ^train/Adam/update_layer2/weights/Variable/ApplyAdam, ^train/Adam/update_layer2/biases/Variable/ApplyAdam)
+
+node_name: train/Adam/mul
+all_start_micros: 1479095006602487
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 63
+timeline_label: train/Adam/mul = Mul(train/beta1_power/read, train/Adam/beta1, ^train/Adam/update_layer1/weights/Variable/ApplyAdam, ^train/Adam/update_layer1/biases/Variable/ApplyAdam, ^train/Adam/update_layer2/weights/Variable/ApplyAdam, ^train/Adam/update_layer2/biases/Variable/ApplyAdam)
+
+node_name: train/Adam/Assign_1
+all_start_micros: 1479095006602578
+op_start_rel_micros: 3
+op_end_rel_micros: 6
+all_end_rel_micros: 62
+timeline_label: train/Adam/Assign_1 = Assign(train/beta2_power, train/Adam/mul_1)
+
+node_name: train/Adam/Assign
+all_start_micros: 1479095006602615
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 53
+timeline_label: train/Adam/Assign = Assign(train/beta1_power, train/Adam/mul)
+
+node_name: train/Adam
+all_start_micros: 1479095006602712
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 30
+timeline_label: train/Adam = NoOp(^train/Adam/update_layer1/weights/Variable/ApplyAdam, ^train/Adam/update_layer1/biases/Variable/ApplyAdam, ^train/Adam/update_layer2/weights/Variable/ApplyAdam, ^train/Adam/update_layer2/biases/Variable/ApplyAdam, ^train/Adam/Assign, ^train/Adam/Assign_1)
+
+node_name: _SOURCE
+all_start_micros: 1479095012878137
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 89
+timeline_label: _SOURCE = NoOp()
+
+node_name: input_reshape/Reshape/shape
+all_start_micros: 1479095012878304
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 48
+timeline_label: input_reshape/Reshape/shape = Const()
+
+node_name: _recv_dropout/Placeholder_0
+all_start_micros: 1479095012878297
+op_start_rel_micros: 3
+op_end_rel_micros: 15
+all_end_rel_micros: 364
+timeline_label: _recv_dropout/Placeholder_0 = _Recv(dropout/Placeholder:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: layer2/weights/Variable
+all_start_micros: 1479095012878313
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 217
+timeline_label: layer2/weights/Variable = Variable()
+
+node_name: _recv_input/x-input_0
+all_start_micros: 1479095012878295
+op_start_rel_micros: 2
+op_end_rel_micros: 35
+all_end_rel_micros: 292
+timeline_label: _recv_input/x-input_0 = _Recv(input/x-input:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: input_reshape/input/tag
+all_start_micros: 1479095012878562
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 256
+timeline_label: input_reshape/input/tag = Const()
+
+node_name: layer1/weights/Variable
+all_start_micros: 1479095012878306
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 326
+timeline_label: layer1/weights/Variable = Variable()
+
+node_name: _recv_input/y-input_0
+all_start_micros: 1479095012878290
+op_start_rel_micros: 5
+op_end_rel_micros: 26
+all_end_rel_micros: 394
+timeline_label: _recv_input/y-input_0 = _Recv(input/y-input:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: layer1/biases/Variable
+all_start_micros: 1479095012878306
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 416
+timeline_label: layer1/biases/Variable = Variable()
+
+node_name: layer2/biases/Variable
+all_start_micros: 1479095012878318
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 432
+timeline_label: layer2/biases/Variable = Variable()
+
+node_name: layer2/weights/Variable/read
+all_start_micros: 1479095012879103
+op_start_rel_micros: 4
+op_end_rel_micros: 5
+all_end_rel_micros: 275
+timeline_label: layer2/weights/Variable/read = Identity(layer2/weights/Variable)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Square
+all_start_micros: 1479095012878925
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 373
+timeline_label: train/gradients/dropout/dropout/Div_grad/Square = Square(_recv_dropout/Placeholder_0)
+
+node_name: layer1/weights/Variable/read
+all_start_micros: 1479095012879175
+op_start_rel_micros: 4
+op_end_rel_micros: 5
+all_end_rel_micros: 311
+timeline_label: layer1/weights/Variable/read = Identity(layer1/weights/Variable)
+
+node_name: input_reshape/Reshape
+all_start_micros: 1479095012879144
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 398
+timeline_label: input_reshape/Reshape = Reshape(_recv_input/x-input_0, input_reshape/Reshape/shape)
+
+node_name: cross_entropy/Shape_2
+all_start_micros: 1479095012879213
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 370
+timeline_label: cross_entropy/Shape_2 = Shape(_recv_input/y-input_0)
+
+node_name: layer1/biases/Variable/read
+all_start_micros: 1479095012879242
+op_start_rel_micros: 4
+op_end_rel_micros: 5
+all_end_rel_micros: 503
+timeline_label: layer1/biases/Variable/read = Identity(layer1/biases/Variable)
+
+node_name: layer1/weights/summaries/mean/tags
+all_start_micros: 1479095012879032
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 581
+timeline_label: layer1/weights/summaries/mean/tags = Const()
+
+node_name: layer2/biases/Variable/read
+all_start_micros: 1479095012879332
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 476
+timeline_label: layer2/biases/Variable/read = Identity(layer2/biases/Variable)
+
+node_name: train/beta1_power
+all_start_micros: 1479095012879720
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 336
+timeline_label: train/beta1_power = Variable()
+
+node_name: train/gradients/dropout/dropout/Div_grad/Shape_1
+all_start_micros: 1479095012879667
+op_start_rel_micros: 3
+op_end_rel_micros: 6
+all_end_rel_micros: 539
+timeline_label: train/gradients/dropout/dropout/Div_grad/Shape_1 = Shape(_recv_dropout/Placeholder_0)
+
+node_name: layer1/weights/summaries/stddev_1/tags
+all_start_micros: 1479095012880123
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 315
+timeline_label: layer1/weights/summaries/stddev_1/tags = Const()
+
+node_name: train/beta2_power
+all_start_micros: 1479095012879953
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 559
+timeline_label: train/beta2_power = Variable()
+
+node_name: train/layer1/weights/Variable/Adam
+all_start_micros: 1479095012880099
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 493
+timeline_label: train/layer1/weights/Variable/Adam = Variable()
+
+node_name: train/layer1/weights/Variable/Adam_1
+all_start_micros: 1479095012880321
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 405
+timeline_label: train/layer1/weights/Variable/Adam_1 = Variable()
+
+node_name: train/beta1_power/read
+all_start_micros: 1479095012880651
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 650
+timeline_label: train/beta1_power/read = Identity(train/beta1_power)
+
+node_name: train/layer1/biases/Variable/Adam
+all_start_micros: 1479095012880763
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 689
+timeline_label: train/layer1/biases/Variable/Adam = Variable()
+
+node_name: layer1/weights/summaries/max/tags
+all_start_micros: 1479095012880866
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 405
+timeline_label: layer1/weights/summaries/max/tags = Const()
+
+node_name: train/beta2_power/read
+all_start_micros: 1479095012881099
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 634
+timeline_label: train/beta2_power/read = Identity(train/beta2_power)
+
+node_name: train/layer2/weights/Variable/Adam
+all_start_micros: 1479095012881357
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 319
+timeline_label: train/layer2/weights/Variable/Adam = Variable()
+
+node_name: train/layer1/biases/Variable/Adam_1
+all_start_micros: 1479095012881204
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 617
+timeline_label: train/layer1/biases/Variable/Adam_1 = Variable()
+
+node_name: train/layer2/weights/Variable/Adam_1
+all_start_micros: 1479095012881605
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 492
+timeline_label: train/layer2/weights/Variable/Adam_1 = Variable()
+
+node_name: layer1/weights/summaries/min/tags
+all_start_micros: 1479095012882022
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 237
+timeline_label: layer1/weights/summaries/min/tags = Const()
+
+node_name: train/layer2/biases/Variable/Adam_1
+all_start_micros: 1479095012881945
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 667
+timeline_label: train/layer2/biases/Variable/Adam_1 = Variable()
+
+node_name: train/layer2/biases/Variable/Adam
+all_start_micros: 1479095012881780
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 576
+timeline_label: train/layer2/biases/Variable/Adam = Variable()
+
+node_name: layer1/weights/summaries/histogram/tag
+all_start_micros: 1479095012882727
+op_start_rel_micros: 3
+op_end_rel_micros: 3
+all_end_rel_micros: 719
+timeline_label: layer1/weights/summaries/histogram/tag = Const()
+
+node_name: layer1/biases/summaries/mean/tags
+all_start_micros: 1479095012883555
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 134
+timeline_label: layer1/biases/summaries/mean/tags = Const()
+
+node_name: layer1/biases/summaries/stddev_1/tags
+all_start_micros: 1479095012883886
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 427
+timeline_label: layer1/biases/summaries/stddev_1/tags = Const()
+
+node_name: layer1/biases/summaries/max/tags
+all_start_micros: 1479095012884513
+op_start_rel_micros: 3
+op_end_rel_micros: 3
+all_end_rel_micros: 277
+timeline_label: layer1/biases/summaries/max/tags = Const()
+
+node_name: layer1/biases/summaries/min/tags
+all_start_micros: 1479095012884853
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 58
+timeline_label: layer1/biases/summaries/min/tags = Const()
+
+node_name: layer1/biases/summaries/histogram/tag
+all_start_micros: 1479095012884946
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 55
+timeline_label: layer1/biases/summaries/histogram/tag = Const()
+
+node_name: layer1/biases/summaries/histogram
+all_start_micros: 1479095012885064
+op_start_rel_micros: 2
+op_end_rel_micros: 45
+all_end_rel_micros: 94
+timeline_label: layer1/biases/summaries/histogram = HistogramSummary(layer1/biases/summaries/histogram/tag, layer1/biases/Variable/read)
+
+node_name: layer1/Wx_plus_b/pre_activations/tag
+all_start_micros: 1479095012885247
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 40
+timeline_label: layer1/Wx_plus_b/pre_activations/tag = Const()
+
+node_name: input_reshape/input
+all_start_micros: 1479095012880020
+op_start_rel_micros: 2
+op_end_rel_micros: 5298
+all_end_rel_micros: 5374
+timeline_label: input_reshape/input = ImageSummary(input_reshape/input/tag, input_reshape/Reshape)
+
+node_name: layer1/activations/tag
+all_start_micros: 1479095012885362
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 66
+timeline_label: layer1/activations/tag = Const()
+
+node_name: dropout/dropout_keep_probability/tags
+all_start_micros: 1479095012885490
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 34
+timeline_label: dropout/dropout_keep_probability/tags = Const()
+
+node_name: dropout/dropout/random_uniform/min
+all_start_micros: 1479095012885556
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 29
+timeline_label: dropout/dropout/random_uniform/min = Const()
+
+node_name: dropout/dropout_keep_probability
+all_start_micros: 1479095012885565
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 71
+timeline_label: dropout/dropout_keep_probability = ScalarSummary(dropout/dropout_keep_probability/tags, _recv_dropout/Placeholder_0)
+
+node_name: layer2/weights/summaries/mean/tags
+all_start_micros: 1479095012885660
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 55
+timeline_label: layer2/weights/summaries/mean/tags = Const()
+
+node_name: layer2/weights/summaries/stddev_1/tags
+all_start_micros: 1479095012885745
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 31
+timeline_label: layer2/weights/summaries/stddev_1/tags = Const()
+
+node_name: layer2/weights/summaries/max/tags
+all_start_micros: 1479095012885799
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 23
+timeline_label: layer2/weights/summaries/max/tags = Const()
+
+node_name: layer2/weights/summaries/min/tags
+all_start_micros: 1479095012885844
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 23
+timeline_label: layer2/weights/summaries/min/tags = Const()
+
+node_name: layer2/weights/summaries/histogram/tag
+all_start_micros: 1479095012885889
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 22
+timeline_label: layer2/weights/summaries/histogram/tag = Const()
+
+node_name: layer2/biases/summaries/mean/tags
+all_start_micros: 1479095012885940
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 28
+timeline_label: layer2/biases/summaries/mean/tags = Const()
+
+node_name: layer2/biases/summaries/stddev_1/tags
+all_start_micros: 1479095012885993
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: layer2/biases/summaries/stddev_1/tags = Const()
+
+node_name: layer2/biases/summaries/max/tags
+all_start_micros: 1479095012886043
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 26
+timeline_label: layer2/biases/summaries/max/tags = Const()
+
+node_name: layer2/biases/summaries/min/tags
+all_start_micros: 1479095012886092
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 25
+timeline_label: layer2/biases/summaries/min/tags = Const()
+
+node_name: layer2/biases/summaries/histogram/tag
+all_start_micros: 1479095012886140
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: layer2/biases/summaries/histogram/tag = Const()
+
+node_name: layer2/Wx_plus_b/pre_activations/tag
+all_start_micros: 1479095012886196
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 29
+timeline_label: layer2/Wx_plus_b/pre_activations/tag = Const()
+
+node_name: layer2/biases/summaries/histogram
+all_start_micros: 1479095012886206
+op_start_rel_micros: 2
+op_end_rel_micros: 21
+all_end_rel_micros: 101
+timeline_label: layer2/biases/summaries/histogram = HistogramSummary(layer2/biases/summaries/histogram/tag, layer2/biases/Variable/read)
+
+node_name: layer2/activations/tag
+all_start_micros: 1479095012886258
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 105
+timeline_label: layer2/activations/tag = Const()
+
+node_name: layer2/weights/summaries/histogram
+all_start_micros: 1479095012885949
+op_start_rel_micros: 2
+op_end_rel_micros: 308
+all_end_rel_micros: 394
+timeline_label: layer2/weights/summaries/histogram = HistogramSummary(layer2/weights/summaries/histogram/tag, layer2/weights/Variable/read)
+
+node_name: cross_entropy/concat/concat_dim
+all_start_micros: 1479095012886456
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 41
+timeline_label: cross_entropy/concat/concat_dim = Const()
+
+node_name: cross_entropy/concat/values_0
+all_start_micros: 1479095012886521
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 25
+timeline_label: cross_entropy/concat/values_0 = Const()
+
+node_name: cross_entropy_1/tags
+all_start_micros: 1479095012886574
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 24
+timeline_label: cross_entropy_1/tags = Const()
+
+node_name: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims/dim
+all_start_micros: 1479095012886620
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 24
+timeline_label: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims/dim = Const()
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Shape_1
+all_start_micros: 1479095012886666
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 25
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Shape_1 = Const()
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Shape_1
+all_start_micros: 1479095012886712
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 24
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Shape_1 = Const()
+
+node_name: train/Adam/learning_rate
+all_start_micros: 1479095012886758
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 24
+timeline_label: train/Adam/learning_rate = Const()
+
+node_name: train/Adam/beta1
+all_start_micros: 1479095012886804
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 24
+timeline_label: train/Adam/beta1 = Const()
+
+node_name: train/Adam/beta2
+all_start_micros: 1479095012886849
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 25
+timeline_label: train/Adam/beta2 = Const()
+
+node_name: train/Adam/epsilon
+all_start_micros: 1479095012886895
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: train/Adam/epsilon = Const()
+
+node_name: accuracy_1/tags
+all_start_micros: 1479095012886942
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 24
+timeline_label: accuracy_1/tags = Const()
+
+node_name: dropout/dropout/random_uniform/sub/_0__cf__16
+all_start_micros: 1479095012886987
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 23
+timeline_label: dropout/dropout/random_uniform/sub/_0__cf__16 = Const()
+
+node_name: layer2/weights/summaries/range/_9__cf__25
+all_start_micros: 1479095012887031
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: layer2/weights/summaries/range/_9__cf__25 = Const()
+
+node_name: layer2/biases/summaries/range/_6__cf__22
+all_start_micros: 1479095012887103
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 53
+timeline_label: layer2/biases/summaries/range/_6__cf__22 = Const()
+
+node_name: layer2/weights/summaries/Min
+all_start_micros: 1479095012887093
+op_start_rel_micros: 3
+op_end_rel_micros: 15
+all_end_rel_micros: 214
+timeline_label: layer2/weights/summaries/Min = Min(layer2/weights/Variable/read, layer2/weights/summaries/range_2)
+
+node_name: layer2/weights/summaries/Max
+all_start_micros: 1479095012887118
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 375
+timeline_label: layer2/weights/summaries/Max = Max(layer2/weights/Variable/read, layer2/weights/summaries/range_1)
+
+node_name: layer2/weights/summaries/Mean
+all_start_micros: 1479095012887099
+op_start_rel_micros: 3
+op_end_rel_micros: 15
+all_end_rel_micros: 317
+timeline_label: layer2/weights/summaries/Mean = Mean(layer2/weights/Variable/read, layer2/weights/summaries/range)
+
+node_name: layer1/weights/summaries/Min
+all_start_micros: 1479095012887114
+op_start_rel_micros: 3
+op_end_rel_micros: 114
+all_end_rel_micros: 353
+timeline_label: layer1/weights/summaries/Min = Min(layer1/weights/Variable/read, layer1/weights/summaries/range_2)
+
+node_name: layer1/weights/summaries/Max
+all_start_micros: 1479095012887117
+op_start_rel_micros: 2
+op_end_rel_micros: 120
+all_end_rel_micros: 464
+timeline_label: layer1/weights/summaries/Max = Max(layer1/weights/Variable/read, layer1/weights/summaries/range_1)
+
+node_name: cross_entropy/Slice/begin/_3__cf__19
+all_start_micros: 1479095012887393
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 332
+timeline_label: cross_entropy/Slice/begin/_3__cf__19 = Const()
+
+node_name: layer2/weights/summaries/min
+all_start_micros: 1479095012887541
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 243
+timeline_label: layer2/weights/summaries/min = ScalarSummary(layer2/weights/summaries/min/tags, layer2/weights/summaries/Min)
+
+node_name: layer2/weights/summaries/max
+all_start_micros: 1479095012887656
+op_start_rel_micros: 3
+op_end_rel_micros: 11
+all_end_rel_micros: 371
+timeline_label: layer2/weights/summaries/max = ScalarSummary(layer2/weights/summaries/max/tags, layer2/weights/summaries/Max)
+
+node_name: layer1/weights/summaries/min
+all_start_micros: 1479095012887860
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 136
+timeline_label: layer1/weights/summaries/min = ScalarSummary(layer1/weights/summaries/min/tags, layer1/weights/summaries/Min)
+
+node_name: layer1/weights/summaries/max
+all_start_micros: 1479095012887821
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 244
+timeline_label: layer1/weights/summaries/max = ScalarSummary(layer1/weights/summaries/max/tags, layer1/weights/summaries/Max)
+
+node_name: layer2/weights/summaries/mean
+all_start_micros: 1479095012887760
+op_start_rel_micros: 3
+op_end_rel_micros: 17
+all_end_rel_micros: 351
+timeline_label: layer2/weights/summaries/mean = ScalarSummary(layer2/weights/summaries/mean/tags, layer2/weights/summaries/Mean)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Reshape/_17__cf__33
+all_start_micros: 1479095012888095
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 206
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Reshape/_17__cf__33 = Const()
+
+node_name: layer2/biases/summaries/Min
+all_start_micros: 1479095012888356
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 272
+timeline_label: layer2/biases/summaries/Min = Min(layer2/biases/Variable/read, layer2/biases/summaries/range_2)
+
+node_name: layer2/weights/summaries/stddev/sub
+all_start_micros: 1479095012888268
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 282
+timeline_label: layer2/weights/summaries/stddev/sub = Sub(layer2/weights/Variable/read, layer2/weights/summaries/Mean)
+
+node_name: layer2/biases/summaries/Max
+all_start_micros: 1479095012888485
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 289
+timeline_label: layer2/biases/summaries/Max = Max(layer2/biases/Variable/read, layer2/biases/summaries/range_1)
+
+node_name: layer2/biases/summaries/Mean
+all_start_micros: 1479095012888380
+op_start_rel_micros: 1
+op_end_rel_micros: 8
+all_end_rel_micros: 316
+timeline_label: layer2/biases/summaries/Mean = Mean(layer2/biases/Variable/read, layer2/biases/summaries/range)
+
+node_name: layer1/weights/summaries/Mean
+all_start_micros: 1479095012888146
+op_start_rel_micros: 2
+op_end_rel_micros: 146
+all_end_rel_micros: 572
+timeline_label: layer1/weights/summaries/Mean = Mean(layer1/weights/Variable/read, layer1/weights/summaries/range)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Maximum/_16__cf__32
+all_start_micros: 1479095012888455
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 288
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Maximum/_16__cf__32 = Const()
+
+node_name: layer2/biases/summaries/min
+all_start_micros: 1479095012888819
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 253
+timeline_label: layer2/biases/summaries/min = ScalarSummary(layer2/biases/summaries/min/tags, layer2/biases/summaries/Min)
+
+node_name: layer1/weights/summaries/mean
+all_start_micros: 1479095012888993
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 165
+timeline_label: layer1/weights/summaries/mean = ScalarSummary(layer1/weights/summaries/mean/tags, layer1/weights/summaries/Mean)
+
+node_name: layer2/weights/summaries/stddev/Square
+all_start_micros: 1479095012888940
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 319
+timeline_label: layer2/weights/summaries/stddev/Square = Square(layer2/weights/summaries/stddev/sub)
+
+node_name: layer2/biases/summaries/max
+all_start_micros: 1479095012889018
+op_start_rel_micros: 2
+op_end_rel_micros: 16
+all_end_rel_micros: 311
+timeline_label: layer2/biases/summaries/max = ScalarSummary(layer2/biases/summaries/max/tags, layer2/biases/summaries/Max)
+
+node_name: accuracy/correct_prediction/ArgMax_1
+all_start_micros: 1479095012889099
+op_start_rel_micros: 2
+op_end_rel_micros: 14
+all_end_rel_micros: 252
+timeline_label: accuracy/correct_prediction/ArgMax_1 = ArgMax(_recv_input/y-input_0, accuracy/correct_prediction/ArgMax_1/dimension)
+
+node_name: layer2/biases/summaries/mean
+all_start_micros: 1479095012889053
+op_start_rel_micros: 2
+op_end_rel_micros: 15
+all_end_rel_micros: 360
+timeline_label: layer2/biases/summaries/mean = ScalarSummary(layer2/biases/summaries/mean/tags, layer2/biases/summaries/Mean)
+
+node_name: layer2/biases/summaries/stddev/sub
+all_start_micros: 1479095012889440
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 431
+timeline_label: layer2/biases/summaries/stddev/sub = Sub(layer2/biases/Variable/read, layer2/biases/summaries/Mean)
+
+node_name: layer1/biases/summaries/Max
+all_start_micros: 1479095012889726
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 262
+timeline_label: layer1/biases/summaries/Max = Max(layer1/biases/Variable/read, layer1/biases/summaries/range_1)
+
+node_name: layer1/biases/summaries/Min
+all_start_micros: 1479095012889686
+op_start_rel_micros: 3
+op_end_rel_micros: 16
+all_end_rel_micros: 436
+timeline_label: layer1/biases/summaries/Min = Min(layer1/biases/Variable/read, layer1/biases/summaries/range_2)
+
+node_name: layer2/weights/summaries/stddev/Mean
+all_start_micros: 1479095012889628
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 412
+timeline_label: layer2/weights/summaries/stddev/Mean = Mean(layer2/weights/summaries/stddev/Square, layer2/weights/summaries/stddev/Const)
+
+node_name: cross_entropy/Slice_1
+all_start_micros: 1479095012889766
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 458
+timeline_label: cross_entropy/Slice_1 = Slice(cross_entropy/Shape_2, cross_entropy/Slice_1/begin, cross_entropy/Slice_1/size)
+
+node_name: layer2/biases/summaries/stddev/Square
+all_start_micros: 1479095012890104
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 411
+timeline_label: layer2/biases/summaries/stddev/Square = Square(layer2/biases/summaries/stddev/sub)
+
+node_name: layer2/weights/summaries/stddev/Sqrt
+all_start_micros: 1479095012890379
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 348
+timeline_label: layer2/weights/summaries/stddev/Sqrt = Sqrt(layer2/weights/summaries/stddev/Mean)
+
+node_name: layer1/biases/summaries/max
+all_start_micros: 1479095012890404
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 473
+timeline_label: layer1/biases/summaries/max = ScalarSummary(layer1/biases/summaries/max/tags, layer1/biases/summaries/Max)
+
+node_name: cross_entropy/concat_1
+all_start_micros: 1479095012890578
+op_start_rel_micros: 2
+op_end_rel_micros: 14
+all_end_rel_micros: 350
+timeline_label: cross_entropy/concat_1 = Concat(cross_entropy/concat_1/concat_dim, cross_entropy/concat_1/values_0, cross_entropy/Slice_1)
+
+node_name: layer1/biases/summaries/min
+all_start_micros: 1479095012890463
+op_start_rel_micros: 3
+op_end_rel_micros: 13
+all_end_rel_micros: 490
+timeline_label: layer1/biases/summaries/min = ScalarSummary(layer1/biases/summaries/min/tags, layer1/biases/summaries/Min)
+
+node_name: layer2/biases/summaries/stddev/Mean
+all_start_micros: 1479095012890703
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 299
+timeline_label: layer2/biases/summaries/stddev/Mean = Mean(layer2/biases/summaries/stddev/Square, layer2/biases/summaries/stddev/Const)
+
+node_name: layer2/weights/summaries/stddev_1
+all_start_micros: 1479095012891058
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 652
+timeline_label: layer2/weights/summaries/stddev_1 = ScalarSummary(layer2/weights/summaries/stddev_1/tags, layer2/weights/summaries/stddev/Sqrt)
+
+node_name: layer1/biases/summaries/Mean
+all_start_micros: 1479095012891178
+op_start_rel_micros: 1
+op_end_rel_micros: 8
+all_end_rel_micros: 503
+timeline_label: layer1/biases/summaries/Mean = Mean(layer1/biases/Variable/read, layer1/biases/summaries/range)
+
+node_name: layer2/biases/summaries/stddev/Sqrt
+all_start_micros: 1479095012891460
+op_start_rel_micros: 3
+op_end_rel_micros: 7
+all_end_rel_micros: 713
+timeline_label: layer2/biases/summaries/stddev/Sqrt = Sqrt(layer2/biases/summaries/stddev/Mean)
+
+node_name: cross_entropy/Reshape_1
+all_start_micros: 1479095012891346
+op_start_rel_micros: 3
+op_end_rel_micros: 6
+all_end_rel_micros: 785
+timeline_label: cross_entropy/Reshape_1 = Reshape(_recv_input/y-input_0, cross_entropy/concat_1)
+
+node_name: layer1/biases/summaries/mean
+all_start_micros: 1479095012892081
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 439
+timeline_label: layer1/biases/summaries/mean = ScalarSummary(layer1/biases/summaries/mean/tags, layer1/biases/summaries/Mean)
+
+node_name: layer1/Wx_plus_b/MatMul
+all_start_micros: 1479095012879849
+op_start_rel_micros: 3
+op_end_rel_micros: 12073
+all_end_rel_micros: 12503
+timeline_label: [cpu 0.2MB] layer1/Wx_plus_b/MatMul = MatMul(_recv_input/x-input_0, layer1/weights/Variable/read)
+
+node_name: layer1/biases/summaries/stddev/sub
+all_start_micros: 1479095012892096
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 363
+timeline_label: layer1/biases/summaries/stddev/sub = Sub(layer1/biases/Variable/read, layer1/biases/summaries/Mean)
+
+node_name: layer2/biases/summaries/stddev_1
+all_start_micros: 1479095012892584
+op_start_rel_micros: 3
+op_end_rel_micros: 13
+all_end_rel_micros: 283
+timeline_label: layer2/biases/summaries/stddev_1 = ScalarSummary(layer2/biases/summaries/stddev_1/tags, layer2/biases/summaries/stddev/Sqrt)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Shape
+all_start_micros: 1479095012892720
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 406
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Shape = Shape(layer1/Wx_plus_b/MatMul)
+
+node_name: layer1/biases/summaries/stddev/Square
+all_start_micros: 1479095012892949
+op_start_rel_micros: 3
+op_end_rel_micros: 9
+all_end_rel_micros: 249
+timeline_label: layer1/biases/summaries/stddev/Square = Square(layer1/biases/summaries/stddev/sub)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs
+all_start_micros: 1479095012893529
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 242
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/layer1/Wx_plus_b/add_grad/Shape, train/gradients/layer1/Wx_plus_b/add_grad/Shape_1)
+
+node_name: layer1/biases/summaries/stddev/Mean
+all_start_micros: 1479095012893596
+op_start_rel_micros: 3
+op_end_rel_micros: 12
+all_end_rel_micros: 245
+timeline_label: layer1/biases/summaries/stddev/Mean = Mean(layer1/biases/summaries/stddev/Square, layer1/biases/summaries/stddev/Const)
+
+node_name: layer1/Wx_plus_b/add
+all_start_micros: 1479095012892734
+op_start_rel_micros: 3
+op_end_rel_micros: 1068
+all_end_rel_micros: 1357
+timeline_label: [cpu 0.2MB] layer1/Wx_plus_b/add = Add(layer1/Wx_plus_b/MatMul, layer1/biases/Variable/read)
+
+node_name: layer1/biases/summaries/stddev/Sqrt
+all_start_micros: 1479095012894044
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 154
+timeline_label: layer1/biases/summaries/stddev/Sqrt = Sqrt(layer1/biases/summaries/stddev/Mean)
+
+node_name: layer1/biases/summaries/stddev_1
+all_start_micros: 1479095012894315
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 68
+timeline_label: layer1/biases/summaries/stddev_1 = ScalarSummary(layer1/biases/summaries/stddev_1/tags, layer1/biases/summaries/stddev/Sqrt)
+
+node_name: layer1/weights/summaries/stddev/sub
+all_start_micros: 1479095012889523
+op_start_rel_micros: 1
+op_end_rel_micros: 4809
+all_end_rel_micros: 4900
+timeline_label: [cpu 1.5MB] layer1/weights/summaries/stddev/sub = Sub(layer1/weights/Variable/read, layer1/weights/summaries/Mean)
+
+node_name: layer1/activation
+all_start_micros: 1479095012894270
+op_start_rel_micros: 2
+op_end_rel_micros: 346
+all_end_rel_micros: 462
+timeline_label: [cpu 0.2MB] layer1/activation = Relu(layer1/Wx_plus_b/add)
+
+node_name: dropout/dropout/Shape
+all_start_micros: 1479095012894879
+op_start_rel_micros: 1
+op_end_rel_micros: 5
+all_end_rel_micros: 182
+timeline_label: dropout/dropout/Shape = Shape(layer1/activation)
+
+node_name: train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs
+all_start_micros: 1479095012895211
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 152
+timeline_label: train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/dropout/dropout/Div_grad/Shape, train/gradients/dropout/dropout/Div_grad/Shape_1)
+
+node_name: dropout/dropout/Div
+all_start_micros: 1479095012894883
+op_start_rel_micros: 3
+op_end_rel_micros: 345
+all_end_rel_micros: 538
+timeline_label: [cpu 0.2MB] dropout/dropout/Div = Div(layer1/activation, _recv_dropout/Placeholder_0)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Shape
+all_start_micros: 1479095012895610
+op_start_rel_micros: 3
+op_end_rel_micros: 7
+all_end_rel_micros: 150
+timeline_label: train/gradients/dropout/dropout/mul_grad/Shape = Shape(dropout/dropout/Div)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Neg
+all_start_micros: 1479095012895226
+op_start_rel_micros: 2
+op_end_rel_micros: 459
+all_end_rel_micros: 686
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/Neg = Neg(layer1/activation)
+
+node_name: layer1/Wx_plus_b/pre_activations
+all_start_micros: 1479095012894286
+op_start_rel_micros: 7
+op_end_rel_micros: 2801
+all_end_rel_micros: 3915
+timeline_label: layer1/Wx_plus_b/pre_activations = HistogramSummary(layer1/Wx_plus_b/pre_activations/tag, layer1/Wx_plus_b/add)
+
+node_name: layer1/activations
+all_start_micros: 1479095012896001
+op_start_rel_micros: 2
+op_end_rel_micros: 2112
+all_end_rel_micros: 2319
+timeline_label: layer1/activations = HistogramSummary(layer1/activations/tag, layer1/activation)
+
+node_name: dropout/dropout/random_uniform/RandomUniform
+all_start_micros: 1479095012895627
+op_start_rel_micros: 3
+op_end_rel_micros: 2794
+all_end_rel_micros: 2904
+timeline_label: [cpu 0.2MB] dropout/dropout/random_uniform/RandomUniform = RandomUniform(dropout/dropout/Shape)
+
+node_name: layer1/weights/summaries/stddev/Square
+all_start_micros: 1479095012894546
+op_start_rel_micros: 3
+op_end_rel_micros: 3929
+all_end_rel_micros: 4166
+timeline_label: [cpu 1.5MB] layer1/weights/summaries/stddev/Square = Square(layer1/weights/summaries/stddev/sub)
+
+node_name: dropout/dropout/random_uniform/mul
+all_start_micros: 1479095012898664
+op_start_rel_micros: 2
+op_end_rel_micros: 34
+all_end_rel_micros: 117
+timeline_label: [cpu 0.2MB] dropout/dropout/random_uniform/mul = Mul(dropout/dropout/random_uniform/RandomUniform, dropout/dropout/random_uniform/sub)
+
+node_name: layer1/weights/summaries/stddev/Mean
+all_start_micros: 1479095012898835
+op_start_rel_micros: 2
+op_end_rel_micros: 136
+all_end_rel_micros: 333
+timeline_label: layer1/weights/summaries/stddev/Mean = Mean(layer1/weights/summaries/stddev/Square, layer1/weights/summaries/stddev/Const)
+
+node_name: train/gradients/dropout/dropout/Div_grad/truediv_1
+all_start_micros: 1479095012898046
+op_start_rel_micros: 3
+op_end_rel_micros: 916
+all_end_rel_micros: 1143
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/truediv_1 = Div(train/gradients/dropout/dropout/Div_grad/Neg, train/gradients/dropout/dropout/Div_grad/Square)
+
+node_name: dropout/dropout/random_uniform
+all_start_micros: 1479095012898870
+op_start_rel_micros: 2
+op_end_rel_micros: 104
+all_end_rel_micros: 343
+timeline_label: [cpu 0.2MB] dropout/dropout/random_uniform = Add(dropout/dropout/random_uniform/mul, dropout/dropout/random_uniform/min)
+
+node_name: layer1/weights/summaries/stddev/Sqrt
+all_start_micros: 1479095012899257
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 119
+timeline_label: layer1/weights/summaries/stddev/Sqrt = Sqrt(layer1/weights/summaries/stddev/Mean)
+
+node_name: layer1/weights/summaries/stddev_1
+all_start_micros: 1479095012899420
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 74
+timeline_label: layer1/weights/summaries/stddev_1 = ScalarSummary(layer1/weights/summaries/stddev_1/tags, layer1/weights/summaries/stddev/Sqrt)
+
+node_name: dropout/dropout/add
+all_start_micros: 1479095012899348
+op_start_rel_micros: 2
+op_end_rel_micros: 227
+all_end_rel_micros: 267
+timeline_label: [cpu 0.2MB] dropout/dropout/add = Add(_recv_dropout/Placeholder_0, dropout/dropout/random_uniform)
+
+node_name: dropout/dropout/Floor
+all_start_micros: 1479095012899648
+op_start_rel_micros: 1
+op_end_rel_micros: 211
+all_end_rel_micros: 242
+timeline_label: [cpu 0.2MB] dropout/dropout/Floor = Floor(dropout/dropout/add)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Shape_1
+all_start_micros: 1479095012899926
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 33
+timeline_label: train/gradients/dropout/dropout/mul_grad/Shape_1 = Shape(dropout/dropout/Floor)
+
+node_name: train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs
+all_start_micros: 1479095012899985
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 67
+timeline_label: train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/dropout/dropout/mul_grad/Shape, train/gradients/dropout/dropout/mul_grad/Shape_1)
+
+node_name: dropout/dropout/mul
+all_start_micros: 1479095012899939
+op_start_rel_micros: 2
+op_end_rel_micros: 47
+all_end_rel_micros: 136
+timeline_label: [cpu 0.2MB] dropout/dropout/mul = Mul(dropout/dropout/Div, dropout/dropout/Floor)
+
+node_name: layer2/Wx_plus_b/MatMul
+all_start_micros: 1479095012900130
+op_start_rel_micros: 2
+op_end_rel_micros: 87
+all_end_rel_micros: 122
+timeline_label: layer2/Wx_plus_b/MatMul = MatMul(dropout/dropout/mul, layer2/weights/Variable/read)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Shape
+all_start_micros: 1479095012900286
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 32
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Shape = Shape(layer2/Wx_plus_b/MatMul)
+
+node_name: layer2/Wx_plus_b/add
+all_start_micros: 1479095012900297
+op_start_rel_micros: 1
+op_end_rel_micros: 15
+all_end_rel_micros: 55
+timeline_label: layer2/Wx_plus_b/add = Add(layer2/Wx_plus_b/MatMul, layer2/biases/Variable/read)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs
+all_start_micros: 1479095012900345
+op_start_rel_micros: 1
+op_end_rel_micros: 9
+all_end_rel_micros: 56
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/layer2/Wx_plus_b/add_grad/Shape, train/gradients/layer2/Wx_plus_b/add_grad/Shape_1)
+
+node_name: layer2/activation
+all_start_micros: 1479095012900390
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 39
+timeline_label: layer2/activation = Identity(layer2/Wx_plus_b/add)
+
+node_name: cross_entropy/Shape
+all_start_micros: 1479095012900511
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 48
+timeline_label: cross_entropy/Shape = Shape(layer2/activation)
+
+node_name: accuracy/correct_prediction/ArgMax
+all_start_micros: 1479095012900521
+op_start_rel_micros: 2
+op_end_rel_micros: 15
+all_end_rel_micros: 138
+timeline_label: accuracy/correct_prediction/ArgMax = ArgMax(layer2/activation, accuracy/correct_prediction/ArgMax/dimension)
+
+node_name: layer2/Wx_plus_b/pre_activations
+all_start_micros: 1479095012900404
+op_start_rel_micros: 3
+op_end_rel_micros: 118
+all_end_rel_micros: 293
+timeline_label: layer2/Wx_plus_b/pre_activations = HistogramSummary(layer2/Wx_plus_b/pre_activations/tag, layer2/Wx_plus_b/add)
+
+node_name: cross_entropy/Slice_2
+all_start_micros: 1479095012900643
+op_start_rel_micros: 1
+op_end_rel_micros: 9
+all_end_rel_micros: 181
+timeline_label: cross_entropy/Slice_2 = Slice(cross_entropy/Shape, cross_entropy/Slice_2/begin, cross_entropy/Slice_2/size)
+
+node_name: cross_entropy/Slice
+all_start_micros: 1479095012900657
+op_start_rel_micros: 3
+op_end_rel_micros: 9
+all_end_rel_micros: 213
+timeline_label: cross_entropy/Slice = Slice(cross_entropy/Shape_1, cross_entropy/Slice/begin, cross_entropy/Slice/size)
+
+node_name: layer2/activations
+all_start_micros: 1479095012900501
+op_start_rel_micros: 2
+op_end_rel_micros: 103
+all_end_rel_micros: 401
+timeline_label: layer2/activations = HistogramSummary(layer2/activations/tag, layer2/activation)
+
+node_name: accuracy/correct_prediction/Equal
+all_start_micros: 1479095012900928
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 191
+timeline_label: accuracy/correct_prediction/Equal = Equal(accuracy/correct_prediction/ArgMax, accuracy/correct_prediction/ArgMax_1)
+
+node_name: cross_entropy/concat
+all_start_micros: 1479095012901150
+op_start_rel_micros: 3
+op_end_rel_micros: 14
+all_end_rel_micros: 76
+timeline_label: cross_entropy/concat = Concat(cross_entropy/concat/concat_dim, cross_entropy/concat/values_0, cross_entropy/Slice)
+
+node_name: cross_entropy/Reshape
+all_start_micros: 1479095012901313
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 45
+timeline_label: cross_entropy/Reshape = Reshape(layer2/activation, cross_entropy/concat)
+
+node_name: accuracy/accuracy/Cast
+all_start_micros: 1479095012901260
+op_start_rel_micros: 2
+op_end_rel_micros: 7
+all_end_rel_micros: 73
+timeline_label: accuracy/accuracy/Cast = Cast(accuracy/correct_prediction/Equal)
+
+node_name: accuracy/accuracy/Mean
+all_start_micros: 1479095012901416
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 39
+timeline_label: accuracy/accuracy/Mean = Mean(accuracy/accuracy/Cast, accuracy/accuracy/Const)
+
+node_name: accuracy_1
+all_start_micros: 1479095012901485
+op_start_rel_micros: 1
+op_end_rel_micros: 6
+all_end_rel_micros: 34
+timeline_label: accuracy_1 = ScalarSummary(accuracy_1/tags, accuracy/accuracy/Mean)
+
+node_name: cross_entropy/SoftmaxCrossEntropyWithLogits
+all_start_micros: 1479095012901400
+op_start_rel_micros: 1
+op_end_rel_micros: 113
+all_end_rel_micros: 162
+timeline_label: cross_entropy/SoftmaxCrossEntropyWithLogits = SoftmaxCrossEntropyWithLogits(cross_entropy/Reshape, cross_entropy/Reshape_1)
+
+node_name: train/gradients/cross_entropy/Reshape_2_grad/Shape
+all_start_micros: 1479095012901595
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 34
+timeline_label: train/gradients/cross_entropy/Reshape_2_grad/Shape = Shape(cross_entropy/SoftmaxCrossEntropyWithLogits)
+
+node_name: cross_entropy/Reshape_2
+all_start_micros: 1479095012901652
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: cross_entropy/Reshape_2 = Reshape(cross_entropy/SoftmaxCrossEntropyWithLogits, cross_entropy/Slice_2)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Shape
+all_start_micros: 1479095012901708
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 30
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Shape = Shape(cross_entropy/Reshape_2)
+
+node_name: cross_entropy/total/Mean
+all_start_micros: 1479095012901718
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 64
+timeline_label: cross_entropy/total/Mean = Mean(cross_entropy/Reshape_2, cross_entropy/total/Const)
+
+node_name: cross_entropy_1
+all_start_micros: 1479095012901824
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 115
+timeline_label: cross_entropy_1 = ScalarSummary(cross_entropy_1/tags, cross_entropy/total/Mean)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Prod
+all_start_micros: 1479095012901796
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 81
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Prod = Prod(train/gradients/cross_entropy/total/Mean_grad/Shape_1, train/gradients/cross_entropy/total/Mean_grad/Const)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Tile
+all_start_micros: 1479095012901775
+op_start_rel_micros: 6
+op_end_rel_micros: 14
+all_end_rel_micros: 128
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Tile = Tile(train/gradients/cross_entropy/total/Mean_grad/Reshape, train/gradients/cross_entropy/total/Mean_grad/Shape)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/floordiv
+all_start_micros: 1479095012902055
+op_start_rel_micros: 3
+op_end_rel_micros: 16
+all_end_rel_micros: 62
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/floordiv = Div(train/gradients/cross_entropy/total/Mean_grad/Prod, train/gradients/cross_entropy/total/Mean_grad/Maximum)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Cast
+all_start_micros: 1479095012902154
+op_start_rel_micros: 1
+op_end_rel_micros: 5
+all_end_rel_micros: 30
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Cast = Cast(train/gradients/cross_entropy/total/Mean_grad/floordiv)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/truediv
+all_start_micros: 1479095012902208
+op_start_rel_micros: 1
+op_end_rel_micros: 6
+all_end_rel_micros: 31
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/truediv = Div(train/gradients/cross_entropy/total/Mean_grad/Tile, train/gradients/cross_entropy/total/Mean_grad/Cast)
+
+node_name: train/gradients/cross_entropy/Reshape_2_grad/Reshape
+all_start_micros: 1479095012902262
+op_start_rel_micros: 1
+op_end_rel_micros: 3
+all_end_rel_micros: 27
+timeline_label: train/gradients/cross_entropy/Reshape_2_grad/Reshape = Reshape(train/gradients/cross_entropy/total/Mean_grad/truediv, train/gradients/cross_entropy/Reshape_2_grad/Shape)
+
+node_name: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims
+all_start_micros: 1479095012902312
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 27
+timeline_label: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims = ExpandDims(train/gradients/cross_entropy/Reshape_2_grad/Reshape, train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims/dim)
+
+node_name: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/mul
+all_start_micros: 1479095012902363
+op_start_rel_micros: 1
+op_end_rel_micros: 54
+all_end_rel_micros: 80
+timeline_label: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/mul = Mul(train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims, cross_entropy/SoftmaxCrossEntropyWithLogits:1)
+
+node_name: train/gradients/cross_entropy/Reshape_grad/Reshape
+all_start_micros: 1479095012902470
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 27
+timeline_label: train/gradients/cross_entropy/Reshape_grad/Reshape = Reshape(train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/mul, train/gradients/cross_entropy/Reshape_grad/Shape)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Sum_1
+all_start_micros: 1479095012902527
+op_start_rel_micros: 1
+op_end_rel_micros: 8
+all_end_rel_micros: 43
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Sum_1 = Sum(train/gradients/cross_entropy/Reshape_grad/Reshape, train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Sum
+all_start_micros: 1479095012902537
+op_start_rel_micros: 2
+op_end_rel_micros: 7
+all_end_rel_micros: 68
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Sum = Sum(train/gradients/cross_entropy/Reshape_grad/Reshape, train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1
+all_start_micros: 1479095012902617
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 76
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1 = Reshape(train/gradients/layer2/Wx_plus_b/add_grad/Sum_1, train/gradients/layer2/Wx_plus_b/add_grad/Shape_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Reshape
+all_start_micros: 1479095012902649
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 69
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Reshape = Reshape(train/gradients/layer2/Wx_plus_b/add_grad/Sum, train/gradients/layer2/Wx_plus_b/add_grad/Shape)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps
+all_start_micros: 1479095012902754
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 25
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps = NoOp(^train/gradients/layer2/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency
+all_start_micros: 1479095012902812
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 27
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency = Identity(train/gradients/layer2/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency_1
+all_start_micros: 1479095012902872
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 33
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency_1 = Identity(train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1, ^train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/Adam/update_layer2/biases/Variable/ApplyAdam
+all_start_micros: 1479095012902951
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 65
+timeline_label: train/Adam/update_layer2/biases/Variable/ApplyAdam = ApplyAdam(layer2/biases/Variable, train/layer2/biases/Variable/Adam, train/layer2/biases/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul
+all_start_micros: 1479095012902884
+op_start_rel_micros: 3
+op_end_rel_micros: 172
+all_end_rel_micros: 219
+timeline_label: [cpu 0.2MB] train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul = MatMul(train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency, layer2/weights/Variable/read)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1
+all_start_micros: 1479095012902890
+op_start_rel_micros: 2
+op_end_rel_micros: 373
+all_end_rel_micros: 420
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1 = MatMul(dropout/dropout/mul, train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps
+all_start_micros: 1479095012903343
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 24
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps = NoOp(^train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul, ^train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency
+all_start_micros: 1479095012903390
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 25
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency = Identity(train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul, ^train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency_1
+all_start_micros: 1479095012903452
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 59
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency_1 = Identity(train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1, ^train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps)
+
+node_name: train/gradients/dropout/dropout/mul_grad/mul_1
+all_start_micros: 1479095012903466
+op_start_rel_micros: 2
+op_end_rel_micros: 54
+all_end_rel_micros: 150
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/mul_grad/mul_1 = Mul(dropout/dropout/Div, train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency)
+
+node_name: train/Adam/update_layer2/weights/Variable/ApplyAdam
+all_start_micros: 1479095012903673
+op_start_rel_micros: 4
+op_end_rel_micros: 36
+all_end_rel_micros: 133
+timeline_label: train/Adam/update_layer2/weights/Variable/ApplyAdam = ApplyAdam(layer2/weights/Variable, train/layer2/weights/Variable/Adam, train/layer2/weights/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency_1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/mul
+all_start_micros: 1479095012903462
+op_start_rel_micros: 2
+op_end_rel_micros: 224
+all_end_rel_micros: 363
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/mul_grad/mul = Mul(train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency, dropout/dropout/Floor)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Sum_1
+all_start_micros: 1479095012903722
+op_start_rel_micros: 3
+op_end_rel_micros: 17
+all_end_rel_micros: 139
+timeline_label: train/gradients/dropout/dropout/mul_grad/Sum_1 = Sum(train/gradients/dropout/dropout/mul_grad/mul_1, train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Sum
+all_start_micros: 1479095012903947
+op_start_rel_micros: 2
+op_end_rel_micros: 7
+all_end_rel_micros: 43
+timeline_label: train/gradients/dropout/dropout/mul_grad/Sum = Sum(train/gradients/dropout/dropout/mul_grad/mul, train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Reshape_1
+all_start_micros: 1479095012903974
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 70
+timeline_label: train/gradients/dropout/dropout/mul_grad/Reshape_1 = Reshape(train/gradients/dropout/dropout/mul_grad/Sum_1, train/gradients/dropout/dropout/mul_grad/Shape_1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Reshape
+all_start_micros: 1479095012904024
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 57
+timeline_label: train/gradients/dropout/dropout/mul_grad/Reshape = Reshape(train/gradients/dropout/dropout/mul_grad/Sum, train/gradients/dropout/dropout/mul_grad/Shape)
+
+node_name: train/gradients/dropout/dropout/mul_grad/tuple/group_deps
+all_start_micros: 1479095012904139
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 27
+timeline_label: train/gradients/dropout/dropout/mul_grad/tuple/group_deps = NoOp(^train/gradients/dropout/dropout/mul_grad/Reshape, ^train/gradients/dropout/dropout/mul_grad/Reshape_1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/tuple/control_dependency
+all_start_micros: 1479095012904193
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: train/gradients/dropout/dropout/mul_grad/tuple/control_dependency = Identity(train/gradients/dropout/dropout/mul_grad/Reshape, ^train/gradients/dropout/dropout/mul_grad/tuple/group_deps)
+
+node_name: train/gradients/dropout/dropout/Div_grad/truediv
+all_start_micros: 1479095012904261
+op_start_rel_micros: 2
+op_end_rel_micros: 68
+all_end_rel_micros: 118
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/truediv = Div(train/gradients/dropout/dropout/mul_grad/tuple/control_dependency, _recv_dropout/Placeholder_0)
+
+node_name: train/gradients/dropout/dropout/Div_grad/mul
+all_start_micros: 1479095012904249
+op_start_rel_micros: 1
+op_end_rel_micros: 98
+all_end_rel_micros: 147
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/mul = Mul(train/gradients/dropout/dropout/mul_grad/tuple/control_dependency, train/gradients/dropout/dropout/Div_grad/truediv_1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Sum
+all_start_micros: 1479095012904419
+op_start_rel_micros: 1
+op_end_rel_micros: 5
+all_end_rel_micros: 63
+timeline_label: train/gradients/dropout/dropout/Div_grad/Sum = Sum(train/gradients/dropout/dropout/Div_grad/truediv, train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Sum_1
+all_start_micros: 1479095012904457
+op_start_rel_micros: 4
+op_end_rel_micros: 28
+all_end_rel_micros: 73
+timeline_label: train/gradients/dropout/dropout/Div_grad/Sum_1 = Sum(train/gradients/dropout/dropout/Div_grad/mul, train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Reshape
+all_start_micros: 1479095012904517
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 77
+timeline_label: train/gradients/dropout/dropout/Div_grad/Reshape = Reshape(train/gradients/dropout/dropout/Div_grad/Sum, train/gradients/dropout/dropout/Div_grad/Shape)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Reshape_1
+all_start_micros: 1479095012904576
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 42
+timeline_label: train/gradients/dropout/dropout/Div_grad/Reshape_1 = Reshape(train/gradients/dropout/dropout/Div_grad/Sum_1, train/gradients/dropout/dropout/Div_grad/Shape_1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/tuple/group_deps
+all_start_micros: 1479095012904701
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 63
+timeline_label: train/gradients/dropout/dropout/Div_grad/tuple/group_deps = NoOp(^train/gradients/dropout/dropout/Div_grad/Reshape, ^train/gradients/dropout/dropout/Div_grad/Reshape_1)
+
+node_name: layer1/weights/summaries/histogram
+all_start_micros: 1479095012883563
+op_start_rel_micros: 2
+op_end_rel_micros: 21087
+all_end_rel_micros: 21174
+timeline_label: layer1/weights/summaries/histogram = HistogramSummary(layer1/weights/summaries/histogram/tag, layer1/weights/Variable/read)
+
+node_name: train/gradients/dropout/dropout/Div_grad/tuple/control_dependency
+all_start_micros: 1479095012904798
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 34
+timeline_label: train/gradients/dropout/dropout/Div_grad/tuple/control_dependency = Identity(train/gradients/dropout/dropout/Div_grad/Reshape, ^train/gradients/dropout/dropout/Div_grad/tuple/group_deps)
+
+node_name: Merge/MergeSummary
+all_start_micros: 1479095012904815
+op_start_rel_micros: 2
+op_end_rel_micros: 99
+all_end_rel_micros: 145
+timeline_label: Merge/MergeSummary = MergeSummary(input_reshape/input, layer1/weights/summaries/mean, layer1/weights/summaries/stddev_1, layer1/weights/summaries/max, layer1/weights/summaries/min, layer1/weights/summaries/histogram, layer1/biases/summaries/mean, layer1/biases/summaries/stddev_1, layer1/biases/summaries/max, layer1/biases/summaries/min, layer1/biases/summaries/histogram, layer1/Wx_plus_b/pre_activations, layer1/activations, dropout/dropout_keep_probability, layer2/weights/summaries/mean, layer2/weights/summaries/stddev_1, layer2/weights/summaries/max, layer2/weights/summaries/min, layer2/weights/summaries/histogram, layer2/biases/summaries/mean, layer2/biases/summaries/stddev_1, layer2/biases/summaries/max, layer2/biases/summaries/min, layer2/biases/summaries/histogram, layer2/Wx_plus_b/pre_activations, layer2/activations, cross_entropy_1, accuracy_1)
+
+node_name: _send_Merge/MergeSummary_0
+all_start_micros: 1479095012904994
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 32
+timeline_label: _send_Merge/MergeSummary_0 = _Send(Merge/MergeSummary:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: train/gradients/layer1/activation_grad/ReluGrad
+all_start_micros: 1479095012904855
+op_start_rel_micros: 2
+op_end_rel_micros: 177
+all_end_rel_micros: 227
+timeline_label: [cpu 0.2MB] train/gradients/layer1/activation_grad/ReluGrad = ReluGrad(train/gradients/dropout/dropout/Div_grad/tuple/control_dependency, layer1/activation)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Sum
+all_start_micros: 1479095012905130
+op_start_rel_micros: 1
+op_end_rel_micros: 6
+all_end_rel_micros: 39
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Sum = Sum(train/gradients/layer1/activation_grad/ReluGrad, train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Sum_1
+all_start_micros: 1479095012905120
+op_start_rel_micros: 2
+op_end_rel_micros: 29
+all_end_rel_micros: 102
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Sum_1 = Sum(train/gradients/layer1/activation_grad/ReluGrad, train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Reshape
+all_start_micros: 1479095012905214
+op_start_rel_micros: 1
+op_end_rel_micros: 3
+all_end_rel_micros: 93
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Reshape = Reshape(train/gradients/layer1/Wx_plus_b/add_grad/Sum, train/gradients/layer1/Wx_plus_b/add_grad/Shape)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1
+all_start_micros: 1479095012905261
+op_start_rel_micros: 1
+op_end_rel_micros: 3
+all_end_rel_micros: 77
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1 = Reshape(train/gradients/layer1/Wx_plus_b/add_grad/Sum_1, train/gradients/layer1/Wx_plus_b/add_grad/Shape_1)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps
+all_start_micros: 1479095012905375
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 25
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps = NoOp(^train/gradients/layer1/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency
+all_start_micros: 1479095012905427
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 22
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency = Identity(train/gradients/layer1/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency_1
+all_start_micros: 1479095012905481
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 42
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency_1 = Identity(train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1, ^train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/Adam/update_layer1/biases/Variable/ApplyAdam
+all_start_micros: 1479095012905567
+op_start_rel_micros: 3
+op_end_rel_micros: 12
+all_end_rel_micros: 181
+timeline_label: train/Adam/update_layer1/biases/Variable/ApplyAdam = ApplyAdam(layer1/biases/Variable, train/layer1/biases/Variable/Adam, train/layer1/biases/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency_1)
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul
+all_start_micros: 1479095012905489
+op_start_rel_micros: 2
+op_end_rel_micros: 2717
+all_end_rel_micros: 2830
+timeline_label: [cpu 0.3MB] train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul = MatMul(train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency, layer1/weights/Variable/read)
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1
+all_start_micros: 1479095012905495
+op_start_rel_micros: 2
+op_end_rel_micros: 2905
+all_end_rel_micros: 2952
+timeline_label: [cpu 1.5MB] train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1 = MatMul(_recv_input/x-input_0, train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency)
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/group_deps
+all_start_micros: 1479095012908476
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 17
+timeline_label: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/group_deps = NoOp(^train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul, ^train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1)
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/control_dependency_1
+all_start_micros: 1479095012908509
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 19
+timeline_label: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/control_dependency_1 = Identity(train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1, ^train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/group_deps)
+
+node_name: train/Adam/update_layer1/weights/Variable/ApplyAdam
+all_start_micros: 1479095012908544
+op_start_rel_micros: 2
+op_end_rel_micros: 463
+all_end_rel_micros: 618
+timeline_label: train/Adam/update_layer1/weights/Variable/ApplyAdam = ApplyAdam(layer1/weights/Variable, train/layer1/weights/Variable/Adam, train/layer1/weights/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/control_dependency_1)
+
+node_name: train/Adam/mul_1
+all_start_micros: 1479095012909201
+op_start_rel_micros: 3
+op_end_rel_micros: 9
+all_end_rel_micros: 37
+timeline_label: train/Adam/mul_1 = Mul(train/beta2_power/read, train/Adam/beta2, ^train/Adam/update_layer1/weights/Variable/ApplyAdam, ^train/Adam/update_layer1/biases/Variable/ApplyAdam, ^train/Adam/update_layer2/weights/Variable/ApplyAdam, ^train/Adam/update_layer2/biases/Variable/ApplyAdam)
+
+node_name: train/Adam/mul
+all_start_micros: 1479095012909215
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 57
+timeline_label: train/Adam/mul = Mul(train/beta1_power/read, train/Adam/beta1, ^train/Adam/update_layer1/weights/Variable/ApplyAdam, ^train/Adam/update_layer1/biases/Variable/ApplyAdam, ^train/Adam/update_layer2/weights/Variable/ApplyAdam, ^train/Adam/update_layer2/biases/Variable/ApplyAdam)
+
+node_name: train/Adam/Assign
+all_start_micros: 1479095012909337
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 49
+timeline_label: train/Adam/Assign = Assign(train/beta1_power, train/Adam/mul)
+
+node_name: train/Adam/Assign_1
+all_start_micros: 1479095012909305
+op_start_rel_micros: 3
+op_end_rel_micros: 6
+all_end_rel_micros: 108
+timeline_label: train/Adam/Assign_1 = Assign(train/beta2_power, train/Adam/mul_1)
+
+node_name: train/Adam
+all_start_micros: 1479095012909455
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 35
+timeline_label: train/Adam = NoOp(^train/Adam/update_layer1/weights/Variable/ApplyAdam, ^train/Adam/update_layer1/biases/Variable/ApplyAdam, ^train/Adam/update_layer2/weights/Variable/ApplyAdam, ^train/Adam/update_layer2/biases/Variable/ApplyAdam, ^train/Adam/Assign, ^train/Adam/Assign_1)
+
+node_name: _SOURCE
+all_start_micros: 1479095019220502
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 120
+timeline_label: _SOURCE = NoOp()
+
+node_name: _recv_input/y-input_0
+all_start_micros: 1479095019220680
+op_start_rel_micros: 3
+op_end_rel_micros: 14
+all_end_rel_micros: 121
+timeline_label: _recv_input/y-input_0 = _Recv(input/y-input:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: layer1/biases/Variable
+all_start_micros: 1479095019220709
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 183
+timeline_label: layer1/biases/Variable = Variable()
+
+node_name: layer2/weights/Variable
+all_start_micros: 1479095019220719
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 267
+timeline_label: layer2/weights/Variable = Variable()
+
+node_name: input_reshape/Reshape/shape
+all_start_micros: 1479095019220707
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 341
+timeline_label: input_reshape/Reshape/shape = Const()
+
+node_name: _recv_input/x-input_0
+all_start_micros: 1479095019220688
+op_start_rel_micros: 4
+op_end_rel_micros: 16
+all_end_rel_micros: 393
+timeline_label: _recv_input/x-input_0 = _Recv(input/x-input:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: _recv_dropout/Placeholder_0
+all_start_micros: 1479095019220700
+op_start_rel_micros: 4
+op_end_rel_micros: 15
+all_end_rel_micros: 451
+timeline_label: _recv_dropout/Placeholder_0 = _Recv(dropout/Placeholder:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: layer1/weights/Variable
+all_start_micros: 1479095019220705
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 513
+timeline_label: layer1/weights/Variable = Variable()
+
+node_name: layer2/biases/Variable
+all_start_micros: 1479095019220754
+op_start_rel_micros: 3
+op_end_rel_micros: 3
+all_end_rel_micros: 564
+timeline_label: layer2/biases/Variable = Variable()
+
+node_name: layer1/biases/Variable/read
+all_start_micros: 1479095019221478
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 381
+timeline_label: layer1/biases/Variable/read = Identity(layer1/biases/Variable)
+
+node_name: cross_entropy/Shape_2
+all_start_micros: 1479095019221384
+op_start_rel_micros: 1
+op_end_rel_micros: 6
+all_end_rel_micros: 363
+timeline_label: cross_entropy/Shape_2 = Shape(_recv_input/y-input_0)
+
+node_name: layer2/weights/Variable/read
+all_start_micros: 1479095019221550
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 402
+timeline_label: layer2/weights/Variable/read = Identity(layer2/weights/Variable)
+
+node_name: input_reshape/input/tag
+all_start_micros: 1479095019221446
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 378
+timeline_label: input_reshape/input/tag = Const()
+
+node_name: train/gradients/dropout/dropout/Div_grad/Square
+all_start_micros: 1479095019221705
+op_start_rel_micros: 1
+op_end_rel_micros: 5
+all_end_rel_micros: 347
+timeline_label: train/gradients/dropout/dropout/Div_grad/Square = Square(_recv_dropout/Placeholder_0)
+
+node_name: train/beta1_power
+all_start_micros: 1479095019221624
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 459
+timeline_label: train/beta1_power = Variable()
+
+node_name: layer2/biases/Variable/read
+all_start_micros: 1479095019221676
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 464
+timeline_label: layer2/biases/Variable/read = Identity(layer2/biases/Variable)
+
+node_name: layer1/weights/Variable/read
+all_start_micros: 1479095019221784
+op_start_rel_micros: 4
+op_end_rel_micros: 5
+all_end_rel_micros: 477
+timeline_label: layer1/weights/Variable/read = Identity(layer1/weights/Variable)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Shape_1
+all_start_micros: 1479095019222117
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 379
+timeline_label: train/gradients/dropout/dropout/Div_grad/Shape_1 = Shape(_recv_dropout/Placeholder_0)
+
+node_name: train/beta2_power
+all_start_micros: 1479095019222180
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 220
+timeline_label: train/beta2_power = Variable()
+
+node_name: layer1/weights/summaries/mean/tags
+all_start_micros: 1479095019222236
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 306
+timeline_label: layer1/weights/summaries/mean/tags = Const()
+
+node_name: train/layer1/weights/Variable/Adam
+all_start_micros: 1479095019222294
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 358
+timeline_label: train/layer1/weights/Variable/Adam = Variable()
+
+node_name: train/beta1_power/read
+all_start_micros: 1479095019222680
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 341
+timeline_label: train/beta1_power/read = Identity(train/beta1_power)
+
+node_name: train/layer1/biases/Variable/Adam_1
+all_start_micros: 1479095019222768
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 343
+timeline_label: train/layer1/biases/Variable/Adam_1 = Variable()
+
+node_name: train/layer1/weights/Variable/Adam_1
+all_start_micros: 1479095019222615
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 380
+timeline_label: train/layer1/weights/Variable/Adam_1 = Variable()
+
+node_name: train/layer1/biases/Variable/Adam
+all_start_micros: 1479095019222741
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 321
+timeline_label: train/layer1/biases/Variable/Adam = Variable()
+
+node_name: train/beta2_power/read
+all_start_micros: 1479095019222959
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 486
+timeline_label: train/beta2_power/read = Identity(train/beta2_power)
+
+node_name: train/layer2/weights/Variable/Adam
+all_start_micros: 1479095019223164
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 407
+timeline_label: train/layer2/weights/Variable/Adam = Variable()
+
+node_name: train/layer2/weights/Variable/Adam_1
+all_start_micros: 1479095019223238
+op_start_rel_micros: 3
+op_end_rel_micros: 3
+all_end_rel_micros: 467
+timeline_label: train/layer2/weights/Variable/Adam_1 = Variable()
+
+node_name: train/layer2/biases/Variable/Adam_1
+all_start_micros: 1479095019223501
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 319
+timeline_label: train/layer2/biases/Variable/Adam_1 = Variable()
+
+node_name: layer1/weights/summaries/stddev_1/tags
+all_start_micros: 1479095019223092
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 669
+timeline_label: layer1/weights/summaries/stddev_1/tags = Const()
+
+node_name: train/layer2/biases/Variable/Adam
+all_start_micros: 1479095019223403
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 631
+timeline_label: train/layer2/biases/Variable/Adam = Variable()
+
+node_name: layer1/weights/summaries/max/tags
+all_start_micros: 1479095019224330
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 542
+timeline_label: layer1/weights/summaries/max/tags = Const()
+
+node_name: layer1/weights/summaries/min/tags
+all_start_micros: 1479095019224915
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 56
+timeline_label: layer1/weights/summaries/min/tags = Const()
+
+node_name: layer1/weights/summaries/histogram/tag
+all_start_micros: 1479095019225054
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 141
+timeline_label: layer1/weights/summaries/histogram/tag = Const()
+
+node_name: layer1/biases/summaries/mean/tags
+all_start_micros: 1479095019225435
+op_start_rel_micros: 3
+op_end_rel_micros: 4
+all_end_rel_micros: 286
+timeline_label: layer1/biases/summaries/mean/tags = Const()
+
+node_name: layer1/biases/summaries/stddev_1/tags
+all_start_micros: 1479095019225784
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 89
+timeline_label: layer1/biases/summaries/stddev_1/tags = Const()
+
+node_name: layer1/biases/summaries/max/tags
+all_start_micros: 1479095019225942
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 85
+timeline_label: layer1/biases/summaries/max/tags = Const()
+
+node_name: layer1/biases/summaries/min/tags
+all_start_micros: 1479095019226071
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 49
+timeline_label: layer1/biases/summaries/min/tags = Const()
+
+node_name: layer1/biases/summaries/histogram/tag
+all_start_micros: 1479095019226165
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 48
+timeline_label: layer1/biases/summaries/histogram/tag = Const()
+
+node_name: layer1/biases/summaries/histogram
+all_start_micros: 1479095019226267
+op_start_rel_micros: 2
+op_end_rel_micros: 47
+all_end_rel_micros: 96
+timeline_label: layer1/biases/summaries/histogram = HistogramSummary(layer1/biases/summaries/histogram/tag, layer1/biases/Variable/read)
+
+node_name: layer1/Wx_plus_b/pre_activations/tag
+all_start_micros: 1479095019226495
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 135
+timeline_label: layer1/Wx_plus_b/pre_activations/tag = Const()
+
+node_name: layer1/Wx_plus_b/MatMul
+all_start_micros: 1479095019222834
+op_start_rel_micros: 2
+op_end_rel_micros: 3755
+all_end_rel_micros: 3841
+timeline_label: [cpu 0.2MB] layer1/Wx_plus_b/MatMul = MatMul(_recv_input/x-input_0, layer1/weights/Variable/read)
+
+node_name: layer1/activations/tag
+all_start_micros: 1479095019226717
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 80
+timeline_label: layer1/activations/tag = Const()
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Shape
+all_start_micros: 1479095019226762
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 178
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Shape = Shape(layer1/Wx_plus_b/MatMul)
+
+node_name: dropout/dropout_keep_probability/tags
+all_start_micros: 1479095019226897
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 178
+timeline_label: dropout/dropout_keep_probability/tags = Const()
+
+node_name: dropout/dropout/random_uniform/min
+all_start_micros: 1479095019227156
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 52
+timeline_label: dropout/dropout/random_uniform/min = Const()
+
+node_name: dropout/dropout_keep_probability
+all_start_micros: 1479095019227167
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 152
+timeline_label: dropout/dropout_keep_probability = ScalarSummary(dropout/dropout_keep_probability/tags, _recv_dropout/Placeholder_0)
+
+node_name: layer1/Wx_plus_b/add
+all_start_micros: 1479095019226774
+op_start_rel_micros: 2
+op_end_rel_micros: 405
+all_end_rel_micros: 629
+timeline_label: [cpu 0.2MB] layer1/Wx_plus_b/add = Add(layer1/Wx_plus_b/MatMul, layer1/biases/Variable/read)
+
+node_name: layer2/weights/summaries/mean/tags
+all_start_micros: 1479095019227435
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 112
+timeline_label: layer2/weights/summaries/mean/tags = Const()
+
+node_name: layer2/weights/summaries/stddev_1/tags
+all_start_micros: 1479095019227607
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 66
+timeline_label: layer2/weights/summaries/stddev_1/tags = Const()
+
+node_name: layer2/weights/summaries/max/tags
+all_start_micros: 1479095019227722
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 59
+timeline_label: layer2/weights/summaries/max/tags = Const()
+
+node_name: layer1/activation
+all_start_micros: 1479095019227532
+op_start_rel_micros: 2
+op_end_rel_micros: 266
+all_end_rel_micros: 312
+timeline_label: [cpu 0.2MB] layer1/activation = Relu(layer1/Wx_plus_b/add)
+
+node_name: layer2/weights/summaries/min/tags
+all_start_micros: 1479095019227821
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 62
+timeline_label: layer2/weights/summaries/min/tags = Const()
+
+node_name: layer2/weights/summaries/histogram/tag
+all_start_micros: 1479095019227971
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 72
+timeline_label: layer2/weights/summaries/histogram/tag = Const()
+
+node_name: dropout/dropout/Shape
+all_start_micros: 1479095019227929
+op_start_rel_micros: 3
+op_end_rel_micros: 7
+all_end_rel_micros: 164
+timeline_label: dropout/dropout/Shape = Shape(layer1/activation)
+
+node_name: train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs
+all_start_micros: 1479095019228243
+op_start_rel_micros: 3
+op_end_rel_micros: 9
+all_end_rel_micros: 467
+timeline_label: train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/dropout/dropout/Div_grad/Shape, train/gradients/dropout/dropout/Div_grad/Shape_1)
+
+node_name: layer2/biases/summaries/mean/tags
+all_start_micros: 1479095019228204
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 541
+timeline_label: layer2/biases/summaries/mean/tags = Const()
+
+node_name: train/gradients/dropout/dropout/Div_grad/Neg
+all_start_micros: 1479095019227943
+op_start_rel_micros: 3
+op_end_rel_micros: 260
+all_end_rel_micros: 849
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/Neg = Neg(layer1/activation)
+
+node_name: layer2/weights/summaries/histogram
+all_start_micros: 1479095019228275
+op_start_rel_micros: 1
+op_end_rel_micros: 371
+all_end_rel_micros: 647
+timeline_label: layer2/weights/summaries/histogram = HistogramSummary(layer2/weights/summaries/histogram/tag, layer2/weights/Variable/read)
+
+node_name: layer2/biases/summaries/stddev_1/tags
+all_start_micros: 1479095019228959
+op_start_rel_micros: 3
+op_end_rel_micros: 3
+all_end_rel_micros: 126
+timeline_label: layer2/biases/summaries/stddev_1/tags = Const()
+
+node_name: dropout/dropout/Div
+all_start_micros: 1479095019227931
+op_start_rel_micros: 3
+op_end_rel_micros: 923
+all_end_rel_micros: 1283
+timeline_label: [cpu 0.2MB] dropout/dropout/Div = Div(layer1/activation, _recv_dropout/Placeholder_0)
+
+node_name: layer2/biases/summaries/max/tags
+all_start_micros: 1479095019229353
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 239
+timeline_label: layer2/biases/summaries/max/tags = Const()
+
+node_name: train/gradients/dropout/dropout/mul_grad/Shape
+all_start_micros: 1479095019229499
+op_start_rel_micros: 3
+op_end_rel_micros: 15
+all_end_rel_micros: 286
+timeline_label: train/gradients/dropout/dropout/mul_grad/Shape = Shape(dropout/dropout/Div)
+
+node_name: layer2/biases/summaries/min/tags
+all_start_micros: 1479095019229860
+op_start_rel_micros: 3
+op_end_rel_micros: 3
+all_end_rel_micros: 212
+timeline_label: layer2/biases/summaries/min/tags = Const()
+
+node_name: dropout/dropout/random_uniform/RandomUniform
+all_start_micros: 1479095019228895
+op_start_rel_micros: 2
+op_end_rel_micros: 1088
+all_end_rel_micros: 1233
+timeline_label: [cpu 0.2MB] dropout/dropout/random_uniform/RandomUniform = RandomUniform(dropout/dropout/Shape)
+
+node_name: layer2/biases/summaries/histogram/tag
+all_start_micros: 1479095019230191
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 95
+timeline_label: layer2/biases/summaries/histogram/tag = Const()
+
+node_name: train/gradients/dropout/dropout/Div_grad/truediv_1
+all_start_micros: 1479095019228987
+op_start_rel_micros: 2
+op_end_rel_micros: 1220
+all_end_rel_micros: 1337
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/truediv_1 = Div(train/gradients/dropout/dropout/Div_grad/Neg, train/gradients/dropout/dropout/Div_grad/Square)
+
+node_name: layer1/activations
+all_start_micros: 1479095019227941
+op_start_rel_micros: 2
+op_end_rel_micros: 2484
+all_end_rel_micros: 2611
+timeline_label: layer1/activations = HistogramSummary(layer1/activations/tag, layer1/activation)
+
+node_name: layer2/Wx_plus_b/pre_activations/tag
+all_start_micros: 1479095019230392
+op_start_rel_micros: 3
+op_end_rel_micros: 3
+all_end_rel_micros: 99
+timeline_label: layer2/Wx_plus_b/pre_activations/tag = Const()
+
+node_name: layer2/biases/summaries/histogram
+all_start_micros: 1479095019230404
+op_start_rel_micros: 2
+op_end_rel_micros: 106
+all_end_rel_micros: 271
+timeline_label: layer2/biases/summaries/histogram = HistogramSummary(layer2/biases/summaries/histogram/tag, layer2/biases/Variable/read)
+
+node_name: layer1/Wx_plus_b/pre_activations
+all_start_micros: 1479095019227528
+op_start_rel_micros: 2
+op_end_rel_micros: 2926
+all_end_rel_micros: 3179
+timeline_label: layer1/Wx_plus_b/pre_activations = HistogramSummary(layer1/Wx_plus_b/pre_activations/tag, layer1/Wx_plus_b/add)
+
+node_name: layer2/activations/tag
+all_start_micros: 1479095019230742
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 163
+timeline_label: layer2/activations/tag = Const()
+
+node_name: cross_entropy/concat/concat_dim
+all_start_micros: 1479095019230945
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 36
+timeline_label: cross_entropy/concat/concat_dim = Const()
+
+node_name: cross_entropy/concat/values_0
+all_start_micros: 1479095019231012
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 32
+timeline_label: cross_entropy/concat/values_0 = Const()
+
+node_name: cross_entropy_1/tags
+all_start_micros: 1479095019231073
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 31
+timeline_label: cross_entropy_1/tags = Const()
+
+node_name: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims/dim
+all_start_micros: 1479095019231132
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 31
+timeline_label: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims/dim = Const()
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Shape_1
+all_start_micros: 1479095019231192
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 31
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Shape_1 = Const()
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Shape_1
+all_start_micros: 1479095019231252
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 34
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Shape_1 = Const()
+
+node_name: train/Adam/learning_rate
+all_start_micros: 1479095019231315
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 33
+timeline_label: train/Adam/learning_rate = Const()
+
+node_name: train/Adam/beta1
+all_start_micros: 1479095019231376
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 33
+timeline_label: train/Adam/beta1 = Const()
+
+node_name: train/Adam/beta2
+all_start_micros: 1479095019231438
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 38
+timeline_label: train/Adam/beta2 = Const()
+
+node_name: train/Adam/epsilon
+all_start_micros: 1479095019231506
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 31
+timeline_label: train/Adam/epsilon = Const()
+
+node_name: accuracy_1/tags
+all_start_micros: 1479095019231567
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 34
+timeline_label: accuracy_1/tags = Const()
+
+node_name: dropout/dropout/random_uniform/sub/_0__cf__16
+all_start_micros: 1479095019231631
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 40
+timeline_label: dropout/dropout/random_uniform/sub/_0__cf__16 = Const()
+
+node_name: layer2/weights/summaries/range/_9__cf__25
+all_start_micros: 1479095019231709
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 47
+timeline_label: layer2/weights/summaries/range/_9__cf__25 = Const()
+
+node_name: layer2/weights/summaries/Min
+all_start_micros: 1479095019231849
+op_start_rel_micros: 3
+op_end_rel_micros: 16
+all_end_rel_micros: 171
+timeline_label: layer2/weights/summaries/Min = Min(layer2/weights/Variable/read, layer2/weights/summaries/range_2)
+
+node_name: layer2/weights/summaries/Mean
+all_start_micros: 1479095019231858
+op_start_rel_micros: 2
+op_end_rel_micros: 11
+all_end_rel_micros: 125
+timeline_label: layer2/weights/summaries/Mean = Mean(layer2/weights/Variable/read, layer2/weights/summaries/range)
+
+node_name: layer1/weights/summaries/Max
+all_start_micros: 1479095019231864
+op_start_rel_micros: 2
+op_end_rel_micros: 145
+all_end_rel_micros: 339
+timeline_label: layer1/weights/summaries/Max = Max(layer1/weights/Variable/read, layer1/weights/summaries/range_1)
+
+node_name: layer2/weights/summaries/Max
+all_start_micros: 1479095019231867
+op_start_rel_micros: 2
+op_end_rel_micros: 11
+all_end_rel_micros: 393
+timeline_label: layer2/weights/summaries/Max = Max(layer2/weights/Variable/read, layer2/weights/summaries/range_1)
+
+node_name: layer1/weights/summaries/Min
+all_start_micros: 1479095019231860
+op_start_rel_micros: 1
+op_end_rel_micros: 184
+all_end_rel_micros: 298
+timeline_label: layer1/weights/summaries/Min = Min(layer1/weights/Variable/read, layer1/weights/summaries/range_2)
+
+node_name: layer2/biases/summaries/range/_6__cf__22
+all_start_micros: 1479095019232146
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 456
+timeline_label: layer2/biases/summaries/range/_6__cf__22 = Const()
+
+node_name: layer1/weights/summaries/min
+all_start_micros: 1479095019232498
+op_start_rel_micros: 3
+op_end_rel_micros: 17
+all_end_rel_micros: 218
+timeline_label: layer1/weights/summaries/min = ScalarSummary(layer1/weights/summaries/min/tags, layer1/weights/summaries/Min)
+
+node_name: layer2/weights/summaries/mean
+all_start_micros: 1479095019232244
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 325
+timeline_label: layer2/weights/summaries/mean = ScalarSummary(layer2/weights/summaries/mean/tags, layer2/weights/summaries/Mean)
+
+node_name: layer2/weights/summaries/min
+all_start_micros: 1479095019232312
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 331
+timeline_label: layer2/weights/summaries/min = ScalarSummary(layer2/weights/summaries/min/tags, layer2/weights/summaries/Min)
+
+node_name: layer2/weights/summaries/max
+all_start_micros: 1479095019232436
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 485
+timeline_label: layer2/weights/summaries/max = ScalarSummary(layer2/weights/summaries/max/tags, layer2/weights/summaries/Max)
+
+node_name: layer1/weights/summaries/max
+all_start_micros: 1479095019232529
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 447
+timeline_label: layer1/weights/summaries/max = ScalarSummary(layer1/weights/summaries/max/tags, layer1/weights/summaries/Max)
+
+node_name: dropout/dropout/random_uniform/mul
+all_start_micros: 1479095019231721
+op_start_rel_micros: 2
+op_end_rel_micros: 1072
+all_end_rel_micros: 1492
+timeline_label: [cpu 0.2MB] dropout/dropout/random_uniform/mul = Mul(dropout/dropout/random_uniform/RandomUniform, dropout/dropout/random_uniform/sub)
+
+node_name: layer1/weights/summaries/Mean
+all_start_micros: 1479095019232854
+op_start_rel_micros: 2
+op_end_rel_micros: 150
+all_end_rel_micros: 418
+timeline_label: layer1/weights/summaries/Mean = Mean(layer1/weights/Variable/read, layer1/weights/summaries/range)
+
+node_name: layer2/biases/summaries/Mean
+all_start_micros: 1479095019233160
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 322
+timeline_label: layer2/biases/summaries/Mean = Mean(layer2/biases/Variable/read, layer2/biases/summaries/range)
+
+node_name: layer2/biases/summaries/Min
+all_start_micros: 1479095019233069
+op_start_rel_micros: 3
+op_end_rel_micros: 12
+all_end_rel_micros: 298
+timeline_label: layer2/biases/summaries/Min = Min(layer2/biases/Variable/read, layer2/biases/summaries/range_2)
+
+node_name: cross_entropy/Slice/begin/_3__cf__19
+all_start_micros: 1479095019232887
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 525
+timeline_label: cross_entropy/Slice/begin/_3__cf__19 = Const()
+
+node_name: layer2/weights/summaries/stddev/sub
+all_start_micros: 1479095019233023
+op_start_rel_micros: 3
+op_end_rel_micros: 16
+all_end_rel_micros: 297
+timeline_label: layer2/weights/summaries/stddev/sub = Sub(layer2/weights/Variable/read, layer2/weights/summaries/Mean)
+
+node_name: layer2/biases/summaries/Max
+all_start_micros: 1479095019233250
+op_start_rel_micros: 2
+op_end_rel_micros: 14
+all_end_rel_micros: 361
+timeline_label: layer2/biases/summaries/Max = Max(layer2/biases/Variable/read, layer2/biases/summaries/range_1)
+
+node_name: layer1/weights/summaries/mean
+all_start_micros: 1479095019233572
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 278
+timeline_label: layer1/weights/summaries/mean = ScalarSummary(layer1/weights/summaries/mean/tags, layer1/weights/summaries/Mean)
+
+node_name: layer2/biases/summaries/mean
+all_start_micros: 1479095019233673
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 416
+timeline_label: layer2/biases/summaries/mean = ScalarSummary(layer2/biases/summaries/mean/tags, layer2/biases/summaries/Mean)
+
+node_name: layer2/biases/summaries/min
+all_start_micros: 1479095019233741
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 386
+timeline_label: layer2/biases/summaries/min = ScalarSummary(layer2/biases/summaries/min/tags, layer2/biases/summaries/Min)
+
+node_name: layer2/weights/summaries/stddev/Square
+all_start_micros: 1479095019233812
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 401
+timeline_label: layer2/weights/summaries/stddev/Square = Square(layer2/weights/summaries/stddev/sub)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Reshape/_17__cf__33
+all_start_micros: 1479095019233786
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 390
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Reshape/_17__cf__33 = Const()
+
+node_name: layer2/biases/summaries/max
+all_start_micros: 1479095019233925
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 136
+timeline_label: layer2/biases/summaries/max = ScalarSummary(layer2/biases/summaries/max/tags, layer2/biases/summaries/Max)
+
+node_name: layer2/biases/summaries/stddev/sub
+all_start_micros: 1479095019234268
+op_start_rel_micros: 3
+op_end_rel_micros: 16
+all_end_rel_micros: 317
+timeline_label: layer2/biases/summaries/stddev/sub = Sub(layer2/biases/Variable/read, layer2/biases/summaries/Mean)
+
+node_name: layer1/biases/summaries/Min
+all_start_micros: 1479095019234403
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 334
+timeline_label: layer1/biases/summaries/Min = Min(layer1/biases/Variable/read, layer1/biases/summaries/range_2)
+
+node_name: layer2/weights/summaries/stddev/Mean
+all_start_micros: 1479095019234523
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 348
+timeline_label: layer2/weights/summaries/stddev/Mean = Mean(layer2/weights/summaries/stddev/Square, layer2/weights/summaries/stddev/Const)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Maximum/_16__cf__32
+all_start_micros: 1479095019234481
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 508
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Maximum/_16__cf__32 = Const()
+
+node_name: layer1/biases/summaries/Max
+all_start_micros: 1479095019234628
+op_start_rel_micros: 3
+op_end_rel_micros: 12
+all_end_rel_micros: 497
+timeline_label: layer1/biases/summaries/Max = Max(layer1/biases/Variable/read, layer1/biases/summaries/range_1)
+
+node_name: layer1/biases/summaries/min
+all_start_micros: 1479095019235078
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 426
+timeline_label: layer1/biases/summaries/min = ScalarSummary(layer1/biases/summaries/min/tags, layer1/biases/summaries/Min)
+
+node_name: layer2/biases/summaries/stddev/Square
+all_start_micros: 1479095019235101
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 444
+timeline_label: layer2/biases/summaries/stddev/Square = Square(layer2/biases/summaries/stddev/sub)
+
+node_name: layer2/weights/summaries/stddev/Sqrt
+all_start_micros: 1479095019235396
+op_start_rel_micros: 3
+op_end_rel_micros: 8
+all_end_rel_micros: 416
+timeline_label: layer2/weights/summaries/stddev/Sqrt = Sqrt(layer2/weights/summaries/stddev/Mean)
+
+node_name: input_reshape/Reshape
+all_start_micros: 1479095019235345
+op_start_rel_micros: 3
+op_end_rel_micros: 11
+all_end_rel_micros: 577
+timeline_label: input_reshape/Reshape = Reshape(_recv_input/x-input_0, input_reshape/Reshape/shape)
+
+node_name: layer1/biases/summaries/max
+all_start_micros: 1479095019235611
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 463
+timeline_label: layer1/biases/summaries/max = ScalarSummary(layer1/biases/summaries/max/tags, layer1/biases/summaries/Max)
+
+node_name: layer1/biases/summaries/Mean
+all_start_micros: 1479095019236008
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 444
+timeline_label: layer1/biases/summaries/Mean = Mean(layer1/biases/Variable/read, layer1/biases/summaries/range)
+
+node_name: layer2/biases/summaries/stddev/Mean
+all_start_micros: 1479095019236053
+op_start_rel_micros: 2
+op_end_rel_micros: 14
+all_end_rel_micros: 469
+timeline_label: layer2/biases/summaries/stddev/Mean = Mean(layer2/biases/summaries/stddev/Square, layer2/biases/summaries/stddev/Const)
+
+node_name: layer2/weights/summaries/stddev_1
+all_start_micros: 1479095019236336
+op_start_rel_micros: 3
+op_end_rel_micros: 12
+all_end_rel_micros: 372
+timeline_label: layer2/weights/summaries/stddev_1 = ScalarSummary(layer2/weights/summaries/stddev_1/tags, layer2/weights/summaries/stddev/Sqrt)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs
+all_start_micros: 1479095019236290
+op_start_rel_micros: 3
+op_end_rel_micros: 11
+all_end_rel_micros: 509
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/layer1/Wx_plus_b/add_grad/Shape, train/gradients/layer1/Wx_plus_b/add_grad/Shape_1)
+
+node_name: cross_entropy/Slice_1
+all_start_micros: 1479095019236609
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 457
+timeline_label: cross_entropy/Slice_1 = Slice(cross_entropy/Shape_2, cross_entropy/Slice_1/begin, cross_entropy/Slice_1/size)
+
+node_name: layer2/biases/summaries/stddev/Sqrt
+all_start_micros: 1479095019236668
+op_start_rel_micros: 2
+op_end_rel_micros: 7
+all_end_rel_micros: 476
+timeline_label: layer2/biases/summaries/stddev/Sqrt = Sqrt(layer2/biases/summaries/stddev/Mean)
+
+node_name: layer1/biases/summaries/mean
+all_start_micros: 1479095019236778
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 417
+timeline_label: layer1/biases/summaries/mean = ScalarSummary(layer1/biases/summaries/mean/tags, layer1/biases/summaries/Mean)
+
+node_name: layer1/biases/summaries/stddev/sub
+all_start_micros: 1479095019237241
+op_start_rel_micros: 2
+op_end_rel_micros: 11
+all_end_rel_micros: 605
+timeline_label: layer1/biases/summaries/stddev/sub = Sub(layer1/biases/Variable/read, layer1/biases/summaries/Mean)
+
+node_name: layer2/biases/summaries/stddev_1
+all_start_micros: 1479095019237363
+op_start_rel_micros: 2
+op_end_rel_micros: 11
+all_end_rel_micros: 546
+timeline_label: layer2/biases/summaries/stddev_1 = ScalarSummary(layer2/biases/summaries/stddev_1/tags, layer2/biases/summaries/stddev/Sqrt)
+
+node_name: accuracy/correct_prediction/ArgMax_1
+all_start_micros: 1479095019237726
+op_start_rel_micros: 3
+op_end_rel_micros: 16
+all_end_rel_micros: 484
+timeline_label: accuracy/correct_prediction/ArgMax_1 = ArgMax(_recv_input/y-input_0, accuracy/correct_prediction/ArgMax_1/dimension)
+
+node_name: cross_entropy/concat_1
+all_start_micros: 1479095019237454
+op_start_rel_micros: 2
+op_end_rel_micros: 15
+all_end_rel_micros: 654
+timeline_label: cross_entropy/concat_1 = Concat(cross_entropy/concat_1/concat_dim, cross_entropy/concat_1/values_0, cross_entropy/Slice_1)
+
+node_name: layer1/biases/summaries/stddev/Square
+all_start_micros: 1479095019238008
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 156
+timeline_label: layer1/biases/summaries/stddev/Square = Square(layer1/biases/summaries/stddev/sub)
+
+node_name: layer1/biases/summaries/stddev/Mean
+all_start_micros: 1479095019238472
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 311
+timeline_label: layer1/biases/summaries/stddev/Mean = Mean(layer1/biases/summaries/stddev/Square, layer1/biases/summaries/stddev/Const)
+
+node_name: cross_entropy/Reshape_1
+all_start_micros: 1479095019238520
+op_start_rel_micros: 3
+op_end_rel_micros: 6
+all_end_rel_micros: 314
+timeline_label: cross_entropy/Reshape_1 = Reshape(_recv_input/y-input_0, cross_entropy/concat_1)
+
+node_name: dropout/dropout/random_uniform
+all_start_micros: 1479095019233467
+op_start_rel_micros: 2
+op_end_rel_micros: 5188
+all_end_rel_micros: 5638
+timeline_label: [cpu 0.2MB] dropout/dropout/random_uniform = Add(dropout/dropout/random_uniform/mul, dropout/dropout/random_uniform/min)
+
+node_name: layer1/biases/summaries/stddev/Sqrt
+all_start_micros: 1479095019238928
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 259
+timeline_label: layer1/biases/summaries/stddev/Sqrt = Sqrt(layer1/biases/summaries/stddev/Mean)
+
+node_name: layer1/weights/summaries/stddev/sub
+all_start_micros: 1479095019234295
+op_start_rel_micros: 2
+op_end_rel_micros: 5095
+all_end_rel_micros: 5177
+timeline_label: [cpu 1.5MB] layer1/weights/summaries/stddev/sub = Sub(layer1/weights/Variable/read, layer1/weights/summaries/Mean)
+
+node_name: layer1/biases/summaries/stddev_1
+all_start_micros: 1479095019239372
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 150
+timeline_label: layer1/biases/summaries/stddev_1 = ScalarSummary(layer1/biases/summaries/stddev_1/tags, layer1/biases/summaries/stddev/Sqrt)
+
+node_name: dropout/dropout/add
+all_start_micros: 1479095019239300
+op_start_rel_micros: 2
+op_end_rel_micros: 388
+all_end_rel_micros: 543
+timeline_label: [cpu 0.2MB] dropout/dropout/add = Add(_recv_dropout/Placeholder_0, dropout/dropout/random_uniform)
+
+node_name: layer1/weights/summaries/stddev/Square
+all_start_micros: 1479095019239572
+op_start_rel_micros: 2
+op_end_rel_micros: 624
+all_end_rel_micros: 695
+timeline_label: [cpu 1.5MB] layer1/weights/summaries/stddev/Square = Square(layer1/weights/summaries/stddev/sub)
+
+node_name: dropout/dropout/Floor
+all_start_micros: 1479095019240000
+op_start_rel_micros: 2
+op_end_rel_micros: 323
+all_end_rel_micros: 365
+timeline_label: [cpu 0.2MB] dropout/dropout/Floor = Floor(dropout/dropout/add)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Shape_1
+all_start_micros: 1479095019240408
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 37
+timeline_label: train/gradients/dropout/dropout/mul_grad/Shape_1 = Shape(dropout/dropout/Floor)
+
+node_name: dropout/dropout/mul
+all_start_micros: 1479095019240417
+op_start_rel_micros: 2
+op_end_rel_micros: 49
+all_end_rel_micros: 242
+timeline_label: [cpu 0.2MB] dropout/dropout/mul = Mul(dropout/dropout/Div, dropout/dropout/Floor)
+
+node_name: layer1/weights/summaries/stddev/Mean
+all_start_micros: 1479095019240314
+op_start_rel_micros: 1
+op_end_rel_micros: 142
+all_end_rel_micros: 400
+timeline_label: layer1/weights/summaries/stddev/Mean = Mean(layer1/weights/summaries/stddev/Square, layer1/weights/summaries/stddev/Const)
+
+node_name: train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs
+all_start_micros: 1479095019240483
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 199
+timeline_label: train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/dropout/dropout/mul_grad/Shape, train/gradients/dropout/dropout/mul_grad/Shape_1)
+
+node_name: input_reshape/input
+all_start_micros: 1479095019237305
+op_start_rel_micros: 3
+op_end_rel_micros: 3344
+all_end_rel_micros: 3542
+timeline_label: input_reshape/input = ImageSummary(input_reshape/input/tag, input_reshape/Reshape)
+
+node_name: layer1/weights/summaries/stddev/Sqrt
+all_start_micros: 1479095019240874
+op_start_rel_micros: 3
+op_end_rel_micros: 6
+all_end_rel_micros: 91
+timeline_label: layer1/weights/summaries/stddev/Sqrt = Sqrt(layer1/weights/summaries/stddev/Mean)
+
+node_name: layer2/Wx_plus_b/MatMul
+all_start_micros: 1479095019240781
+op_start_rel_micros: 2
+op_end_rel_micros: 86
+all_end_rel_micros: 235
+timeline_label: layer2/Wx_plus_b/MatMul = MatMul(dropout/dropout/mul, layer2/weights/Variable/read)
+
+node_name: layer1/weights/summaries/stddev_1
+all_start_micros: 1479095019241066
+op_start_rel_micros: 1
+op_end_rel_micros: 12
+all_end_rel_micros: 45
+timeline_label: layer1/weights/summaries/stddev_1 = ScalarSummary(layer1/weights/summaries/stddev_1/tags, layer1/weights/summaries/stddev/Sqrt)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Shape
+all_start_micros: 1479095019241090
+op_start_rel_micros: 2
+op_end_rel_micros: 6
+all_end_rel_micros: 44
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Shape = Shape(layer2/Wx_plus_b/MatMul)
+
+node_name: layer2/Wx_plus_b/add
+all_start_micros: 1479095019241101
+op_start_rel_micros: 2
+op_end_rel_micros: 22
+all_end_rel_micros: 129
+timeline_label: layer2/Wx_plus_b/add = Add(layer2/Wx_plus_b/MatMul, layer2/biases/Variable/read)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs
+all_start_micros: 1479095019241214
+op_start_rel_micros: 2
+op_end_rel_micros: 7
+all_end_rel_micros: 41
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs = BroadcastGradientArgs(train/gradients/layer2/Wx_plus_b/add_grad/Shape, train/gradients/layer2/Wx_plus_b/add_grad/Shape_1)
+
+node_name: layer2/activation
+all_start_micros: 1479095019241275
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 43
+timeline_label: layer2/activation = Identity(layer2/Wx_plus_b/add)
+
+node_name: layer2/Wx_plus_b/pre_activations
+all_start_micros: 1479095019241287
+op_start_rel_micros: 2
+op_end_rel_micros: 93
+all_end_rel_micros: 213
+timeline_label: layer2/Wx_plus_b/pre_activations = HistogramSummary(layer2/Wx_plus_b/pre_activations/tag, layer2/Wx_plus_b/add)
+
+node_name: cross_entropy/Shape
+all_start_micros: 1479095019241361
+op_start_rel_micros: 13
+op_end_rel_micros: 18
+all_end_rel_micros: 113
+timeline_label: cross_entropy/Shape = Shape(layer2/activation)
+
+node_name: accuracy/correct_prediction/ArgMax
+all_start_micros: 1479095019241373
+op_start_rel_micros: 2
+op_end_rel_micros: 17
+all_end_rel_micros: 167
+timeline_label: accuracy/correct_prediction/ArgMax = ArgMax(layer2/activation, accuracy/correct_prediction/ArgMax/dimension)
+
+node_name: layer2/activations
+all_start_micros: 1479095019241349
+op_start_rel_micros: 1
+op_end_rel_micros: 72
+all_end_rel_micros: 284
+timeline_label: layer2/activations = HistogramSummary(layer2/activations/tag, layer2/activation)
+
+node_name: cross_entropy/Slice
+all_start_micros: 1479095019241710
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 205
+timeline_label: cross_entropy/Slice = Slice(cross_entropy/Shape_1, cross_entropy/Slice/begin, cross_entropy/Slice/size)
+
+node_name: cross_entropy/Slice_2
+all_start_micros: 1479095019241716
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 225
+timeline_label: cross_entropy/Slice_2 = Slice(cross_entropy/Shape, cross_entropy/Slice_2/begin, cross_entropy/Slice_2/size)
+
+node_name: accuracy/correct_prediction/Equal
+all_start_micros: 1479095019241755
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 129
+timeline_label: accuracy/correct_prediction/Equal = Equal(accuracy/correct_prediction/ArgMax, accuracy/correct_prediction/ArgMax_1)
+
+node_name: cross_entropy/concat
+all_start_micros: 1479095019242004
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 80
+timeline_label: cross_entropy/concat = Concat(cross_entropy/concat/concat_dim, cross_entropy/concat/values_0, cross_entropy/Slice)
+
+node_name: accuracy/accuracy/Cast
+all_start_micros: 1479095019242061
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 91
+timeline_label: accuracy/accuracy/Cast = Cast(accuracy/correct_prediction/Equal)
+
+node_name: cross_entropy/Reshape
+all_start_micros: 1479095019242140
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 57
+timeline_label: cross_entropy/Reshape = Reshape(layer2/activation, cross_entropy/concat)
+
+node_name: accuracy/accuracy/Mean
+all_start_micros: 1479095019242232
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 43
+timeline_label: accuracy/accuracy/Mean = Mean(accuracy/accuracy/Cast, accuracy/accuracy/Const)
+
+node_name: accuracy_1
+all_start_micros: 1479095019242303
+op_start_rel_micros: 1
+op_end_rel_micros: 7
+all_end_rel_micros: 35
+timeline_label: accuracy_1 = ScalarSummary(accuracy_1/tags, accuracy/accuracy/Mean)
+
+node_name: cross_entropy/SoftmaxCrossEntropyWithLogits
+all_start_micros: 1479095019242246
+op_start_rel_micros: 1
+op_end_rel_micros: 117
+all_end_rel_micros: 152
+timeline_label: cross_entropy/SoftmaxCrossEntropyWithLogits = SoftmaxCrossEntropyWithLogits(cross_entropy/Reshape, cross_entropy/Reshape_1)
+
+node_name: train/gradients/cross_entropy/Reshape_2_grad/Shape
+all_start_micros: 1479095019242427
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 28
+timeline_label: train/gradients/cross_entropy/Reshape_2_grad/Shape = Shape(cross_entropy/SoftmaxCrossEntropyWithLogits)
+
+node_name: cross_entropy/Reshape_2
+all_start_micros: 1479095019242480
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 27
+timeline_label: cross_entropy/Reshape_2 = Reshape(cross_entropy/SoftmaxCrossEntropyWithLogits, cross_entropy/Slice_2)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Shape
+all_start_micros: 1479095019242537
+op_start_rel_micros: 1
+op_end_rel_micros: 3
+all_end_rel_micros: 32
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Shape = Shape(cross_entropy/Reshape_2)
+
+node_name: cross_entropy/total/Mean
+all_start_micros: 1479095019242548
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 62
+timeline_label: cross_entropy/total/Mean = Mean(cross_entropy/Reshape_2, cross_entropy/total/Const)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Tile
+all_start_micros: 1479095019242655
+op_start_rel_micros: 2
+op_end_rel_micros: 13
+all_end_rel_micros: 48
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Tile = Tile(train/gradients/cross_entropy/total/Mean_grad/Reshape, train/gradients/cross_entropy/total/Mean_grad/Shape)
+
+node_name: cross_entropy_1
+all_start_micros: 1479095019242672
+op_start_rel_micros: 2
+op_end_rel_micros: 10
+all_end_rel_micros: 98
+timeline_label: cross_entropy_1 = ScalarSummary(cross_entropy_1/tags, cross_entropy/total/Mean)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Prod
+all_start_micros: 1479095019242672
+op_start_rel_micros: 2
+op_end_rel_micros: 9
+all_end_rel_micros: 129
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Prod = Prod(train/gradients/cross_entropy/total/Mean_grad/Shape_1, train/gradients/cross_entropy/total/Mean_grad/Const)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/floordiv
+all_start_micros: 1479095019242908
+op_start_rel_micros: 3
+op_end_rel_micros: 11
+all_end_rel_micros: 53
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/floordiv = Div(train/gradients/cross_entropy/total/Mean_grad/Prod, train/gradients/cross_entropy/total/Mean_grad/Maximum)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/Cast
+all_start_micros: 1479095019242995
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 32
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/Cast = Cast(train/gradients/cross_entropy/total/Mean_grad/floordiv)
+
+node_name: train/gradients/cross_entropy/total/Mean_grad/truediv
+all_start_micros: 1479095019243051
+op_start_rel_micros: 1
+op_end_rel_micros: 6
+all_end_rel_micros: 32
+timeline_label: train/gradients/cross_entropy/total/Mean_grad/truediv = Div(train/gradients/cross_entropy/total/Mean_grad/Tile, train/gradients/cross_entropy/total/Mean_grad/Cast)
+
+node_name: train/gradients/cross_entropy/Reshape_2_grad/Reshape
+all_start_micros: 1479095019243107
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 28
+timeline_label: train/gradients/cross_entropy/Reshape_2_grad/Reshape = Reshape(train/gradients/cross_entropy/total/Mean_grad/truediv, train/gradients/cross_entropy/Reshape_2_grad/Shape)
+
+node_name: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims
+all_start_micros: 1479095019243165
+op_start_rel_micros: 1
+op_end_rel_micros: 4
+all_end_rel_micros: 28
+timeline_label: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims = ExpandDims(train/gradients/cross_entropy/Reshape_2_grad/Reshape, train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims/dim)
+
+node_name: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/mul
+all_start_micros: 1479095019243217
+op_start_rel_micros: 1
+op_end_rel_micros: 55
+all_end_rel_micros: 81
+timeline_label: train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/mul = Mul(train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/ExpandDims, cross_entropy/SoftmaxCrossEntropyWithLogits:1)
+
+node_name: train/gradients/cross_entropy/Reshape_grad/Reshape
+all_start_micros: 1479095019243322
+op_start_rel_micros: 1
+op_end_rel_micros: 3
+all_end_rel_micros: 27
+timeline_label: train/gradients/cross_entropy/Reshape_grad/Reshape = Reshape(train/gradients/cross_entropy/SoftmaxCrossEntropyWithLogits_grad/mul, train/gradients/cross_entropy/Reshape_grad/Shape)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Sum_1
+all_start_micros: 1479095019243380
+op_start_rel_micros: 2
+op_end_rel_micros: 12
+all_end_rel_micros: 68
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Sum_1 = Sum(train/gradients/cross_entropy/Reshape_grad/Reshape, train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Sum
+all_start_micros: 1479095019243398
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 98
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Sum = Sum(train/gradients/cross_entropy/Reshape_grad/Reshape, train/gradients/layer2/Wx_plus_b/add_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1
+all_start_micros: 1479095019243534
+op_start_rel_micros: 2
+op_end_rel_micros: 5
+all_end_rel_micros: 90
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1 = Reshape(train/gradients/layer2/Wx_plus_b/add_grad/Sum_1, train/gradients/layer2/Wx_plus_b/add_grad/Shape_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/Reshape
+all_start_micros: 1479095019243581
+op_start_rel_micros: 3
+op_end_rel_micros: 6
+all_end_rel_micros: 100
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/Reshape = Reshape(train/gradients/layer2/Wx_plus_b/add_grad/Sum, train/gradients/layer2/Wx_plus_b/add_grad/Shape)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps
+all_start_micros: 1479095019243754
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 37
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps = NoOp(^train/gradients/layer2/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency
+all_start_micros: 1479095019243828
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 32
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency = Identity(train/gradients/layer2/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency_1
+all_start_micros: 1479095019243899
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 46
+timeline_label: train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency_1 = Identity(train/gradients/layer2/Wx_plus_b/add_grad/Reshape_1, ^train/gradients/layer2/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/Adam/update_layer2/biases/Variable/ApplyAdam
+all_start_micros: 1479095019243993
+op_start_rel_micros: 4
+op_end_rel_micros: 11
+all_end_rel_micros: 70
+timeline_label: train/Adam/update_layer2/biases/Variable/ApplyAdam = ApplyAdam(layer2/biases/Variable, train/layer2/biases/Variable/Adam, train/layer2/biases/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul
+all_start_micros: 1479095019243908
+op_start_rel_micros: 2
+op_end_rel_micros: 101
+all_end_rel_micros: 194
+timeline_label: [cpu 0.2MB] train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul = MatMul(train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency, layer2/weights/Variable/read)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1
+all_start_micros: 1479095019243910
+op_start_rel_micros: 2
+op_end_rel_micros: 322
+all_end_rel_micros: 376
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1 = MatMul(dropout/dropout/mul, train/gradients/layer2/Wx_plus_b/add_grad/tuple/control_dependency)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps
+all_start_micros: 1479095019244319
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 24
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps = NoOp(^train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul, ^train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency
+all_start_micros: 1479095019244367
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 27
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency = Identity(train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul, ^train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps)
+
+node_name: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency_1
+all_start_micros: 1479095019244431
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 62
+timeline_label: train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency_1 = Identity(train/gradients/layer2/Wx_plus_b/MatMul_grad/MatMul_1, ^train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/group_deps)
+
+node_name: train/gradients/dropout/dropout/mul_grad/mul
+all_start_micros: 1479095019244441
+op_start_rel_micros: 2
+op_end_rel_micros: 37
+all_end_rel_micros: 124
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/mul_grad/mul = Mul(train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency, dropout/dropout/Floor)
+
+node_name: train/Adam/update_layer2/weights/Variable/ApplyAdam
+all_start_micros: 1479095019244620
+op_start_rel_micros: 4
+op_end_rel_micros: 36
+all_end_rel_micros: 122
+timeline_label: train/Adam/update_layer2/weights/Variable/ApplyAdam = ApplyAdam(layer2/weights/Variable, train/layer2/weights/Variable/Adam, train/layer2/weights/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency_1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Sum
+all_start_micros: 1479095019244665
+op_start_rel_micros: 1
+op_end_rel_micros: 7
+all_end_rel_micros: 125
+timeline_label: train/gradients/dropout/dropout/mul_grad/Sum = Sum(train/gradients/dropout/dropout/mul_grad/mul, train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Reshape
+all_start_micros: 1479095019244892
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 78
+timeline_label: train/gradients/dropout/dropout/mul_grad/Reshape = Reshape(train/gradients/dropout/dropout/mul_grad/Sum, train/gradients/dropout/dropout/mul_grad/Shape)
+
+node_name: train/gradients/dropout/dropout/mul_grad/mul_1
+all_start_micros: 1479095019244442
+op_start_rel_micros: 3
+op_end_rel_micros: 634
+all_end_rel_micros: 679
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/mul_grad/mul_1 = Mul(dropout/dropout/Div, train/gradients/layer2/Wx_plus_b/MatMul_grad/tuple/control_dependency)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Sum_1
+all_start_micros: 1479095019245156
+op_start_rel_micros: 1
+op_end_rel_micros: 6
+all_end_rel_micros: 31
+timeline_label: train/gradients/dropout/dropout/mul_grad/Sum_1 = Sum(train/gradients/dropout/dropout/mul_grad/mul_1, train/gradients/dropout/dropout/mul_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/Reshape_1
+all_start_micros: 1479095019245218
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 59
+timeline_label: train/gradients/dropout/dropout/mul_grad/Reshape_1 = Reshape(train/gradients/dropout/dropout/mul_grad/Sum_1, train/gradients/dropout/dropout/mul_grad/Shape_1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/tuple/group_deps
+all_start_micros: 1479095019245315
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: train/gradients/dropout/dropout/mul_grad/tuple/group_deps = NoOp(^train/gradients/dropout/dropout/mul_grad/Reshape, ^train/gradients/dropout/dropout/mul_grad/Reshape_1)
+
+node_name: train/gradients/dropout/dropout/mul_grad/tuple/control_dependency
+all_start_micros: 1479095019245373
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: train/gradients/dropout/dropout/mul_grad/tuple/control_dependency = Identity(train/gradients/dropout/dropout/mul_grad/Reshape, ^train/gradients/dropout/dropout/mul_grad/tuple/group_deps)
+
+node_name: train/gradients/dropout/dropout/Div_grad/mul
+all_start_micros: 1479095019245430
+op_start_rel_micros: 1
+op_end_rel_micros: 53
+all_end_rel_micros: 87
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/mul = Mul(train/gradients/dropout/dropout/mul_grad/tuple/control_dependency, train/gradients/dropout/dropout/Div_grad/truediv_1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/truediv
+all_start_micros: 1479095019245441
+op_start_rel_micros: 2
+op_end_rel_micros: 68
+all_end_rel_micros: 135
+timeline_label: [cpu 0.2MB] train/gradients/dropout/dropout/Div_grad/truediv = Div(train/gradients/dropout/dropout/mul_grad/tuple/control_dependency, _recv_dropout/Placeholder_0)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Sum
+all_start_micros: 1479095019245618
+op_start_rel_micros: 1
+op_end_rel_micros: 5
+all_end_rel_micros: 49
+timeline_label: train/gradients/dropout/dropout/Div_grad/Sum = Sum(train/gradients/dropout/dropout/Div_grad/truediv, train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Sum_1
+all_start_micros: 1479095019245599
+op_start_rel_micros: 2
+op_end_rel_micros: 26
+all_end_rel_micros: 90
+timeline_label: train/gradients/dropout/dropout/Div_grad/Sum_1 = Sum(train/gradients/dropout/dropout/Div_grad/mul, train/gradients/dropout/dropout/Div_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Reshape
+all_start_micros: 1479095019245730
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 47
+timeline_label: train/gradients/dropout/dropout/Div_grad/Reshape = Reshape(train/gradients/dropout/dropout/Div_grad/Sum, train/gradients/dropout/dropout/Div_grad/Shape)
+
+node_name: train/gradients/dropout/dropout/Div_grad/Reshape_1
+all_start_micros: 1479095019245747
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 87
+timeline_label: train/gradients/dropout/dropout/Div_grad/Reshape_1 = Reshape(train/gradients/dropout/dropout/Div_grad/Sum_1, train/gradients/dropout/dropout/Div_grad/Shape_1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/tuple/group_deps
+all_start_micros: 1479095019245867
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 27
+timeline_label: train/gradients/dropout/dropout/Div_grad/tuple/group_deps = NoOp(^train/gradients/dropout/dropout/Div_grad/Reshape, ^train/gradients/dropout/dropout/Div_grad/Reshape_1)
+
+node_name: train/gradients/dropout/dropout/Div_grad/tuple/control_dependency
+all_start_micros: 1479095019245917
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: train/gradients/dropout/dropout/Div_grad/tuple/control_dependency = Identity(train/gradients/dropout/dropout/Div_grad/Reshape, ^train/gradients/dropout/dropout/Div_grad/tuple/group_deps)
+
+node_name: train/gradients/layer1/activation_grad/ReluGrad
+all_start_micros: 1479095019245971
+op_start_rel_micros: 2
+op_end_rel_micros: 227
+all_end_rel_micros: 259
+timeline_label: [cpu 0.2MB] train/gradients/layer1/activation_grad/ReluGrad = ReluGrad(train/gradients/dropout/dropout/Div_grad/tuple/control_dependency, layer1/activation)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Sum
+all_start_micros: 1479095019246277
+op_start_rel_micros: 2
+op_end_rel_micros: 7
+all_end_rel_micros: 46
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Sum = Sum(train/gradients/layer1/activation_grad/ReluGrad, train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Sum_1
+all_start_micros: 1479095019246266
+op_start_rel_micros: 2
+op_end_rel_micros: 27
+all_end_rel_micros: 122
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Sum_1 = Sum(train/gradients/layer1/activation_grad/ReluGrad, train/gradients/layer1/Wx_plus_b/add_grad/BroadcastGradientArgs:1)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Reshape
+all_start_micros: 1479095019246374
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 51
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Reshape = Reshape(train/gradients/layer1/Wx_plus_b/add_grad/Sum, train/gradients/layer1/Wx_plus_b/add_grad/Shape)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1
+all_start_micros: 1479095019246460
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 59
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1 = Reshape(train/gradients/layer1/Wx_plus_b/add_grad/Sum_1, train/gradients/layer1/Wx_plus_b/add_grad/Shape_1)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps
+all_start_micros: 1479095019246551
+op_start_rel_micros: 1
+op_end_rel_micros: 1
+all_end_rel_micros: 26
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps = NoOp(^train/gradients/layer1/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency
+all_start_micros: 1479095019246600
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency = Identity(train/gradients/layer1/Wx_plus_b/add_grad/Reshape, ^train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency_1
+all_start_micros: 1479095019246661
+op_start_rel_micros: 2
+op_end_rel_micros: 3
+all_end_rel_micros: 58
+timeline_label: train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency_1 = Identity(train/gradients/layer1/Wx_plus_b/add_grad/Reshape_1, ^train/gradients/layer1/Wx_plus_b/add_grad/tuple/group_deps)
+
+node_name: train/Adam/update_layer1/biases/Variable/ApplyAdam
+all_start_micros: 1479095019246894
+op_start_rel_micros: 3
+op_end_rel_micros: 13
+all_end_rel_micros: 244
+timeline_label: train/Adam/update_layer1/biases/Variable/ApplyAdam = ApplyAdam(layer1/biases/Variable, train/layer1/biases/Variable/Adam, train/layer1/biases/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency_1)
+
+node_name: layer1/weights/summaries/histogram
+all_start_micros: 1479095019225592
+op_start_rel_micros: 2
+op_end_rel_micros: 22533
+all_end_rel_micros: 22717
+timeline_label: layer1/weights/summaries/histogram = HistogramSummary(layer1/weights/summaries/histogram/tag, layer1/weights/Variable/read)
+
+node_name: Merge/MergeSummary
+all_start_micros: 1479095019248443
+op_start_rel_micros: 3
+op_end_rel_micros: 150
+all_end_rel_micros: 786
+timeline_label: Merge/MergeSummary = MergeSummary(input_reshape/input, layer1/weights/summaries/mean, layer1/weights/summaries/stddev_1, layer1/weights/summaries/max, layer1/weights/summaries/min, layer1/weights/summaries/histogram, layer1/biases/summaries/mean, layer1/biases/summaries/stddev_1, layer1/biases/summaries/max, layer1/biases/summaries/min, layer1/biases/summaries/histogram, layer1/Wx_plus_b/pre_activations, layer1/activations, dropout/dropout_keep_probability, layer2/weights/summaries/mean, layer2/weights/summaries/stddev_1, layer2/weights/summaries/max, layer2/weights/summaries/min, layer2/weights/summaries/histogram, layer2/biases/summaries/mean, layer2/biases/summaries/stddev_1, layer2/biases/summaries/max, layer2/biases/summaries/min, layer2/biases/summaries/histogram, layer2/Wx_plus_b/pre_activations, layer2/activations, cross_entropy_1, accuracy_1)
+
+node_name: _send_Merge/MergeSummary_0
+all_start_micros: 1479095019249355
+op_start_rel_micros: 3
+op_end_rel_micros: 12
+all_end_rel_micros: 226
+timeline_label: _send_Merge/MergeSummary_0 = _Send(Merge/MergeSummary:0 @/job:localhost/replica:0/task:0/cpu:0
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1
+all_start_micros: 1479095019246680
+op_start_rel_micros: 3
+op_end_rel_micros: 3863
+all_end_rel_micros: 4030
+timeline_label: [cpu 1.5MB] train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1 = MatMul(_recv_input/x-input_0, train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency)
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul
+all_start_micros: 1479095019246666
+op_start_rel_micros: 2
+op_end_rel_micros: 4008
+all_end_rel_micros: 4079
+timeline_label: [cpu 0.3MB] train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul = MatMul(train/gradients/layer1/Wx_plus_b/add_grad/tuple/control_dependency, layer1/weights/Variable/read)
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/group_deps
+all_start_micros: 1479095019250811
+op_start_rel_micros: 2
+op_end_rel_micros: 2
+all_end_rel_micros: 26
+timeline_label: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/group_deps = NoOp(^train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul, ^train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1)
+
+node_name: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/control_dependency_1
+all_start_micros: 1479095019250863
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 23
+timeline_label: train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/control_dependency_1 = Identity(train/gradients/layer1/Wx_plus_b/MatMul_grad/MatMul_1, ^train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/group_deps)
+
+node_name: train/Adam/update_layer1/weights/Variable/ApplyAdam
+all_start_micros: 1479095019250903
+op_start_rel_micros: 2
+op_end_rel_micros: 460
+all_end_rel_micros: 642
+timeline_label: train/Adam/update_layer1/weights/Variable/ApplyAdam = ApplyAdam(layer1/weights/Variable, train/layer1/weights/Variable/Adam, train/layer1/weights/Variable/Adam_1, train/beta1_power/read, train/beta2_power/read, train/Adam/learning_rate, train/Adam/beta1, train/Adam/beta2, train/Adam/epsilon, train/gradients/layer1/Wx_plus_b/MatMul_grad/tuple/control_dependency_1)
+
+node_name: train/Adam/mul_1
+all_start_micros: 1479095019251578
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 35
+timeline_label: train/Adam/mul_1 = Mul(train/beta2_power/read, train/Adam/beta2, ^train/Adam/update_layer1/weights/Variable/ApplyAdam, ^train/Adam/update_layer1/biases/Variable/ApplyAdam, ^train/Adam/update_layer2/weights/Variable/ApplyAdam, ^train/Adam/update_layer2/biases/Variable/ApplyAdam)
+
+node_name: train/Adam/mul
+all_start_micros: 1479095019251590
+op_start_rel_micros: 2
+op_end_rel_micros: 8
+all_end_rel_micros: 57
+timeline_label: train/Adam/mul = Mul(train/beta1_power/read, train/Adam/beta1, ^train/Adam/update_layer1/weights/Variable/ApplyAdam, ^train/Adam/update_layer1/biases/Variable/ApplyAdam, ^train/Adam/update_layer2/weights/Variable/ApplyAdam, ^train/Adam/update_layer2/biases/Variable/ApplyAdam)
+
+node_name: train/Adam/Assign_1
+all_start_micros: 1479095019251676
+op_start_rel_micros: 3
+op_end_rel_micros: 5
+all_end_rel_micros: 62
+timeline_label: train/Adam/Assign_1 = Assign(train/beta2_power, train/Adam/mul_1)
+
+node_name: train/Adam/Assign
+all_start_micros: 1479095019251713
+op_start_rel_micros: 2
+op_end_rel_micros: 4
+all_end_rel_micros: 52
+timeline_label: train/Adam/Assign = Assign(train/beta1_power, train/Adam/mul)
+
+node_name: train/Adam
+all_start_micros: 1479095019251816
+op_start_rel_micros: 1
+op_end_rel_micros: 2
+all_end_rel_micros: 33
+timeline_label: train/Adam = NoOp(^train/Adam/update_layer1/weights/Variable/ApplyAdam, ^train/Adam/update_layer1/biases/Variable/ApplyAdam, ^train/Adam/update_layer2/weights/Variable/ApplyAdam, ^train/Adam/update_layer2/biases/Variable/ApplyAdam, ^train/Adam/Assign, ^train/Adam/Assign_1)
+
