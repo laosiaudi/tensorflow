@@ -58,6 +58,7 @@ limitations under the License.
 #include "tensorflow/core/platform/tracing.h"
 #include "tensorflow/core/platform/types.h"
 #include "tensorflow/core/util/tensor_slice_reader_cache.h"
+#include "tensorflow/core/util/util.h"
 
 namespace tensorflow {
 namespace {
@@ -1133,6 +1134,7 @@ void ExecutorState::RunAsync(Executor::DoneCallback done) {
   const Graph* graph = impl_->graph_;
   TaggedNodeSeq ready;
 
+  LOGGING("[RUNNING ASYNC LOG TEST===============]\n");
   // Ask the device to fill in the device context map.
   Device* device = impl_->params_.device;
   Status fill_status = device->FillContextMap(graph, &device_context_map_);
