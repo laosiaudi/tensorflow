@@ -204,9 +204,23 @@ void StepStatsCollector::Save(const string& device, NodeExecStats* nt) {
     fprintf(file, "%ld", nt->all_end_rel_micros());
     fprintf(file, "\n");
 
+    fprintf(file, "scheduled_micros: ");
+    fprintf(file, "%ld", nt->scheduled_micros());
+    fprintf(file, "\n");
+
+    fprintf(file, "schedule_start_skew: ");
+    fprintf(file, "%ld", nt->all_start_micros()- nt->scheduled_micros());
+    fprintf(file, "\n");
+
+    fprintf(file, "thread_id: ");
+    fprintf(file, "%ld", nt->thread_id());
+    fprintf(file, "\n");
+
     fprintf(file, "timeline_label: ");
     fprintf(file, nt->timeline_label().c_str());
     fprintf(file, "\n");
+
+
 
  
     fprintf(file, "\n");
