@@ -224,6 +224,7 @@ void StepStatsCollector::Save(const string& device, NodeExecStats* nt) {
 
  
     fprintf(file, "\n");
+    fflush(file);
     fclose(file);
    }
 
