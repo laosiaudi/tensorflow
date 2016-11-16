@@ -22,17 +22,17 @@ limitations under the License.
 namespace tensorflow {
 
 void LOGGING(const char *fmt ...) {
-    va_list ap;
-    char msg[240];
+    //va_list ap;
+    //char msg[240];
 
-    va_start(ap, fmt);
-    vsnprintf(msg + strlen(msg), 240 - strlen(msg), fmt, ap);
-    va_end(ap);
+    //va_start(ap, fmt);
+    //vsnprintf(msg + strlen(msg), 240 - strlen(msg), fmt, ap);
+    //va_end(ap);
 
-    FILE *logFile = fopen("/tmp/tf-log", "a+");
-    fwrite(msg, (int)sizeof(char), (int)strlen(msg), logFile);
-    fflush(logFile);
-    fclose(logFile);
+    //FILE *logFile = fopen("/tmp/tf-log", "a+");
+    //fwrite(msg, (int)sizeof(char), (int)strlen(msg), logFile);
+    //fflush(logFile);
+    //fclose(logFile);
 }
 
 StringPiece NodeNamePrefix(const StringPiece& op_name) {
