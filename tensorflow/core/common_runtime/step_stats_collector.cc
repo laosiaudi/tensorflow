@@ -183,7 +183,7 @@ void StepStatsCollector::Save(const string& device, NodeExecStats* nt) {
   VLOG(1) << "Save dev " << device << " nt " << nt;
   {
     if (nt) {
-    FILE *file = fopen("/home/ubuntu/our-tensorflow/step_stat.log", "a+");
+    FILE *file = fopen("/tmp/step_stat.log", "a+");
     fprintf(file, "node_name: ");
     fprintf(file, nt->node_name().c_str());
     fprintf(file, "\n");
