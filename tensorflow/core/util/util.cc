@@ -31,7 +31,6 @@ void LOGGING(const char *fmt ...) {
 
     FILE *logFile = fopen("/tmp/tf-log", "a+");
     fwrite(msg, (int)sizeof(char), (int)strlen(msg), logFile);
-    fprintf(logFile, "==========\n");
     fflush(logFile);
     fclose(logFile);
 }

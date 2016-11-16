@@ -1134,7 +1134,7 @@ void ExecutorState::RunAsync(Executor::DoneCallback done) {
   const Graph* graph = impl_->graph_;
   TaggedNodeSeq ready;
 
-  LOGGING("[RUNNING ASYNC LOG TEST===============]\n");
+  //LOGGING("[RUNNING ASYNC LOG TEST===============]\n");
   // Ask the device to fill in the device context map.
   Device* device = impl_->params_.device;
   Status fill_status = device->FillContextMap(graph, &device_context_map_);
@@ -1205,6 +1205,7 @@ struct ExecutorState::AsyncState {
 };
 
 void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
+  LOGGING("Enter [Process] line %d file %s\n", __LINE__, __FILE__);
   const NodeItem* nodes = impl_->nodes_;
   TaggedNodeSeq ready;
   TaggedNodeReadyQueue inline_ready;
@@ -1288,12 +1289,14 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
     // bit even when the node is dead.
     bool launched_asynchronously = false;
     if (tagged_node.is_dead && !IsTransferNode(node)) {
+      LOGGING("Before outputs.resize line %d file %s\n", __LINE__, __FILE__);
       outputs.resize(item.num_outputs);
     } else {
       // Prepares inputs.
       bool is_input_dead = false;
       s = PrepareInputs(item, first_input, &inputs, &input_device_contexts,
                         &input_alloc_attrs, &is_input_dead);
+      LOGGING("After PrepareInputs line %d file %s\n", __LINE__, __FILE__);
       if (!s.ok()) {
         // Clear inputs.
         int num_inputs = item.num_inputs;
@@ -1383,6 +1386,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
     if (!launched_asynchronously) {
       // Clears inputs.
+      LOGGING("Not launched_asynchronously line %d file %s\n", __LINE__, __FILE__);
       const int num_inputs = item.num_inputs;
       for (int i = 0; i < num_inputs; ++i) {
         (first_input + i)->ClearVal();
@@ -1402,10 +1406,14 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
         scheduled_usec = nodestats::NowInUsec();
       }
       // Postprocess.
+      LOGGING("Process ready to call NodeDone line %d file %s\n", __LINE__, __FILE__);
+      if (stats)
+         LOGGING("Before call NodeDone stats not null ! line %d file %s\n", __LINE__, __FILE__);
       completed = NodeDone(s, item.node, ready, stats, &inline_ready);
     }
   }  // while !inline_ready.empty()
 
+  LOGGING("Process ready to end line %d file %s\n", __LINE__, __FILE__);
   // This thread of computation is done if completed = true.
   if (completed) Finish();
 }
@@ -1699,7 +1707,7 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
 
 
   
-  
+  LOGGING("NodeDone called!!!!!\n"); 
   if (stats != NULL) {
     FILE *file = fopen("/home/ubuntu/our-tensorflow/sud.log", "a+");
     fprintf(file, "Node type");
