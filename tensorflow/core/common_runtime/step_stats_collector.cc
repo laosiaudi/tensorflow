@@ -182,7 +182,7 @@ void StepStatsCollector::BuildCostModel(
 void StepStatsCollector::Save(const string& device, NodeExecStats* nt) {
   VLOG(1) << "Save dev " << device << " nt " << nt;
   {
-
+    if (nt) {
     FILE *file = fopen("/home/ubuntu/our-tensorflow/step_stat.log", "a+");
     fprintf(file, "node_name: ");
     fprintf(file, nt->node_name().c_str());
@@ -225,6 +225,7 @@ void StepStatsCollector::Save(const string& device, NodeExecStats* nt) {
  
     fprintf(file, "\n");
     fclose(file);
+   }
 
 
     mutex_lock l(mu_);
