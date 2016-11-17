@@ -21,11 +21,12 @@ import time
 
 # cluster specification
 parameter_servers = ["54.161.187.54:2222"]
-workers = [	"54.146.134.231:2222", "54.144.18.116:2222"]
-cluster = tf.train.ClusterSpec({"ps":parameter_servers, "worker":workers})
+worker1 = [	"54.146.134.231:2222"]
+worker2 = ["54.144.18.116:2222"]
+cluster = tf.train.ClusterSpec({"ps":parameter_servers, "worker":worker1, "worker2":worker2})
 
 # input flags
-tf.app.flags.DEFINE_string("job_name", "", "Either 'ps' or 'worker'")
+tf.app.flags.DEFINE_string("job_name", "", "Either 'ps' or 'worker'or 'worker2'")
 tf.app.flags.DEFINE_integer("task_index", 0, "Index of task within the job")
 FLAGS = tf.app.flags.FLAGS
 
