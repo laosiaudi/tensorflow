@@ -9,6 +9,16 @@ struct vertex {
     typedef pair<int, vertex*> ve;
     vector<ve> adj; //cost of edge, destination vertex
     string name;
+    int64_t all_start_micros;
+    int64_t op_start_rel_micros;
+    int64_t op_end_rel_micros;
+    int64_t all_end_rel_micros;
+    int64_t total_bytes;
+    int64_t peak_bytes;
+    string timeline_label;
+    int64_t scheduled_micros;
+    uint32_t thread_id;
+	
     vertex(string s) : name(s) {}
 };
 
