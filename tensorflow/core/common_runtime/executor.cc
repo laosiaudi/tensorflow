@@ -25,6 +25,7 @@ limitations under the License.
 #include "tensorflow/core/common_runtime/costmodel_manager.h"
 #include "tensorflow/core/common_runtime/pending_counts.h"
 #include "tensorflow/core/common_runtime/step_stats_collector.h"
+#include "tensorflow/core/common_runtime/graph_logger.h"
 #include "tensorflow/core/framework/allocation_description.pb.h"
 #include "tensorflow/core/framework/allocator.h"
 #include "tensorflow/core/framework/cancellation.h"
@@ -1737,7 +1738,8 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
     
     nodestats::SetAllEnd(stats);
     
-        
+    graph_logger graph_stats = graph_logger::getInstance();
+    graph_stats.add_step_stats(stats, node); 
 
     if (!SetTimelineLabel(node, stats)) {
       // Sudev Changed

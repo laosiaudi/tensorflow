@@ -28,7 +28,7 @@ void graph_logger::addedge(const string &from, const string &to, double cost)
     f->adj.push_back(edge);
 }
 
-void graph_logger::add_step_stats(NodeExecStats* nt)
+void graph_logger::add_step_stats(NodeExecStats* nt, Node *node)
 {
     if (nt) {
         FILE *file = fopen("/tmp/step_stat.log", "a+");
@@ -70,7 +70,6 @@ void graph_logger::add_step_stats(NodeExecStats* nt)
 
     	fprintf(file, "\n");
     	fflush(file);
-    	fclose(file);
 
     	// update the information
    	vertex *v = addvertex(nt->node_name());
@@ -83,6 +82,29 @@ void graph_logger::add_step_stats(NodeExecStats* nt)
     	v->timeline_label = nt->timeline_label();
    	v->scheduled_micros = nt->scheduled_micros();
     	v->thread_id = nt->thread_id();
+
+	// add informaion in node for 
+	// 1. sender inforamtion of receiver
+	// 2. consum operation for receiver 
+	if (IsRecv(node)) {
+		const NodeDef& def = node->def();
+		string send_device;
+    		TF_CHECK_OK(GetNodeAttr(def, "send_device", &send_device));
+		v->is_recv = true;
+		v->sender = send_device;
+		recv_nodes.push_back(nt->node_name());
+	}
+	std::vector<StringPiece> inputs = std::vector<StringPiece>(def.input().begin(), def.input().end());
+	for (auto& str : inputs) {
+		string new_str = str.ToString();
+		if (work.count(new_str) == 0) {
+			fprintf(file, "[fatal]: child node done but parent haven't recorded yet\n");
+			continue;
+		}
+		vertex *v_parent = addvertex(new_str);
+		v_parent->minimum_gap = min(v->all_start_micros - v_parent->all_start_micros, v_parent->minimum_gap);
+	}
+	fclode(file);
     }
 }
 }
