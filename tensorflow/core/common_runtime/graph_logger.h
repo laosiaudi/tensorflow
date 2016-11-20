@@ -22,10 +22,10 @@ namespace tensorflow {
 	    string timeline_label;
 	    int64_t scheduled_micros;
 	    uint32_t thread_id;
-	
+
 	    vertex(string s) : name(s) {}
 	};
-	
+
 	class graph_logger
 	{
 	public:
@@ -34,6 +34,10 @@ namespace tensorflow {
 	    void addvertex(const string&);
 	    void addedge(const string& from, const string& to, double cost);
 	    void add_step_stats(tensorflow::NodeExecStats*);
+        static graph_logger& getInstance();
+    private:
+        graph_logger();
+        ~graph_logger();
 	};
 }
 
