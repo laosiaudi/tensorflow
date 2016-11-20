@@ -1,22 +1,24 @@
 #include "tensorflow/core/common_runtime/graph_logger.h" 
 #include "tensorflow/core/framework/step_stats.pb.h"
 namespace tensorflow {
-void graph_logger::addvertex(const string &name)
+vertex *graph_logger::addvertex(const string &name)
 {	  
     if (work.count(name) == 0) {
 	vertex *v;
         v = new vertex(name);
         work[name] = v;
+	return v;
     } else {
 	cout << "\nVertex already exists!";
+	return work[name];
     }
 }
 
-void graph_logger::addedge(const string& from, const string& to, double cost)
+void graph_logger::addedge(const string &from, const string &to, double cost)
 {
-    vertex *f = (work.find(from)->second);
-    vertex *t = (work.find(to)->second);
-    pair<int, vertex *> edge = make_pair(cost, t);
+    vertex *f = addvertex(from);
+    vertex *t = addvertex(to);
+    pair<double, vertex *> edge = make_pair(cost, t);
     f->adj.push_back(edge);
 }
 
@@ -65,8 +67,7 @@ void graph_logger::add_step_stats(NodeExecStats* nt)
     	fclose(file);
     
     	// update the information 
-    	addvertex(nt->node_name());
-   	vertex *v = work[nt->node_name()];
+   	vertex *v = addvertex(nt->node_name());
     	v->all_start_micros = nt->all_start_micros();
     	v->op_start_rel_micros = nt->op_start_rel_micros();
     	v->op_end_rel_micros = nt->op_end_rel_micros();

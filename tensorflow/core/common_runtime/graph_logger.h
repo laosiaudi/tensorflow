@@ -10,7 +10,7 @@
 using namespace std;
 namespace tensorflow {
 	struct vertex {
-	    typedef pair<int, vertex*> ve;
+	    typedef pair<double, vertex*> ve;
 	    vector<ve> adj; //cost of edge, destination vertex
 	    string name;
 	    int64_t all_start_micros;

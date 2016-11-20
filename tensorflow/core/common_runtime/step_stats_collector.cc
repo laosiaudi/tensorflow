@@ -182,53 +182,6 @@ void StepStatsCollector::BuildCostModel(
 void StepStatsCollector::Save(const string& device, NodeExecStats* nt) {
   VLOG(1) << "Save dev " << device << " nt " << nt;
   {
-    if (nt) {
-    FILE *file = fopen("/tmp/step_stat.log", "a+");
-    fprintf(file, "node_name: ");
-    fprintf(file, nt->node_name().c_str());
-    fprintf(file, "\n");
-
-    fprintf(file, "all_start_micros: ");
-    fprintf(file, "%ld", nt->all_start_micros());
-    fprintf(file, "\n");
-
-    fprintf(file, "op_start_rel_micros: ");
-    fprintf(file, "%ld", nt->op_start_rel_micros());
-    fprintf(file, "\n");
-
-    fprintf(file, "op_end_rel_micros: ");
-    fprintf(file, "%ld", nt->op_end_rel_micros());
-    fprintf(file, "\n");
-
-    fprintf(file, "all_end_rel_micros: ");
-    fprintf(file, "%ld", nt->all_end_rel_micros());
-    fprintf(file, "\n");
-
-    fprintf(file, "scheduled_micros: ");
-    fprintf(file, "%ld", nt->scheduled_micros());
-    fprintf(file, "\n");
-
-    fprintf(file, "schedule_start_skew: ");
-    fprintf(file, "%ld", nt->all_start_micros()- nt->scheduled_micros());
-    fprintf(file, "\n");
-
-    fprintf(file, "thread_id: ");
-    fprintf(file, "%ld", nt->thread_id());
-    fprintf(file, "\n");
-
-    fprintf(file, "timeline_label: ");
-    fprintf(file, nt->timeline_label().c_str());
-    fprintf(file, "\n");
-
-
-
- 
-    fprintf(file, "\n");
-    fflush(file);
-    fclose(file);
-   }
-
-
     mutex_lock l(mu_);
     if (!step_stats_) {
       delete nt;
