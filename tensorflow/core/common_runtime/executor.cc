@@ -1709,9 +1709,9 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
   
   LOGGING("NodeDone called!!!!!\n"); 
   if (stats != NULL) {
-    FILE *file = fopen("/home/ubuntu/our-tensorflow/sud.log", "a+");
-    fprintf(file, "Node type");
-    if (IsRecv(node)) {
+    //FILE *file = fopen("/home/ubuntu/our-tensorflow/sud.log", "a+");
+   // fprintf(file, "Node type");
+   /* if (IsRecv(node)) {
     fprintf(file, "IS RECV:");
     fprintf(file, "\n");
   fprintf(file, stats->node_name().c_str());
@@ -1730,17 +1730,21 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
   }
   
   fclose(file);
-  }
+  }*/
   
 
   if (stats) {
+    
     nodestats::SetAllEnd(stats);
+    
+        
+
     if (!SetTimelineLabel(node, stats)) {
       // Sudev Changed
       // Only record non-transfer nodes.
       stats_collector_->Save(impl_->params_.device->name(), stats);
     } else {
-      stats_collector_->Save(impl_->params_.device->name(), stats);
+       delete stats;
     }
   }
 
