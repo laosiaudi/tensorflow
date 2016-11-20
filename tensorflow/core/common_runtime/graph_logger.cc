@@ -1,8 +1,14 @@
-#include "tensorflow/core/common_runtime/graph_logger.h" 
+#include "tensorflow/core/common_runtime/graph_logger.h"
 #include "tensorflow/core/framework/step_stats.pb.h"
 namespace tensorflow {
+graph_logger& graph_logger::getInstance() {
+    static graph_logger instance;
+    return instance;
+}
+
+
 vertex *graph_logger::addvertex(const string &name)
-{	  
+{
     if (work.count(name) == 0) {
 	vertex *v;
         v = new vertex(name);
@@ -61,12 +67,12 @@ void graph_logger::add_step_stats(NodeExecStats* nt)
     	fprintf(file, "timeline_label: ");
     	fprintf(file, nt->timeline_label().c_str());
     	fprintf(file, "\n");
- 
+
     	fprintf(file, "\n");
     	fflush(file);
     	fclose(file);
-    
-    	// update the information 
+
+    	// update the information
    	vertex *v = addvertex(nt->node_name());
     	v->all_start_micros = nt->all_start_micros();
     	v->op_start_rel_micros = nt->op_start_rel_micros();
