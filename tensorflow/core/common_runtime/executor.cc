@@ -1707,9 +1707,9 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
                              TaggedNodeReadyQueue* inline_ready) {
 
 
-  
-  LOGGING("NodeDone called!!!!!\n"); 
-  if (stats != NULL) {
+
+  LOGGING("NodeDone called!!!!!\n");
+  //if (stats != NULL) {
     //FILE *file = fopen("/home/ubuntu/our-tensorflow/sud.log", "a+");
    // fprintf(file, "Node type");
    /* if (IsRecv(node)) {
@@ -1729,17 +1729,17 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
   } else {
     //fprintf(file, "IS NOT Send:");
   }
-  
+
   fclose(file);
   }*/
-  
+
 
   if (stats) {
-    
+
     nodestats::SetAllEnd(stats);
-    
-    graph_logger graph_stats = graph_logger::getInstance();
-    graph_stats.add_step_stats(stats, node); 
+
+    graph_logger& graph_stats = graph_logger::getInstance();
+    graph_stats.add_step_stats(stats, node);
 
     if (!SetTimelineLabel(node, stats)) {
       // Sudev Changed
