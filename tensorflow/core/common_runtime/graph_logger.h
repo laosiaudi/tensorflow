@@ -37,7 +37,7 @@ namespace tensorflow {
         }
     };
 
-    class graph_logger
+    class GraphLogger
     {
         public:
             typedef map<string, vertex *> vmap;
@@ -52,13 +52,13 @@ namespace tensorflow {
             void addnodes(string node_name);
             void add_step_stats(tensorflow::NodeExecStats* stats, const Node *node);
             size_t get_memory();
-            static graph_logger& getInstance();
+            static GraphLogger& getInstance();
         private:
             mutex memory_mtx;
             size_t memory;
         protected:
-            graph_logger() {memory = 0;}
-            graph_logger(const graph_logger &gl) = delete;
+            GraphLogger() {memory = 0;}
+            GraphLogger(const GraphLogger &gl) = delete;
     };
 }
 

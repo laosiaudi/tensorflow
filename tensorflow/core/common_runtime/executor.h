@@ -17,6 +17,7 @@ limitations under the License.
 #define TENSORFLOW_COMMON_RUNTIME_EXECUTOR_H_
 
 #include "tensorflow/core/common_runtime/device.h"
+#include "tensorflow/core/common_runtime/graph_logger.h"
 #include "tensorflow/core/framework/rendezvous.h"
 #include "tensorflow/core/framework/session_state.h"
 #include "tensorflow/core/framework/tensor.h"
@@ -83,6 +84,7 @@ class Executor {
   struct Args {
     int64 step_id = 0;
     Rendezvous* rendezvous = nullptr;
+    GraphLogger* graph_logger = nullptr;
     StepStatsCollector* stats_collector = nullptr;
     FunctionCallFrame* call_frame = nullptr;
     CancellationManager* cancellation_manager = nullptr;

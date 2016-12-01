@@ -1,13 +1,13 @@
-#include "tensorflow/core/common_runtime/graph_logger.h"
+#include "tensorflow/core/common_runtime/GraphLogger.h"
 #include "tensorflow/core/framework/step_stats.pb.h"
 namespace tensorflow {
-    graph_logger& graph_logger::getInstance() {
-        static graph_logger instance;
+    GraphLogger& GraphLogger::getInstance() {
+        static GraphLogger instance;
         return instance;
     }
 
 
-    vertex *graph_logger::addvertex(const string &name)
+    vertex *GraphLogger::addvertex(const string &name)
     {
         mutex_lock l(work_mtx);
         if (work.count(name) == 0) {
@@ -18,7 +18,7 @@ namespace tensorflow {
         }
     }
 
-    void graph_logger::addedge(const string &from, const string &to, double cost)
+    void GraphLogger::addedge(const string &from, const string &to, double cost)
     {
         vertex *f = addvertex(from);
         vertex *t = addvertex(to);
@@ -29,18 +29,18 @@ namespace tensorflow {
         addadj(f, edge);
     }
 
-    void graph_logger::addadj(vertex *v, pair<double, vertex *> edge) {
+    void GraphLogger::addadj(vertex *v, pair<double, vertex *> edge) {
         v->adj_mtx.lock();
         v->adj.push_back(edge);
         v->adj_mtx.unlock();
     }
 
-    void graph_logger::addnodes(string node_name) {
+    void GraphLogger::addnodes(string node_name) {
         mutex_lock l(recv_nodes_mtx);
         recv_nodes.push_back(node_name);
     }
 
-    size_t graph_logger::get_memory() {
+    size_t GraphLogger::get_memory() {
         memory_mtx.lock();
         mutex_lock l(recv_nodes_mtx);
         memory += sizeof(work);
@@ -55,7 +55,7 @@ namespace tensorflow {
         return result;
     }
 
-    void graph_logger::add_step_stats(NodeExecStats* nt, const Node *node)
+    void GraphLogger::add_step_stats(NodeExecStats* nt, const Node *node)
     {
         if (nt) {
             log_mtx.lock();

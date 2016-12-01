@@ -867,6 +867,7 @@ class ExecutorState {
 
   // true if LogMemory::IsEnabled(). Used to check memory enabled cheaply.
   const bool log_memory_;
+  GraphLogger* graph_logger_;
 
   int64 step_id_;
   // Not owned.
@@ -997,6 +998,7 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
     : vlog_(VLOG_IS_ON(1)),
       log_memory_(LogMemory::IsEnabled()),
       step_id_(args.step_id),
+      graph_logger_(args.graph_logger),
       rendezvous_(args.rendezvous),
       session_state_(args.session_state),
       tensor_store_(args.tensor_store),
@@ -1737,9 +1739,9 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
   if (stats) {
 
     nodestats::SetAllEnd(stats);
-
-    graph_logger& graph_stats = graph_logger::getInstance();
-    graph_stats.add_step_stats(stats, node);
+     
+    //GraphLogger& graph_stats = graph_logger::getInstance();
+    graph_logger_.add_step_stats(stats, node);
 
     if (!SetTimelineLabel(node, stats)) {
       // Sudev Changed
