@@ -867,7 +867,6 @@ class ExecutorState {
 
   // true if LogMemory::IsEnabled(). Used to check memory enabled cheaply.
   const bool log_memory_;
-  GraphLogger* graph_logger_;
 
   int64 step_id_;
   // Not owned.
@@ -884,7 +883,7 @@ class ExecutorState {
   const ExecutorImpl* impl_;
   CancellationManager* cancellation_manager_;
   Executor::Args::Runner runner_;
-
+  GraphLogger* graph_logger_;
   // Owned.
 
   // A flag that is set on error after the frame state has been
@@ -1741,7 +1740,7 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
     nodestats::SetAllEnd(stats);
      
     //GraphLogger& graph_stats = graph_logger::getInstance();
-    graph_logger_.add_step_stats(stats, node);
+    graph_logger_->add_step_stats(stats, node);
 
     if (!SetTimelineLabel(node, stats)) {
       // Sudev Changed

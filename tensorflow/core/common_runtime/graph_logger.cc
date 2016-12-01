@@ -1,4 +1,4 @@
-#include "tensorflow/core/common_runtime/GraphLogger.h"
+#include "tensorflow/core/common_runtime/graph_logger.h"
 #include "tensorflow/core/framework/step_stats.pb.h"
 namespace tensorflow {
 

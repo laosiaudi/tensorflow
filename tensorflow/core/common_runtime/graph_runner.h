@@ -30,6 +30,7 @@ limitations under the License.
 #include "tensorflow/core/platform/thread_annotations.h"
 #include "tensorflow/core/platform/types.h"
 #include "tensorflow/core/public/session.h"
+#include "tensorflow/core/common_runtime/graph_logger.h"
 
 namespace tensorflow {
 
@@ -49,6 +50,9 @@ class GraphRunner {
   //
   // REQUIRES: `graph`, `env`, and `outputs` are not nullptr.
   // `function_library` may be nullptr.
+
+  // map from step id to graph logger, which saves the dynamic delay information
+  static std::map<int64, GraphLogger *> delay_saver;
   typedef std::vector<std::pair<string, Tensor>> NamedTensorList;
   static Status Run(Graph* graph, FunctionLibraryRuntime* function_library,
                     Env* env, const NamedTensorList& inputs,
