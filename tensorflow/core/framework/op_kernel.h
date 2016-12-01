@@ -563,6 +563,7 @@ class OpKernelContext {
 
   int64 step_id() const { return params_->step_id; }
 
+  int64 op_delay() const { return params_->op_delay; }
   const OpKernel& op_kernel() const { return *params_->op_kernel; }
 
   // Input/output signature.

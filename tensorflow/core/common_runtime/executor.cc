@@ -1744,11 +1744,13 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
     if (!SetTimelineLabel(node, stats)) {
       // Sudev Changed
       // Only record non-transfer nodes.
+      //graph_logger_->add_step_stats(stats, node);
       stats_collector_->Save(impl_->params_.device->name(), stats);
     } else {
-       delete stats;
+      stats_collector_->Save(impl_->params_.device->name(), stats);
+      //graph_logger_->add_step_stats(stats, node);
+      delete stats;
     }
-    graph_logger_->add_step_stats(stats, node);
   }
   
   Rendezvous* captured_rendezvous = nullptr;  // Will be set on error.

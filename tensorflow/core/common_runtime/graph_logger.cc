@@ -91,7 +91,7 @@ namespace tensorflow {
             fprintf(file, "timeline_label: ");
             fprintf(file, nt->timeline_label().c_str());
             fprintf(file, "\n");
-
+            fprintf(file, "WE DID COMPILE ");
             fprintf(file, "\n");
             fflush(file);
 
