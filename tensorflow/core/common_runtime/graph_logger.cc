@@ -1,10 +1,6 @@
 #include "tensorflow/core/common_runtime/GraphLogger.h"
 #include "tensorflow/core/framework/step_stats.pb.h"
 namespace tensorflow {
-    GraphLogger& GraphLogger::getInstance() {
-        static GraphLogger instance;
-        return instance;
-    }
 
 
     vertex *GraphLogger::addvertex(const string &name)
