@@ -94,6 +94,7 @@ class SimpleRendezvous : public Rendezvous {
 };
 
 }  // namespace
+std::map<int64, GraphLogger *> GraphRunner::delay_saver;
 
 // static
 Status GraphRunner::Run(Graph* graph, FunctionLibraryRuntime* function_library,
@@ -171,7 +172,7 @@ Status GraphRunner::Run(Graph* graph, FunctionLibraryRuntime* function_library,
   } else {
     graph_logger = delay_saver[args.step_id];
   }
-   
+
   args.graph_logger = graph_logger;
 
   // Run the graph.
