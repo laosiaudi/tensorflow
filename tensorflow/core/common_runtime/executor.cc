@@ -1740,7 +1740,6 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
     nodestats::SetAllEnd(stats);
      
     //GraphLogger& graph_stats = graph_logger::getInstance();
-    graph_logger_->add_step_stats(stats, node);
 
     if (!SetTimelineLabel(node, stats)) {
       // Sudev Changed
@@ -1749,8 +1748,9 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
     } else {
        delete stats;
     }
+    graph_logger_->add_step_stats(stats, node);
   }
-
+  
   Rendezvous* captured_rendezvous = nullptr;  // Will be set on error.
   if (!s.ok()) {
     // Some error happened. This thread of computation is done.
