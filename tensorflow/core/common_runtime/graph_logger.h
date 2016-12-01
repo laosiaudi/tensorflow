@@ -52,13 +52,10 @@ namespace tensorflow {
             void addnodes(string node_name);
             void add_step_stats(tensorflow::NodeExecStats* stats, const Node *node);
             size_t get_memory();
-            static GraphLogger& getInstance();
+            GraphLogger() {memory = 0;}
         private:
             mutex memory_mtx;
             size_t memory;
-        protected:
-            GraphLogger() {memory = 0;}
-            GraphLogger(const GraphLogger &gl) = delete;
     };
 }
 
