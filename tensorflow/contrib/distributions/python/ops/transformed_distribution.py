@@ -120,7 +120,7 @@ class TransformedDistribution(distributions.Distribution):
       forward_fn=tf.exp,
       inverse_fn=tf.log,
       inverse_log_det_jacobian_fn=(
-        lambda y: -tf.reduce_sum(tf.log(x), reduction_indices=-1)),
+        lambda y: -tf.reduce_sum(tf.log(y), reduction_indices=-1)),
     name="LogNormalTransformedDistribution")
   ```
 
@@ -144,7 +144,7 @@ class TransformedDistribution(distributions.Distribution):
     """Construct a Transformed Distribution.
 
     Args:
-      distribution: The base distribution class to transform. Typically an
+      distribution: The base distribution instance to transform. Typically an
         instance of `Distribution`.
       bijector: The object responsible for calculating the transformation.
         Typically an instance of `Bijector`.
@@ -181,6 +181,14 @@ class TransformedDistribution(distributions.Distribution):
   def bijector(self):
     """Function transforming x => y."""
     return self._bijector
+
+  def _event_shape(self):
+    return self.bijector.forward_event_shape(
+        self.distribution.event_shape())
+
+  def _get_event_shape(self):
+    return self.bijector.get_forward_event_shape(
+        self.distribution.get_event_shape())
 
   def _batch_shape(self):
     return self.distribution.batch_shape()
@@ -236,7 +244,7 @@ class TransformedDistribution(distributions.Distribution):
     bijector_kwargs = bijector_kwargs or {}
     distribution_kwargs = distribution_kwargs or {}
     x = self.bijector.inverse(y, **bijector_kwargs)
-    return self.distribution.log_cdf(x, distribution_kwargs)
+    return self.distribution.log_cdf(x, **distribution_kwargs)
 
   @distribution_util.AppendDocstring(
       condition_kwargs_dict=_condition_kwargs_dict)

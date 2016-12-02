@@ -596,7 +596,7 @@ Returns the truth value of (x >= y) element-wise.
 
 - - -
 
-### `tf.select(condition, t, e, name=None)` {#select}
+### `tf.select(*args, **kwargs)` {#select}
 
 Selects elements from `t` or `e`, depending on `condition`.
 
@@ -717,6 +717,10 @@ debug your graph.
 
 Returns which elements of x are finite.
 
+@compatibility(numpy)
+Equivalent to np.isfinite
+@end_compatibility
+
 ##### Args:
 
 
@@ -734,6 +738,10 @@ Returns which elements of x are finite.
 
 Returns which elements of x are Inf.
 
+@compatibility(numpy)
+Equivalent to np.isinf
+@end_compatibility
+
 ##### Args:
 
 
@@ -750,6 +758,10 @@ Returns which elements of x are Inf.
 ### `tf.is_nan(x, name=None)` {#is_nan}
 
 Returns which elements of x are NaN.
+
+@compatibility(numpy)
+Equivalent to np.isnan
+@end_compatibility
 
 ##### Args:
 
@@ -829,9 +841,10 @@ If `condition` evaluates to false, print the list of tensors in `data`.
 NOTE: To ensure that Assert executes, one usually attaches a dependency:
 
 ```python
- # Ensure maximum element of x is smaller or equal to 1
+# Ensure maximum element of x is smaller or equal to 1
 assert_op = tf.Assert(tf.less_equal(tf.reduce_max(x), 1.), [x])
-x = tf.with_dependencies([assert_op], x)
+with tf.control_dependencies([assert_op]):
+  ... code using x ...
 ```
 
 ##### Args:

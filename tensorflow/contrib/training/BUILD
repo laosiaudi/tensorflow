@@ -13,6 +13,9 @@ py_library(
         "__init__.py",
         "python/training/bucket_ops.py",
         "python/training/device_setter.py",
+        "python/training/evaluation.py",
+        "python/training/failure_tolerator.py",
+        "python/training/feeder.py",
         "python/training/resample.py",
         "python/training/sampling_ops.py",
         "python/training/sequence_queueing_state_saver.py",
@@ -66,6 +69,30 @@ py_test(
 )
 
 py_test(
+    name = "failure_tolerator_test",
+    size = "small",
+    srcs = ["python/training/failure_tolerator_test.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":training_py",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/python:framework_test_lib",
+    ],
+)
+
+py_test(
+    name = "feeder_test",
+    size = "small",
+    srcs = ["python/training/feeder_test.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":training_py",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/python:framework_test_lib",
+    ],
+)
+
+py_test(
     name = "resample_test",
     size = "small",
     srcs = ["python/training/resample_test.py"],
@@ -111,6 +138,23 @@ py_test(
     srcs = ["python/training/bucket_ops_test.py"],
     srcs_version = "PY2AND3",
     tags = ["manual"],
+    deps = [
+        ":training_py",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/python:framework_test_lib",
+    ],
+)
+
+py_test(
+    name = "evaluation_test",
+    size = "small",
+    srcs = ["python/training/evaluation_test.py"],
+    shard_count = 3,
+    srcs_version = "PY2AND3",
+    tags = [
+        "manual",
+        "notap",  # Disabling until b/33000128 and b/33040312 are fixed.
+    ],
     deps = [
         ":training_py",
         "//tensorflow:tensorflow_py",

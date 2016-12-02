@@ -333,7 +333,7 @@ class TensorboardServerTest(tf.test.TestCase):
     self.addCleanup(shutil.rmtree, temp_dir)
     run1_path = os.path.join(temp_dir, 'run1')
     os.makedirs(run1_path)
-    writer = tf.train.SummaryWriter(run1_path)
+    writer = tf.summary.FileWriter(run1_path)
 
     histogram_value = tf.HistogramProto(min=0,
                                         max=2,
@@ -408,6 +408,9 @@ class TensorboardServerTest(tf.test.TestCase):
     # Write a projector config file in run1.
     config_path = os.path.join(run_path, 'projector_config.pbtxt')
     config = ProjectorConfig()
+    embedding = config.embeddings.add()
+    # Add an embedding by its canonical tensor name.
+    embedding.tensor_name = 'var1:0'
     config_pbtxt = text_format.MessageToString(config)
     with tf.gfile.GFile(config_path, 'w') as f:
       f.write(config_pbtxt)
@@ -460,6 +463,11 @@ class ParseEventFilesSpecTest(tf.test.TestCase):
   def testRespectsGCSPath(self):
     logdir_string = 'gs://foo/path'
     expected = {'gs://foo/path': None}
+    self.assertEqual(server.ParseEventFilesSpec(logdir_string), expected)
+
+  def testRespectsHDFSPath(self):
+    logdir_string = 'hdfs://foo/path'
+    expected = {'hdfs://foo/path': None}
     self.assertEqual(server.ParseEventFilesSpec(logdir_string), expected)
 
   def testDoesNotExpandUserInGCSPath(self):

@@ -78,7 +78,10 @@ can have speed penalty, specially in distributed settings.
     `batch_size`. The normalization is over all but the last dimension if
     `data_format` is `NHWC` and the second dimension if `data_format` is
     `NCHW`.
-*  <b>`decay`</b>: decay for the moving average.
+*  <b>`decay`</b>: decay for the moving average. Reasonable values for `decay` are close
+    to 1.0, typically in the multiple-nines range: 0.999, 0.99, 0.9, etc. Lower
+    `decay` value (recommend trying `decay`=0.9) if model experiences reasonably
+    good training performance but poor validation and/or test performance.
 *  <b>`center`</b>: If True, subtract `beta`. If False, `beta` is ignored.
 *  <b>`scale`</b>: If True, multiply by `gamma`. If False, `gamma` is
     not used. When the next layer is linear (also e.g. `nn.relu`), this can be
@@ -121,9 +124,8 @@ can have speed penalty, specially in distributed settings.
 
 *  <b>`ValueError`</b>: if `batch_weights` is not None and `fused` is True.
 *  <b>`ValueError`</b>: if `data_format` is neither `NHWC` nor `NCHW`.
-*  <b>`ValueError`</b>: if `data_format` is `NCHW` while `fused` is False.
 *  <b>`ValueError`</b>: if the rank of `inputs` is undefined.
-*  <b>`ValueError`</b>: if rank or last dimension of `inputs` is undefined.
+*  <b>`ValueError`</b>: if rank or channels dimension of `inputs` is undefined.
 
 
 - - -
@@ -381,7 +383,7 @@ prior to the initial matrix multiply by `weights`.
 
 ##### Returns:
 
-   the tensor variable representing the result of the series of operations.
+   The tensor variable representing the result of the series of operations.
 
 ##### Raises:
 
@@ -528,7 +530,7 @@ layers are called with `scope='stack'`.
 
 - - -
 
-### `tf.contrib.layers.safe_embedding_lookup_sparse(embedding_weights, sparse_ids, sparse_weights=None, combiner=None, default_id=None, name=None, partition_strategy='div')` {#safe_embedding_lookup_sparse}
+### `tf.contrib.layers.safe_embedding_lookup_sparse(embedding_weights, sparse_ids, sparse_weights=None, combiner=None, default_id=None, name=None, partition_strategy='div', max_norm=None)` {#safe_embedding_lookup_sparse}
 
 Lookup embedding results, accounting for invalid IDs and empty features.
 
@@ -565,6 +567,8 @@ along the last dimension.
 *  <b>`name`</b>: A name for this operation (optional).
 *  <b>`partition_strategy`</b>: A string specifying the partitioning strategy.
       Currently `"div"` and `"mod"` are supported. Default is `"div"`.
+*  <b>`max_norm`</b>: If not None, all embeddings are l2-normalized to max_norm before
+      combining.
 
 
 ##### Returns:
@@ -631,53 +635,6 @@ to produce the end result.
 
 - - -
 
-### `tf.stack(values, axis=0, name='stack')` {#stack}
-
-Stacks a list of rank-`R` tensors into one rank-`(R+1)` tensor.
-
-Packs the list of tensors in `values` into a tensor with rank one higher than
-each tensor in `values`, by packing them along the `axis` dimension.
-Given a list of length `N` of tensors of shape `(A, B, C)`;
-
-if `axis == 0` then the `output` tensor will have the shape `(N, A, B, C)`.
-if `axis == 1` then the `output` tensor will have the shape `(A, N, B, C)`.
-Etc.
-
-For example:
-
-```prettyprint
-# 'x' is [1, 4]
-# 'y' is [2, 5]
-# 'z' is [3, 6]
-stack([x, y, z]) => [[1, 4], [2, 5], [3, 6]]  # Pack along first dim.
-stack([x, y, z], axis=1) => [[1, 2, 3], [4, 5, 6]]
-```
-
-This is the opposite of unstack.  The numpy equivalent is
-
-    tf.stack([x, y, z]) = np.asarray([x, y, z])
-
-##### Args:
-
-
-*  <b>`values`</b>: A list of `Tensor` objects with the same shape and type.
-*  <b>`axis`</b>: An `int`. The axis to stack along. Defaults to the first dimension.
-    Supports negative indexes.
-*  <b>`name`</b>: A name for this operation (optional).
-
-##### Returns:
-
-
-*  <b>`output`</b>: A stacked `Tensor` with the same type as `values`.
-
-##### Raises:
-
-
-*  <b>`ValueError`</b>: If `axis` is out of the range [-(R+1), R+1).
-
-
-- - -
-
 ### `tf.contrib.layers.unit_norm(*args, **kwargs)` {#unit_norm}
 
 Normalizes the given input across the specified dimension to unit length.
@@ -705,6 +662,9 @@ Note that the rank of `input` must be known.
 
 Aliases for fully_connected which set a default activation function are
 available: `relu`, `relu6` and `linear`.
+
+`stack` operation is also available. It builds a stack of layers by applying
+a layer repeatedly.
 
 ## Regularizers
 
@@ -1107,7 +1067,7 @@ Feature columns provide a mechanism to map data to a model.
 
 ### `tf.contrib.layers.bucketized_column(source_column, boundaries)` {#bucketized_column}
 
-Creates a _BucketizedColumn.
+Creates a _BucketizedColumn for discretizing dense input.
 
 ##### Args:
 
@@ -1154,22 +1114,25 @@ Typical usage example:
 
 ```python
 # Define features and transformations
-country = sparse_column_with_vocabulary_file("country", VOCAB_FILE)
-age = real_valued_column("age")
-click_bucket = bucketized_column(real_valued_column("historical_click_ratio"),
-                                 boundaries=[i/10. for i in range(10)])
-country_x_click = crossed_column([country, click_bucket], 10)
+feature_a = sparse_column_with_vocabulary_file(...)
+feature_b = real_valued_column(...)
+feature_c_bucketized = bucketized_column(real_valued_column("feature_c"), ...)
+feature_a_x_feature_c = crossed_column(
+  columns=[feature_a, feature_c_bucketized], ...)
 
-feature_columns = set([age, click_bucket, country_x_click])
+feature_columns = set(
+  [feature_b, feature_c_bucketized, feature_a_x_feature_c])
 batch_examples = tf.parse_example(
-    serialized_examples,
-    create_feature_spec_for_parsing(feature_columns))
+    serialized=serialized_examples,
+    features=create_feature_spec_for_parsing(feature_columns))
 ```
 
 For the above example, create_feature_spec_for_parsing would return the dict:
-{"age": parsing_ops.FixedLenFeature([1], dtype=tf.float32),
- "historical_click_ratio": parsing_ops.FixedLenFeature([1], dtype=tf.float32),
- "country": parsing_ops.VarLenFeature(tf.string)}
+{
+  "feature_a": parsing_ops.VarLenFeature(tf.string),
+  "feature_b": parsing_ops.FixedLenFeature([1], dtype=tf.float32),
+  "feature_c": parsing_ops.FixedLenFeature([1], dtype=tf.float32)
+}
 
 ##### Args:
 
@@ -1188,7 +1151,7 @@ For the above example, create_feature_spec_for_parsing would return the dict:
 
 ### `tf.contrib.layers.crossed_column(columns, hash_bucket_size, combiner=None, ckpt_to_load_from=None, tensor_name_in_ckpt=None, hash_key=None)` {#crossed_column}
 
-Creates a _CrossedColumn.
+Creates a _CrossedColumn for performing feature crosses.
 
 ##### Args:
 
@@ -1223,9 +1186,9 @@ Creates a _CrossedColumn.
 
 - - -
 
-### `tf.contrib.layers.embedding_column(sparse_id_column, dimension, combiner=None, initializer=None, ckpt_to_load_from=None, tensor_name_in_ckpt=None)` {#embedding_column}
+### `tf.contrib.layers.embedding_column(sparse_id_column, dimension, combiner=None, initializer=None, ckpt_to_load_from=None, tensor_name_in_ckpt=None, max_norm=None)` {#embedding_column}
 
-Creates an `_EmbeddingColumn`.
+Creates an `_EmbeddingColumn` for feeding sparse data into a DNN.
 
 ##### Args:
 
@@ -1251,6 +1214,8 @@ Creates an `_EmbeddingColumn`.
 *  <b>`tensor_name_in_ckpt`</b>: (Optional). Name of the `Tensor` in the provided
     checkpoint from which to restore the column weights. Required if
     `ckpt_to_load_from` is not None.
+*  <b>`max_norm`</b>: (Optional). If not None, embedding values are l2-normalized to
+    the value of max_norm.
 
 ##### Returns:
 
@@ -1259,12 +1224,25 @@ Creates an `_EmbeddingColumn`.
 
 - - -
 
-### `tf.contrib.layers.hashed_embedding_column(column_name, size, dimension, combiner=None, initializer=None)` {#hashed_embedding_column}
+### `tf.contrib.layers.scattered_embedding_column(column_name, size, dimension, hash_key, combiner=None, initializer=None)` {#scattered_embedding_column}
 
 Creates an embedding column of a sparse feature using parameter hashing.
 
 The i-th embedding component of a value v is found by retrieving an
 embedding weight whose index is a fingerprint of the pair (v,i).
+
+An embedding column with sparse_column_with_hash_bucket such as
+  embedding_column(
+      sparse_column_with_hash_bucket(column_name, bucket_size),
+      dimension)
+
+could be replaced by
+  scattered_embedding_column(
+      column_name, size=bucket_size * dimension, dimension=dimension,
+      hash_key=tf.contrib.layers.SPARSE_FEATURE_CROSS_DEFAULT_HASH_KEY)
+
+for the same number of embedding parameters and hopefully reduced impact of
+collisions with a cost of slowing down training.
 
 ##### Args:
 
@@ -1272,6 +1250,8 @@ embedding weight whose index is a fingerprint of the pair (v,i).
 *  <b>`column_name`</b>: A string defining sparse column name.
 *  <b>`size`</b>: An integer specifying the number of parameters in the embedding layer.
 *  <b>`dimension`</b>: An integer specifying dimension of the embedding.
+*  <b>`hash_key`</b>: Specify the hash_key that will be used by the `FingerprintCat64`
+    function to combine the crosses fingerprints on SparseFeatureCrossOp.
 *  <b>`combiner`</b>: A string specifying how to reduce if there are multiple entries
     in a single row. Currently "mean", "sqrtn" and "sum" are supported. Each
     of this can be thought as example level normalizations on the column:
@@ -1285,7 +1265,7 @@ embedding weight whose index is a fingerprint of the pair (v,i).
 
 ##### Returns:
 
-  A _HashedEmbeddingColumn.
+  A _ScatteredEmbeddingColumn.
 
 ##### Raises:
 
@@ -1306,28 +1286,30 @@ to a single tensor. Each feature column needs a different kind of operation
 during this conversion. For example sparse features need a totally different
 handling than continuous features.
 
-An example usage of input_from_feature_columns is as follows:
+Example:
 
+```python
   # Building model for training
   columns_to_tensor = tf.parse_example(...)
   first_layer = input_from_feature_columns(
       columns_to_tensors=columns_to_tensor,
       feature_columns=feature_columns)
-  second_layer = fully_connected(first_layer, ...)
+  second_layer = fully_connected(inputs=first_layer, ...)
   ...
+```
 
-  where feature_columns can be defined as follows:
+where feature_columns can be defined as follows:
 
-  occupation = sparse_column_with_hash_bucket(column_name="occupation",
-                                            hash_bucket_size=1000)
-  occupation_emb = embedding_column(sparse_id_column=occupation, dimension=16,
-                                   combiner="sum")
-  age = real_valued_column("age")
-  age_buckets = bucketized_column(
-      source_column=age,
-      boundaries=[18, 25, 30, 35, 40, 45, 50, 55, 60, 65])
+```python
+  sparse_feature = sparse_column_with_hash_bucket(
+      column_name="sparse_col", ...)
+  sparse_feature_emb = embedding_column(sparse_id_column=sparse_feature, ...)
+  real_valued_feature = real_valued_column(...)
+  real_valued_buckets = bucketized_column(
+      source_column=real_valued_feature, ...)
 
-  feature_columns=[occupation_emb, age_buckets]
+  feature_columns=[sparse_feature_emb, real_valued_buckets]
+```
 
 ##### Args:
 
@@ -1413,7 +1395,7 @@ Returns placeholder tensors for inference.
 
 ### `tf.contrib.layers.one_hot_column(sparse_id_column)` {#one_hot_column}
 
-Creates a _OneHotColumn.
+Creates an `_OneHotColumn` for a one-hot or multi-hot repr in a DNN.
 
 ##### Args:
 
@@ -1518,7 +1500,7 @@ Parses tf.SequenceExamples to extract tensors for given `FeatureColumn`s.
 
 ### `tf.contrib.layers.real_valued_column(column_name, dimension=1, default_value=None, dtype=tf.float32, normalizer=None)` {#real_valued_column}
 
-Creates a _RealValuedColumn.
+Creates a `_RealValuedColumn` for dense numeric data.
 
 ##### Args:
 
@@ -1558,7 +1540,7 @@ Creates a _RealValuedColumn.
 
 - - -
 
-### `tf.contrib.layers.shared_embedding_columns(sparse_id_columns, dimension, combiner=None, shared_embedding_name=None, initializer=None, ckpt_to_load_from=None, tensor_name_in_ckpt=None)` {#shared_embedding_columns}
+### `tf.contrib.layers.shared_embedding_columns(sparse_id_columns, dimension, combiner=None, shared_embedding_name=None, initializer=None, ckpt_to_load_from=None, tensor_name_in_ckpt=None, max_norm=None)` {#shared_embedding_columns}
 
 Creates a list of `_EmbeddingColumn` sharing the same embedding.
 
@@ -1589,6 +1571,8 @@ Creates a list of `_EmbeddingColumn` sharing the same embedding.
 *  <b>`tensor_name_in_ckpt`</b>: (Optional). Name of the `Tensor` in the provided
     checkpoint from which to restore the column weights. Required if
     `ckpt_to_load_from` is not None.
+*  <b>`max_norm`</b>: (Optional). If not None, embedding values are l2-normalized to
+    the value of max_norm.
 
 ##### Returns:
 
@@ -1710,6 +1694,25 @@ lookup_id = index_of_feature_in_keys if feature in keys else default_value
 
 Creates a _SparseColumn by combining sparse_id_column with a weight column.
 
+Example:
+
+  ```python
+  sparse_feature = sparse_column_with_hash_bucket(column_name="sparse_col",
+                                                  hash_bucket_size=1000)
+  weighted_feature = weighted_sparse_column(sparse_id_column=sparse_feature,
+                                            weight_column_name="weights_col")
+  ```
+
+  This configuration assumes that input dictionary of model contains the
+  following two items:
+    * (key="sparse_col", value=sparse_tensor) where sparse_tensor is
+      a SparseTensor.
+    * (key="weights_col", value=weights_tensor) where weights_tensor
+      is a SparseTensor.
+   Following are assumed to be true:
+     * sparse_tensor.indices = weights_tensor.indices
+     * sparse_tensor.shape = weights_tensor.shape
+
 ##### Args:
 
 
@@ -1728,22 +1731,6 @@ Creates a _SparseColumn by combining sparse_id_column with a weight column.
 
 
 *  <b>`ValueError`</b>: if dtype is not convertible to float.
-
-##### An example usage:
-
-  ```python
-  words = sparse_column_with_hash_bucket("words", 1000)
-  tfidf_weighted_words = weighted_sparse_column(words, "tfidf_score")
-  ```
-
-  This configuration assumes that input dictionary of model contains the
-  following two items:
-    * (key="words", value=word_tensor) where word_tensor is a SparseTensor.
-    * (key="tfidf_score", value=tfidf_score_tensor) where tfidf_score_tensor
-      is a SparseTensor.
-   Following are assumed to be true:
-     * word_tensor.indices = tfidf_score_tensor.indices
-     * word_tensor.shape = tfidf_score_tensor.shape
 
 
 - - -

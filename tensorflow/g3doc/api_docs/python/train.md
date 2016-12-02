@@ -1372,7 +1372,7 @@ saver.restore(...checkpoint filename...)
 
 - - -
 
-#### `tf.train.ExponentialMovingAverage.__init__(decay, num_updates=None, name='ExponentialMovingAverage')` {#ExponentialMovingAverage.__init__}
+#### `tf.train.ExponentialMovingAverage.__init__(decay, num_updates=None, zero_debias=False, name='ExponentialMovingAverage')` {#ExponentialMovingAverage.__init__}
 
 Creates a new ExponentialMovingAverage object.
 
@@ -1392,6 +1392,8 @@ move faster.  If passed, the actual decay rate used is:
 
 *  <b>`decay`</b>: Float.  The decay to use.
 *  <b>`num_updates`</b>: Optional count of number of updates applied to variables.
+*  <b>`zero_debias`</b>: If `True`, zero debias moving-averages that are initialized
+    with tensors.
 *  <b>`name`</b>: String. Optional prefix name to use for the name of ops added in
     `apply()`.
 
@@ -1692,6 +1694,13 @@ that `RuntimeError`.
 #### `tf.train.Coordinator.joined` {#Coordinator.joined}
 
 
+
+
+- - -
+
+#### `tf.train.Coordinator.raise_requested_exception()` {#Coordinator.raise_requested_exception}
+
+If an exception has been passed to `request_stop`, this raises it.
 
 
 - - -
@@ -3462,7 +3471,7 @@ For example,
 cluster_spec = {
     "ps": ["ps0:2222", "ps1:2222"],
     "worker": ["worker0:2222", "worker1:2222", "worker2:2222"]}
-with tf.device(tf.replica_device_setter(cluster=cluster_spec)):
+with tf.device(tf.train.replica_device_setter(cluster=cluster_spec)):
   # Build your graph
   v1 = tf.Variable(...)  # assigned to /job:ps/task:0
   v2 = tf.Variable(...)  # assigned to /job:ps/task:1
@@ -3634,7 +3643,7 @@ Get from cache or create a default operation.
 
 - - -
 
-### `tf.train.MonitoredTrainingSession(master='', is_chief=True, checkpoint_dir=None, hooks=None, scaffold=None, config=None)` {#MonitoredTrainingSession}
+### `tf.train.MonitoredTrainingSession(master='', is_chief=True, checkpoint_dir=None, scaffold=None, hooks=None, chief_only_hooks=None, save_checkpoint_secs=600, save_summaries_steps=100, config=None)` {#MonitoredTrainingSession}
 
 Creates a `MonitoredSession` for training.
 
@@ -3653,10 +3662,20 @@ inialize/restore.
     initialize or recover the TensorFlow session.
 *  <b>`checkpoint_dir`</b>: A string.  Optional path to a directory where to restore
     variables.
-*  <b>`hooks`</b>: Optional list of `SessionRunHook` objects.
 *  <b>`scaffold`</b>: A `Scaffold` used for gathering or building supportive ops. If
     not specified, a default one is created. It's used to finalize the graph.
-*  <b>`config`</b>: `ConfigProto` proto used to configure the session.
+*  <b>`hooks`</b>: Optional list of `SessionRunHook` objects.
+*  <b>`chief_only_hooks`</b>: list of `SessionRunHook` objects. Activate these hooks if
+    `is_chief==True`, ignore otherwise.
+*  <b>`save_checkpoint_secs`</b>: The frequency, in seconds, that a checkpoint is saved
+    using a default checkpoint saver. If `save_checkpoint_secs` is set to
+    `None`, then the default checkpoint saver isn't used.
+*  <b>`save_summaries_steps`</b>: The frequency, in number of global steps, that the
+    summaries are written to disk using a default summary saver. If
+    `save_summaries_steps` is set to `None`, then the default summary saver
+    isn't used.
+*  <b>`config`</b>: an instance of `tf.ConfigProto` proto used to configure the session.
+    It's the `config` argument of constructor of `tf.Session`.
 
 ##### Returns:
 
@@ -3879,148 +3898,144 @@ details.
 
 - - -
 
-### `tf.scalar_summary(*args, **kwargs)` {#scalar_summary}
+### `tf.scalar_summary(tags, values, collections=None, name=None)` {#scalar_summary}
 
-Outputs a `Summary` protocol buffer with scalar values. (deprecated)
+Outputs a `Summary` protocol buffer with scalar values.
 
-THIS FUNCTION IS DEPRECATED. It will be removed after 2016-11-30.
-Instructions for updating:
-Please switch to tf.summary.scalar. Note that tf.summary.histogram uses the node name instead of the tag. This means that TensorFlow will automatically de-duplicate summary names based on the scope they are created in. Also, passing a tensor or list of tags to a single scalar summary is no longer supported.
+The input `tags` and `values` must have the same shape.  The generated
+summary has a summary value for each tag-value pair in `tags` and `values`.
 
-  The input `tags` and `values` must have the same shape.  The generated
-  summary has a summary value for each tag-value pair in `tags` and `values`.
-
-  Args:
-    tags: A `string` `Tensor`.  Tags for the summaries.
-    values: A real numeric Tensor.  Values for the summaries.
-    collections: Optional list of graph collections keys. The new summary op is
-      added to these collections. Defaults to `[GraphKeys.SUMMARIES]`.
-    name: A name for the operation (optional).
-
-  Returns:
-    A scalar `Tensor` of type `string`. The serialized `Summary` protocol
-    buffer.
+##### Args:
 
 
-- - -
+*  <b>`tags`</b>: A `string` `Tensor`.  Tags for the summaries.
+*  <b>`values`</b>: A real numeric Tensor.  Values for the summaries.
+*  <b>`collections`</b>: Optional list of graph collections keys. The new summary op is
+    added to these collections. Defaults to `[GraphKeys.SUMMARIES]`.
+*  <b>`name`</b>: A name for the operation (optional).
 
-### `tf.image_summary(*args, **kwargs)` {#image_summary}
+##### Returns:
 
-Outputs a `Summary` protocol buffer with images. (deprecated)
-
-THIS FUNCTION IS DEPRECATED. It will be removed after 2016-11-30.
-Instructions for updating:
-Please switch to tf.summary.image. Note that tf.summary.histogram uses the node name instead of the tag. This means that TensorFlow will automatically de-duplicate summary names based on the scope they are created in. Also, the max_images argument was renamed to max_outputs.
-
-  The summary has up to `max_images` summary values containing images. The
-  images are built from `tensor` which must be 4-D with shape `[batch_size,
-  height, width, channels]` and where `channels` can be:
-
-  *  1: `tensor` is interpreted as Grayscale.
-  *  3: `tensor` is interpreted as RGB.
-  *  4: `tensor` is interpreted as RGBA.
-
-  The images have the same number of channels as the input tensor. For float
-  input, the values are normalized one image at a time to fit in the range
-  `[0, 255]`.  `uint8` values are unchanged.  The op uses two different
-  normalization algorithms:
-
-  *  If the input values are all positive, they are rescaled so the largest one
-     is 255.
-
-  *  If any input value is negative, the values are shifted so input value 0.0
-     is at 127.  They are then rescaled so that either the smallest value is 0,
-     or the largest one is 255.
-
-  The `tag` argument is a scalar `Tensor` of type `string`.  It is used to
-  build the `tag` of the summary values:
-
-  *  If `max_images` is 1, the summary value tag is '*tag*/image'.
-  *  If `max_images` is greater than 1, the summary value tags are
-     generated sequentially as '*tag*/image/0', '*tag*/image/1', etc.
-
-  Args:
-    tag: A scalar `Tensor` of type `string`. Used to build the `tag`
-      of the summary values.
-    tensor: A 4-D `uint8` or `float32` `Tensor` of shape `[batch_size, height,
-      width, channels]` where `channels` is 1, 3, or 4.
-    max_images: Max number of batch elements to generate images for.
-    collections: Optional list of ops.GraphKeys.  The collections to add the
-      summary to.  Defaults to [ops.GraphKeys.SUMMARIES]
-    name: A name for the operation (optional).
-
-  Returns:
-    A scalar `Tensor` of type `string`. The serialized `Summary` protocol
-    buffer.
+  A scalar `Tensor` of type `string`. The serialized `Summary` protocol
+  buffer.
 
 
 - - -
 
-### `tf.audio_summary(*args, **kwargs)` {#audio_summary}
+### `tf.image_summary(tag, tensor, max_images=3, collections=None, name=None)` {#image_summary}
 
-Outputs a `Summary` protocol buffer with audio. (deprecated)
+Outputs a `Summary` protocol buffer with images.
 
-THIS FUNCTION IS DEPRECATED. It will be removed after 2016-11-30.
-Instructions for updating:
-Please switch to tf.summary.audio. Note that tf.summary.histogram uses the node name instead of the tag. This means that TensorFlow will automatically de-duplicate summary names based on the scope they are created in.
+The summary has up to `max_images` summary values containing images. The
+images are built from `tensor` which must be 4-D with shape `[batch_size,
+height, width, channels]` and where `channels` can be:
 
-  The summary has up to `max_outputs` summary values containing audio. The
-  audio is built from `tensor` which must be 3-D with shape `[batch_size,
-  frames, channels]` or 2-D with shape `[batch_size, frames]`. The values are
-  assumed to be in the range of `[-1.0, 1.0]` with a sample rate of
-  `sample_rate`.
+*  1: `tensor` is interpreted as Grayscale.
+*  3: `tensor` is interpreted as RGB.
+*  4: `tensor` is interpreted as RGBA.
 
-  The `tag` argument is a scalar `Tensor` of type `string`.  It is used to
-  build the `tag` of the summary values:
+The images have the same number of channels as the input tensor. For float
+input, the values are normalized one image at a time to fit in the range
+`[0, 255]`.  `uint8` values are unchanged.  The op uses two different
+normalization algorithms:
 
-  *  If `max_outputs` is 1, the summary value tag is '*tag*/audio'.
-  *  If `max_outputs` is greater than 1, the summary value tags are
-     generated sequentially as '*tag*/audio/0', '*tag*/audio/1', etc.
+*  If the input values are all positive, they are rescaled so the largest one
+   is 255.
 
-  Args:
-    tag: A scalar `Tensor` of type `string`. Used to build the `tag`
-      of the summary values.
-    tensor: A 3-D `float32` `Tensor` of shape `[batch_size, frames, channels]`
-      or a 2-D `float32` `Tensor` of shape `[batch_size, frames]`.
-    sample_rate: A Scalar `float32` `Tensor` indicating the sample rate of the
-      signal in hertz.
-    max_outputs: Max number of batch elements to generate audio for.
-    collections: Optional list of ops.GraphKeys.  The collections to add the
-      summary to.  Defaults to [ops.GraphKeys.SUMMARIES]
-    name: A name for the operation (optional).
+*  If any input value is negative, the values are shifted so input value 0.0
+   is at 127.  They are then rescaled so that either the smallest value is 0,
+   or the largest one is 255.
 
-  Returns:
-    A scalar `Tensor` of type `string`. The serialized `Summary` protocol
-    buffer.
+The `tag` argument is a scalar `Tensor` of type `string`.  It is used to
+build the `tag` of the summary values:
+
+*  If `max_images` is 1, the summary value tag is '*tag*/image'.
+*  If `max_images` is greater than 1, the summary value tags are
+   generated sequentially as '*tag*/image/0', '*tag*/image/1', etc.
+
+##### Args:
+
+
+*  <b>`tag`</b>: A scalar `Tensor` of type `string`. Used to build the `tag`
+    of the summary values.
+*  <b>`tensor`</b>: A 4-D `uint8` or `float32` `Tensor` of shape `[batch_size, height,
+    width, channels]` where `channels` is 1, 3, or 4.
+*  <b>`max_images`</b>: Max number of batch elements to generate images for.
+*  <b>`collections`</b>: Optional list of ops.GraphKeys.  The collections to add the
+    summary to.  Defaults to [ops.GraphKeys.SUMMARIES]
+*  <b>`name`</b>: A name for the operation (optional).
+
+##### Returns:
+
+  A scalar `Tensor` of type `string`. The serialized `Summary` protocol
+  buffer.
 
 
 - - -
 
-### `tf.histogram_summary(*args, **kwargs)` {#histogram_summary}
+### `tf.audio_summary(tag, tensor, sample_rate, max_outputs=3, collections=None, name=None)` {#audio_summary}
 
-Outputs a `Summary` protocol buffer with a histogram. (deprecated)
+Outputs a `Summary` protocol buffer with audio.
 
-THIS FUNCTION IS DEPRECATED. It will be removed after 2016-11-30.
-Instructions for updating:
-Please switch to tf.summary.histogram. Note that tf.summary.histogram uses the node name instead of the tag. This means that TensorFlow will automatically de-duplicate summary names based on their scope.
+The summary has up to `max_outputs` summary values containing audio. The
+audio is built from `tensor` which must be 3-D with shape `[batch_size,
+frames, channels]` or 2-D with shape `[batch_size, frames]`. The values are
+assumed to be in the range of `[-1.0, 1.0]` with a sample rate of
+`sample_rate`.
 
-  The generated
-  [`Summary`](https://www.tensorflow.org/code/tensorflow/core/framework/summary.proto)
-  has one summary value containing a histogram for `values`.
+The `tag` argument is a scalar `Tensor` of type `string`.  It is used to
+build the `tag` of the summary values:
 
-  This op reports an `InvalidArgument` error if any value is not finite.
+*  If `max_outputs` is 1, the summary value tag is '*tag*/audio'.
+*  If `max_outputs` is greater than 1, the summary value tags are
+   generated sequentially as '*tag*/audio/0', '*tag*/audio/1', etc.
 
-  Args:
-    tag: A `string` `Tensor`. 0-D.  Tag to use for the summary value.
-    values: A real numeric `Tensor`. Any shape. Values to use to
-      build the histogram.
-    collections: Optional list of graph collections keys. The new summary op is
-      added to these collections. Defaults to `[GraphKeys.SUMMARIES]`.
-    name: A name for the operation (optional).
+##### Args:
 
-  Returns:
-    A scalar `Tensor` of type `string`. The serialized `Summary` protocol
-    buffer.
+
+*  <b>`tag`</b>: A scalar `Tensor` of type `string`. Used to build the `tag`
+    of the summary values.
+*  <b>`tensor`</b>: A 3-D `float32` `Tensor` of shape `[batch_size, frames, channels]`
+    or a 2-D `float32` `Tensor` of shape `[batch_size, frames]`.
+*  <b>`sample_rate`</b>: A Scalar `float32` `Tensor` indicating the sample rate of the
+    signal in hertz.
+*  <b>`max_outputs`</b>: Max number of batch elements to generate audio for.
+*  <b>`collections`</b>: Optional list of ops.GraphKeys.  The collections to add the
+    summary to.  Defaults to [ops.GraphKeys.SUMMARIES]
+*  <b>`name`</b>: A name for the operation (optional).
+
+##### Returns:
+
+  A scalar `Tensor` of type `string`. The serialized `Summary` protocol
+  buffer.
+
+
+- - -
+
+### `tf.histogram_summary(tag, values, collections=None, name=None)` {#histogram_summary}
+
+Outputs a `Summary` protocol buffer with a histogram.
+
+The generated
+[`Summary`](https://www.tensorflow.org/code/tensorflow/core/framework/summary.proto)
+has one summary value containing a histogram for `values`.
+
+This op reports an `InvalidArgument` error if any value is not finite.
+
+##### Args:
+
+
+*  <b>`tag`</b>: A `string` `Tensor`. 0-D.  Tag to use for the summary value.
+*  <b>`values`</b>: A real numeric `Tensor`. Any shape. Values to use to
+    build the histogram.
+*  <b>`collections`</b>: Optional list of graph collections keys. The new summary op is
+    added to these collections. Defaults to `[GraphKeys.SUMMARIES]`.
+*  <b>`name`</b>: A name for the operation (optional).
+
+##### Returns:
+
+  A scalar `Tensor` of type `string`. The serialized `Summary` protocol
+  buffer.
 
 
 - - -
@@ -4035,7 +4050,7 @@ This is useful in summaries to measure and report sparsity.  For example,
 
 ```python
     z = tf.Relu(...)
-    summ = tf.scalar_summary('sparsity', tf.nn.zero_fraction(z))
+    summ = tf.contrib.deprecated.scalar_summary('sparsity', tf.nn.zero_fraction(z))
 ```
 
 ##### Args:
@@ -4052,52 +4067,50 @@ This is useful in summaries to measure and report sparsity.  For example,
 
 - - -
 
-### `tf.merge_summary(*args, **kwargs)` {#merge_summary}
+### `tf.merge_summary(inputs, collections=None, name=None)` {#merge_summary}
 
-Merges summaries. (deprecated)
+Merges summaries.
 
-THIS FUNCTION IS DEPRECATED. It will be removed after 2016-11-30.
-Instructions for updating:
-Please switch to tf.summary.merge.
+This op creates a
+[`Summary`](https://www.tensorflow.org/code/tensorflow/core/framework/summary.proto)
+protocol buffer that contains the union of all the values in the input
+summaries.
 
-  This op creates a
-  [`Summary`](https://www.tensorflow.org/code/tensorflow/core/framework/summary.proto)
-  protocol buffer that contains the union of all the values in the input
-  summaries.
+When the Op is run, it reports an `InvalidArgument` error if multiple values
+in the summaries to merge use the same tag.
 
-  When the Op is run, it reports an `InvalidArgument` error if multiple values
-  in the summaries to merge use the same tag.
+##### Args:
 
-  Args:
-    inputs: A list of `string` `Tensor` objects containing serialized `Summary`
-      protocol buffers.
-    collections: Optional list of graph collections keys. The new summary op is
-      added to these collections. Defaults to `[GraphKeys.SUMMARIES]`.
-    name: A name for the operation (optional).
 
-  Returns:
-    A scalar `Tensor` of type `string`. The serialized `Summary` protocol
-    buffer resulting from the merging.
+*  <b>`inputs`</b>: A list of `string` `Tensor` objects containing serialized `Summary`
+    protocol buffers.
+*  <b>`collections`</b>: Optional list of graph collections keys. The new summary op is
+    added to these collections. Defaults to `[GraphKeys.SUMMARIES]`.
+*  <b>`name`</b>: A name for the operation (optional).
+
+##### Returns:
+
+  A scalar `Tensor` of type `string`. The serialized `Summary` protocol
+  buffer resulting from the merging.
 
 
 - - -
 
-### `tf.merge_all_summaries(*args, **kwargs)` {#merge_all_summaries}
+### `tf.merge_all_summaries(key='summaries')` {#merge_all_summaries}
 
-Merges all summaries collected in the default graph. (deprecated)
+Merges all summaries collected in the default graph.
 
-THIS FUNCTION IS DEPRECATED. It will be removed after 2016-11-30.
-Instructions for updating:
-Please switch to tf.summary.merge_all.
+##### Args:
 
-  Args:
-    key: `GraphKey` used to collect the summaries.  Defaults to
-      `GraphKeys.SUMMARIES`.
 
-  Returns:
-    If no summaries were collected, returns None.  Otherwise returns a scalar
-    `Tensor` of type `string` containing the serialized `Summary` protocol
-    buffer resulting from the merging.
+*  <b>`key`</b>: `GraphKey` used to collect the summaries.  Defaults to
+    `GraphKeys.SUMMARIES`.
+
+##### Returns:
+
+  If no summaries were collected, returns None.  Otherwise returns a scalar
+  `Tensor` of type `string` containing the serialized `Summary` protocol
+  buffer resulting from the merging.
 
 
 
@@ -4111,99 +4124,54 @@ overview of summaries, event files, and visualization in TensorBoard.
 
 ### `class tf.train.SummaryWriter` {#SummaryWriter}
 
-Writes `Summary` protocol buffers to event files.
-
-The `FileWriter` class provides a mechanism to create an event file in a
-given directory and add summaries and events to it. The class updates the
-file contents asynchronously. This allows a training program to call methods
-to add data to the file directly from the training loop, without slowing down
-training.
 
 - - -
 
-#### `tf.train.SummaryWriter.__init__(logdir, graph=None, max_queue=10, flush_secs=120, graph_def=None)` {#SummaryWriter.__init__}
+#### `tf.train.SummaryWriter.__init__(*args, **kwargs)` {#SummaryWriter.__init__}
 
-Creates a `FileWriter` and an event file.
+Creates a `SummaryWriter` and an event file. (deprecated)
 
-On construction the summary writer creates a new event file in `logdir`.
-This event file will contain `Event` protocol buffers constructed when you
-call one of the following functions: `add_summary()`, `add_session_log()`,
-`add_event()`, or `add_graph()`.
+THIS FUNCTION IS DEPRECATED. It will be removed after 2016-11-30.
+Instructions for updating:
+Please switch to tf.summary.FileWriter. The interface and behavior is the same; this is just a rename.
 
-If you pass a `Graph` to the constructor it is added to
-the event file. (This is equivalent to calling `add_graph()` later).
+    This class is deprecated, and should be replaced with tf.summary.FileWriter.
 
-TensorBoard will pick the graph from the file and display it graphically so
-you can interactively explore the graph you built. You will usually pass
-the graph from the session in which you launched it:
+    On construction the summary writer creates a new event file in `logdir`.
+    This event file will contain `Event` protocol buffers constructed when you
+    call one of the following functions: `add_summary()`, `add_session_log()`,
+    `add_event()`, or `add_graph()`.
 
-```python
-...create a graph...
-# Launch the graph in a session.
-sess = tf.Session()
-# Create a summary writer, add the 'graph' to the event file.
-writer = tf.train.SummaryWriter(<some-directory>, sess.graph)
-```
+    If you pass a `Graph` to the constructor it is added to
+    the event file. (This is equivalent to calling `add_graph()` later).
 
-The other arguments to the constructor control the asynchronous writes to
-the event file:
+    TensorBoard will pick the graph from the file and display it graphically so
+    you can interactively explore the graph you built. You will usually pass
+    the graph from the session in which you launched it:
 
-*  `flush_secs`: How often, in seconds, to flush the added summaries
-   and events to disk.
-*  `max_queue`: Maximum number of summaries or events pending to be
-   written to disk before one of the 'add' calls block.
+    ```python
+    ...create a graph...
+    # Launch the graph in a session.
+    sess = tf.Session()
+    # Create a summary writer, add the 'graph' to the event file.
+    writer = tf.train.SummaryWriter(<some-directory>, sess.graph)
+    ```
 
-##### Args:
+    The other arguments to the constructor control the asynchronous writes to
+    the event file:
 
+    *  `flush_secs`: How often, in seconds, to flush the added summaries
+       and events to disk.
+    *  `max_queue`: Maximum number of summaries or events pending to be
+       written to disk before one of the 'add' calls block.
 
-*  <b>`logdir`</b>: A string. Directory where event file will be written.
-*  <b>`graph`</b>: A `Graph` object, such as `sess.graph`.
-*  <b>`max_queue`</b>: Integer. Size of the queue for pending events and summaries.
-*  <b>`flush_secs`</b>: Number. How often, in seconds, to flush the
-    pending events and summaries to disk.
-*  <b>`graph_def`</b>: DEPRECATED: Use the `graph` argument instead.
-
-
-
-- - -
-
-#### `tf.train.SummaryWriter.add_summary(summary, global_step=None)` {#SummaryWriter.add_summary}
-
-Adds a `Summary` protocol buffer to the event file.
-
-This method wraps the provided summary in an `Event` protocol buffer
-and adds it to the event file.
-
-You can pass the result of evaluating any summary op, using
-[`Session.run()`](client.md#Session.run) or
-[`Tensor.eval()`](framework.md#Tensor.eval), to this
-function. Alternatively, you can pass a `tf.Summary` protocol
-buffer that you populate with your own data. The latter is
-commonly done to report evaluation results in event files.
-
-##### Args:
-
-
-*  <b>`summary`</b>: A `Summary` protocol buffer, optionally serialized as a string.
-*  <b>`global_step`</b>: Number. Optional global step value to record with the
-    summary.
-
-
-- - -
-
-#### `tf.train.SummaryWriter.add_session_log(session_log, global_step=None)` {#SummaryWriter.add_session_log}
-
-Adds a `SessionLog` protocol buffer to the event file.
-
-This method wraps the provided session in an `Event` protocol buffer
-and adds it to the event file.
-
-##### Args:
-
-
-*  <b>`session_log`</b>: A `SessionLog` protocol buffer.
-*  <b>`global_step`</b>: Number. Optional global step value to record with the
-    summary.
+    Args:
+      logdir: A string. Directory where event file will be written.
+      graph: A `Graph` object, such as `sess.graph`.
+      max_queue: Integer. Size of the queue for pending events and summaries.
+      flush_secs: Number. How often, in seconds, to flush the
+        pending events and summaries to disk.
+      graph_def: DEPRECATED: Use the `graph` argument instead.
 
 
 - - -
@@ -4243,6 +4211,29 @@ TensorBoard. Most users pass a graph in the constructor instead.
 
 - - -
 
+#### `tf.train.SummaryWriter.add_meta_graph(meta_graph_def, global_step=None)` {#SummaryWriter.add_meta_graph}
+
+Adds a `MetaGraphDef` to the event file.
+
+The `MetaGraphDef` allows running the given graph via
+`saver.import_meta_graph()`.
+
+##### Args:
+
+
+*  <b>`meta_graph_def`</b>: A `MetaGraphDef` object, often as retured by
+    `saver.export_meta_graph()`.
+*  <b>`global_step`</b>: Number. Optional global step counter to record with the
+    graph.
+
+##### Raises:
+
+
+*  <b>`TypeError`</b>: If both `meta_graph_def` is not an instance of `MetaGraphDef`.
+
+
+- - -
+
 #### `tf.train.SummaryWriter.add_run_metadata(run_metadata, tag, global_step=None)` {#SummaryWriter.add_run_metadata}
 
 Adds a metadata information for a single session.run() call.
@@ -4263,10 +4254,52 @@ Adds a metadata information for a single session.run() call.
 
 - - -
 
-#### `tf.train.SummaryWriter.get_logdir()` {#SummaryWriter.get_logdir}
+#### `tf.train.SummaryWriter.add_session_log(session_log, global_step=None)` {#SummaryWriter.add_session_log}
 
-Returns the directory where event file will be written.
+Adds a `SessionLog` protocol buffer to the event file.
 
+This method wraps the provided session in an `Event` protocol buffer
+and adds it to the event file.
+
+##### Args:
+
+
+*  <b>`session_log`</b>: A `SessionLog` protocol buffer.
+*  <b>`global_step`</b>: Number. Optional global step value to record with the
+    summary.
+
+
+- - -
+
+#### `tf.train.SummaryWriter.add_summary(summary, global_step=None)` {#SummaryWriter.add_summary}
+
+Adds a `Summary` protocol buffer to the event file.
+
+This method wraps the provided summary in an `Event` protocol buffer
+and adds it to the event file.
+
+You can pass the result of evaluating any summary op, using
+[`Session.run()`](client.md#Session.run) or
+[`Tensor.eval()`](framework.md#Tensor.eval), to this
+function. Alternatively, you can pass a `tf.Summary` protocol
+buffer that you populate with your own data. The latter is
+commonly done to report evaluation results in event files.
+
+##### Args:
+
+
+*  <b>`summary`</b>: A `Summary` protocol buffer, optionally serialized as a string.
+*  <b>`global_step`</b>: Number. Optional global step value to record with the
+    summary.
+
+
+- - -
+
+#### `tf.train.SummaryWriter.close()` {#SummaryWriter.close}
+
+Flushes the event file to disk and close the file.
+
+Call this method when you do not need the summary writer anymore.
 
 
 - - -
@@ -4281,15 +4314,11 @@ disk.
 
 - - -
 
-#### `tf.train.SummaryWriter.close()` {#SummaryWriter.close}
+#### `tf.train.SummaryWriter.get_logdir()` {#SummaryWriter.get_logdir}
 
-Flushes the event file to disk and close the file.
-
-Call this method when you do not need the summary writer anymore.
+Returns the directory where event file will be written.
 
 
-
-#### Other Methods
 - - -
 
 #### `tf.train.SummaryWriter.reopen()` {#SummaryWriter.reopen}
@@ -4307,9 +4336,9 @@ Does nothing if the EventFileWriter was not closed.
 
 ### `class tf.train.SummaryWriterCache` {#SummaryWriterCache}
 
-Cache for summary writers.
+Cache for file writers.
 
-This class caches summary writers, one per directory.
+This class caches file writers, one per directory.
 - - -
 
 #### `tf.train.SummaryWriterCache.clear()` {#SummaryWriterCache.clear}
@@ -4321,7 +4350,7 @@ Clear cached summary writers. Currently only used for unit tests.
 
 #### `tf.train.SummaryWriterCache.get(logdir)` {#SummaryWriterCache.get}
 
-Returns the SummaryWriter for the specified directory.
+Returns the FileWriter for the specified directory.
 
 ##### Args:
 
@@ -4330,7 +4359,7 @@ Returns the SummaryWriter for the specified directory.
 
 ##### Returns:
 
-  A `SummaryWriter`.
+  A `FileWriter`.
 
 
 
@@ -4356,7 +4385,7 @@ Example: Print selected summary values.
 # This example supposes that the events file contains summaries with a
 # summary value tag 'loss'.  These could have been added by calling
 # `add_summary()`, passing the output of a scalar summary op created with
-# with: `tf.scalar_summary(['loss'], loss_tensor)`.
+# with: `tf.summary.scalar('loss', loss_tensor)`.
 for e in tf.train.summary_iterator(path to events file):
     for v in e.summary.value:
         if v.tag == 'loss':
@@ -4936,9 +4965,11 @@ Initializes a `SummarySaver` monitor.
 *  <b>`summary_writer`</b>: `SummaryWriter`. If `None` and an `output_dir` was passed,
       one will be created accordingly.
 *  <b>`scaffold`</b>: `Scaffold` to get summary_op if it's not provided.
-*  <b>`summary_op`</b>: `Tensor` of type `string`. A serialized `Summary` protocol
-      buffer, as output by TF summary methods like `tf.summary.scalar` or
-      `tf.summary.merge_all`.
+*  <b>`summary_op`</b>: `Tensor` of type `string` containing the serialized `Summary`
+      protocol buffer or a list of `Tensor`. They are most likely an output
+      by TF summary methods like `tf.summary.scalar` or
+      `tf.summary.merge_all`. It can be passed in as one tensor; if more
+      than one, they must be passed in as a list.
 
 ##### Raises:
 
@@ -4977,6 +5008,77 @@ Initializes a `SummarySaver` monitor.
 
 - - -
 
+### `class tf.train.GlobalStepWaiterHook` {#GlobalStepWaiterHook}
+
+Delay execution until global step reaches to wait_until_step.
+
+This hook delays execution until global step reaches to `wait_until_step`. It
+is used to gradually start workers in distributed settings. One example usage
+would be setting `wait_until_step=int(K*log(task_id+1))` assuming that
+task_id=0 is the chief.
+- - -
+
+#### `tf.train.GlobalStepWaiterHook.__init__(wait_until_step)` {#GlobalStepWaiterHook.__init__}
+
+Create a _GlobalStepWaiterHook.
+
+##### Args:
+
+
+*  <b>`wait_until_step`</b>: an `int` shows until which global step should we wait.
+
+
+- - -
+
+#### `tf.train.GlobalStepWaiterHook.after_run(run_context, run_values)` {#GlobalStepWaiterHook.after_run}
+
+Called after each call to run().
+
+The `run_values` argument contains results of requested ops/tensors by
+`before_run()`.
+
+The `run_context` argument is the same one send to `before_run` call.
+`run_context.request_stop()` can be called to stop the iteration.
+
+##### Args:
+
+
+*  <b>`run_context`</b>: A `SessionRunContext` object.
+*  <b>`run_values`</b>: A SessionRunValues object.
+
+
+- - -
+
+#### `tf.train.GlobalStepWaiterHook.before_run(run_context)` {#GlobalStepWaiterHook.before_run}
+
+
+
+
+- - -
+
+#### `tf.train.GlobalStepWaiterHook.begin()` {#GlobalStepWaiterHook.begin}
+
+
+
+
+- - -
+
+#### `tf.train.GlobalStepWaiterHook.end(session)` {#GlobalStepWaiterHook.end}
+
+Called at the end of session.
+
+The `session` argument can be used in case the hook wants to run final ops,
+such as saving a last checkpoint.
+
+##### Args:
+
+
+*  <b>`session`</b>: A TensorFlow Session that will be soon closed.
+
+
+
+- - -
+
 ### `class tf.train.SessionRunArgs` {#SessionRunArgs}
 
 Represents arguments to be added to a `Session.run()` call.
@@ -4992,6 +5094,8 @@ Args:
       fetches = {'step': global_step_tensor,
                  'ops': [train_op, check_nan_op]}
   feed_dict: Exactly like the `feed_dict` argument to `Session.Run()`
+  options: Exactly like the `options` argument to `Session.run()`, i.e., a
+    config_pb2.RunOptions proto.
 - - -
 
 #### `tf.train.SessionRunArgs.__getnewargs__()` {#SessionRunArgs.__getnewargs__}
@@ -5008,7 +5112,7 @@ Exclude the OrderedDict from pickling
 
 - - -
 
-#### `tf.train.SessionRunArgs.__new__(cls, fetches, feed_dict=None)` {#SessionRunArgs.__new__}
+#### `tf.train.SessionRunArgs.__new__(cls, fetches, feed_dict=None, options=None)` {#SessionRunArgs.__new__}
 
 
 
@@ -5032,6 +5136,13 @@ Alias for field number 1
 #### `tf.train.SessionRunArgs.fetches` {#SessionRunArgs.fetches}
 
 Alias for field number 0
+
+
+- - -
+
+#### `tf.train.SessionRunArgs.options` {#SessionRunArgs.options}
+
+Alias for field number 2
 
 
 
@@ -5116,6 +5227,8 @@ Args:
       => results = [None, nparray(string), nparray(int)]
       fetches = {'step': global_step_tensor, 'summ': summary_op}
       => results = {'step': nparray(int), 'summ': nparray(string)}
+  options: `RunOptions` from the `Session.run()` call.
+  run_metadata: `RunMetadata` from the `Session.run()` call.
 - - -
 
 #### `tf.train.SessionRunValues.__getnewargs__()` {#SessionRunValues.__getnewargs__}
@@ -5132,9 +5245,9 @@ Exclude the OrderedDict from pickling
 
 - - -
 
-#### `tf.train.SessionRunValues.__new__(_cls, results)` {#SessionRunValues.__new__}
+#### `tf.train.SessionRunValues.__new__(_cls, results, options, run_metadata)` {#SessionRunValues.__new__}
 
-Create new instance of SessionRunValues(results,)
+Create new instance of SessionRunValues(results, options, run_metadata)
 
 
 - - -
@@ -5146,9 +5259,23 @@ Return a nicely formatted representation string
 
 - - -
 
+#### `tf.train.SessionRunValues.options` {#SessionRunValues.options}
+
+Alias for field number 1
+
+
+- - -
+
 #### `tf.train.SessionRunValues.results` {#SessionRunValues.results}
 
 Alias for field number 0
+
+
+- - -
+
+#### `tf.train.SessionRunValues.run_metadata` {#SessionRunValues.run_metadata}
+
+Alias for field number 2
 
 
 

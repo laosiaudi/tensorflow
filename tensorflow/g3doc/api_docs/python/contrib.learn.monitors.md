@@ -887,9 +887,9 @@ The signature of the input_fn accepted by export is changing to be consistent wi
         `None`).
       input_feature_key: String key into the features dict returned by
         `input_fn` that corresponds to the raw `Example` strings `Tensor` that
-        the exported model will take as input. Can only be `None` if you're
-        using a custom `signature_fn` that does not use the first arg
-        (examples).
+        the exported model will take as input. Should be `None` if and only if
+        you're passing in a `signature_fn` that does not use the first arg
+        (`Tensor` of `Example` strings).
       exports_to_keep: int, number of exports to keep.
       signature_fn: Function that returns a default signature and a named
         signature map, given `Tensor` of `Example` strings, `dict` of `Tensor`s
@@ -2651,5 +2651,27 @@ Wraps monitors into a SessionRunHook.
 
 
 
+
+
+- - -
+
+### `tf.contrib.learn.monitors.replace_monitors_with_hooks(monitors_or_hooks, estimator)` {#replace_monitors_with_hooks}
+
+Wraps monitors with a hook.
+
+`Monitor` is deprecated in favor of `SessionRunHook`. If you're using a
+monitor, you can wrap it with a hook using function. It is recommended to
+implement hook version of your monitor.
+
+##### Args:
+
+
+*  <b>`monitors_or_hooks`</b>: A `list` may contain both monitors and hooks.
+*  <b>`estimator`</b>: An `Estimator` that monitor will be used with.
+
+##### Returns:
+
+  Returns a list of hooks. If there is any monitor in the given list, it is
+  replaced by a hook.
 
 

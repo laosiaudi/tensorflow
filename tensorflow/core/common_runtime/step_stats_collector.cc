@@ -182,7 +182,8 @@ void StepStatsCollector::BuildCostModel(
 void StepStatsCollector::Save(const string& device, NodeExecStats* nt) {
   {
     mutex_lock l(mu_);
-    if (!step_stats_) {
+    if (!step_stats_ || collectedNodes >= kMaxCollectedNodes) {
+      VLOG(1) << "step_stats_ nullptr or already collected too many nodes.";
       delete nt;
       return;
     }
@@ -201,6 +202,7 @@ void StepStatsCollector::Save(const string& device, NodeExecStats* nt) {
       dss->set_device(device);
     }
     nt->Swap(dss->add_node_stats());
+    collectedNodes++;
   }
   delete nt;
 }
@@ -209,6 +211,7 @@ void StepStatsCollector::Swap(StepStats* ss) {
   mutex_lock l(mu_);
   CHECK(step_stats_);
   ss->Swap(step_stats_);
+  collectedNodes = 0;
 }
 
 }  // namespace tensorflow

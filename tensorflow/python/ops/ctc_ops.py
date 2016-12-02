@@ -19,7 +19,6 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from tensorflow.python.framework import common_shapes
 from tensorflow.python.framework import ops
 from tensorflow.python.framework import sparse_tensor
 
@@ -167,9 +166,6 @@ def _CTCLossGrad(op, grad_loss, _):
   return [_BroadcastMul(grad_loss, grad), None, None, None]
 
 
-ops.RegisterShape("CTCLoss")(common_shapes.call_cpp_shape_fn)
-
-
 def ctc_greedy_decoder(inputs, sequence_length, merge_repeated=True):
   """Performs greedy decoding on the logits given in input (best path).
 
@@ -212,16 +208,13 @@ def ctc_greedy_decoder(inputs, sequence_length, merge_repeated=True):
           log_probabilities)
 
 
-ops.RegisterShape("CTCGreedyDecoder")(common_shapes.call_cpp_shape_fn)
-
-
 def ctc_beam_search_decoder(inputs, sequence_length, beam_width=100,
                             top_paths=1, merge_repeated=True):
   """Performs beam search decoding on the logits given in input.
 
   **Note** The `ctc_greedy_decoder` is a special case of the
-  `ctc_beam_search_decoder` with `top_paths=1` (but that decoder is faster
-  for this special case).
+  `ctc_beam_search_decoder` with `top_paths=1` and `beam_width=1` (but
+  that decoder is faster for this special case).
 
   If `merge_repeated` is `True`, merge repeated classes in the output beams.
   This means that if consecutive entries in a beam are the same,
@@ -263,9 +256,6 @@ def ctc_beam_search_decoder(inputs, sequence_length, beam_width=100,
       [sparse_tensor.SparseTensor(ix, val, shape) for (ix, val, shape)
        in zip(decoded_ixs, decoded_vals, decoded_shapes)],
       log_probabilities)
-
-
-ops.RegisterShape("CTCBeamSearchDecoder")(common_shapes.call_cpp_shape_fn)
 
 
 ops.NotDifferentiable("CTCGreedyDecoder")

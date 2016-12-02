@@ -26,6 +26,7 @@ from google.protobuf import json_format
 from google.protobuf import text_format
 from tensorflow.contrib.tensorboard.plugins.projector import PROJECTOR_FILENAME
 from tensorflow.contrib.tensorboard.plugins.projector.projector_config_pb2 import ProjectorConfig
+from tensorflow.python.framework import errors
 from tensorflow.python.lib.io import file_io
 from tensorflow.python.platform import tf_logging as logging
 from tensorflow.python.pywrap_tensorflow import NewCheckpointReader
@@ -63,16 +64,19 @@ def _latest_checkpoints_changed(configs, run_path_pairs):
   """Returns true if the latest checkpoint has changed in any of the runs."""
   for run_name, logdir in run_path_pairs:
     if run_name not in configs:
-      continue
-    config = configs[run_name]
-    if not config.model_checkpoint_path:
-      continue
+      config = ProjectorConfig()
+      config_fpath = os.path.join(logdir, PROJECTOR_FILENAME)
+      if file_io.file_exists(config_fpath):
+        file_content = file_io.read_file_to_string(config_fpath).decode('utf-8')
+        text_format.Merge(file_content, config)
+    else:
+      config = configs[run_name]
 
     # See if you can find a checkpoint file in the logdir.
     ckpt_path = latest_checkpoint(logdir)
     if not ckpt_path:
       # See if you can find a checkpoint in the parent of logdir.
-      ckpt_path = latest_checkpoint(os.path.join('../', logdir))
+      ckpt_path = latest_checkpoint(os.path.join(logdir, os.pardir))
       if not ckpt_path:
         continue
     if config.model_checkpoint_path != ckpt_path:
@@ -154,8 +158,11 @@ class ProjectorPlugin(TBPlugin):
 
   def _augment_configs_with_checkpoint_info(self):
     for run, config in self._configs.items():
-      # Find the size of the embeddings that are associated with a tensor file.
       for embedding in config.embeddings:
+        # Normalize the name of the embeddings.
+        if embedding.tensor_name.endswith(':0'):
+          embedding.tensor_name = embedding.tensor_name[:-2]
+        # Find the size of embeddings associated with a tensors file.
         if embedding.tensor_path and not embedding.tensor_shape:
           tensor = _read_tensor_file(embedding.tensor_path)
           embedding.tensor_shape.extend([len(tensor), len(tensor[0])])
@@ -213,7 +220,7 @@ class ProjectorPlugin(TBPlugin):
         ckpt_path = latest_checkpoint(logdir)
         if not ckpt_path:
           # Or in the parent of logdir.
-          ckpt_path = latest_checkpoint(os.path.join('../', logdir))
+          ckpt_path = latest_checkpoint(os.path.join(logdir, os.pardir))
           if not ckpt_path and not has_tensor_files:
             continue
         if ckpt_path:
@@ -369,7 +376,11 @@ class ProjectorPlugin(TBPlugin):
                         (name, config.model_checkpoint_path),
                         'text/plain', 400)
         return
-      tensor = reader.get_tensor(name)
+      try:
+        tensor = reader.get_tensor(name)
+      except errors.InvalidArgumentError as e:
+        request.respond(str(e), 'text/plain', 400)
+        return
 
     if num_rows:
       tensor = tensor[:num_rows]
