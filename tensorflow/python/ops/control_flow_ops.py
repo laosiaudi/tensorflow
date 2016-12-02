@@ -76,7 +76,6 @@ import six
 from six.moves import xrange  # pylint: disable=redefined-builtin
 
 from tensorflow.core.protobuf import control_flow_pb2
-from tensorflow.python.framework import common_shapes
 from tensorflow.python.framework import constant_op
 from tensorflow.python.framework import dtypes
 from tensorflow.python.framework import ops
@@ -116,9 +115,10 @@ def Assert(condition, data, summarize=None, name=None):
   NOTE: To ensure that Assert executes, one usually attaches a dependency:
 
   ```python
-   # Ensure maximum element of x is smaller or equal to 1
+  # Ensure maximum element of x is smaller or equal to 1
   assert_op = tf.Assert(tf.less_equal(tf.reduce_max(x), 1.), [x])
-  x = tf.with_dependencies([assert_op], x)
+  with tf.control_dependencies([assert_op]):
+    ... code using x ...
   ```
 
   Args:
@@ -159,9 +159,9 @@ def _Identity(data, name=None):
   Returns:
     A Tensor with the same type and value as the input Tensor.
   """
-  data = ops.convert_to_tensor_or_indexed_slices(data, as_ref=True)
+  data = ops.internal_convert_to_tensor_or_indexed_slices(data, as_ref=True)
   if isinstance(data, ops.Tensor):
-    if data.dtype.is_ref_dtype:
+    if data.dtype._is_ref_dtype:  # pylint: disable=protected-access
       return gen_array_ops._ref_identity(data, name=name)
     else:
       return array_ops.identity(data, name=name)
@@ -181,9 +181,9 @@ def _Identity(data, name=None):
 
 
 def _NextIteration(data, name=None):
-  data = ops.convert_to_tensor_or_indexed_slices(data, as_ref=True)
+  data = ops.internal_convert_to_tensor_or_indexed_slices(data, as_ref=True)
   if isinstance(data, ops.Tensor):
-    if data.dtype.is_ref_dtype:
+    if data.dtype._is_ref_dtype:   # pylint: disable=protected-access
       return ref_next_iteration(data, name=name)
     else:
       return next_iteration(data, name=name)
@@ -222,9 +222,9 @@ def _Enter(data, frame_name, is_constant=False, parallel_iterations=10,
   Returns:
     The same tensor as `data`.
   """
-  data = ops.convert_to_tensor_or_indexed_slices(data, as_ref=True)
+  data = ops.internal_convert_to_tensor_or_indexed_slices(data, as_ref=True)
   if isinstance(data, ops.Tensor):
-    if data.dtype.is_ref_dtype and use_ref:
+    if data.dtype._is_ref_dtype and use_ref:  # pylint: disable=protected-access
       result = ref_enter(data, frame_name, is_constant, parallel_iterations,
                          name=name)
     else:
@@ -271,9 +271,9 @@ def exit(data, name=None):
   Returns:
     The same tensor as `data`.
   """
-  data = ops.convert_to_tensor_or_indexed_slices(data, as_ref=True)
+  data = ops.internal_convert_to_tensor_or_indexed_slices(data, as_ref=True)
   if isinstance(data, ops.Tensor):
-    if data.dtype.is_ref_dtype:
+    if data.dtype._is_ref_dtype:  # pylint: disable=protected-access
       return gen_control_flow_ops._ref_exit(data, name)
     else:
       return gen_control_flow_ops._exit(data, name)
@@ -312,8 +312,8 @@ def switch(data, pred, dtype=None, name=None):
     to `output_true`, otherwise it goes to `output_false`.
   """
   with ops.name_scope(name, "Switch", [data, pred]) as name:
-    data = ops.convert_to_tensor_or_indexed_slices(data, dtype=dtype,
-                                                   name="data", as_ref=True)
+    data = ops.internal_convert_to_tensor_or_indexed_slices(
+        data, dtype=dtype, name="data", as_ref=True)
     pred = ops.convert_to_tensor(pred, name="pred")
     if isinstance(data, ops.Tensor):
       return gen_control_flow_ops._switch(data, pred, name=name)
@@ -379,7 +379,7 @@ def _SwitchRefOrTensor(data, pred, name="Switch"):
   # created within ops.colocate_with(data) to ignore the existing stack.
   with ops.colocate_with(data, ignore_existing=True):
     if isinstance(data, ops.Tensor):
-      if data.dtype.is_ref_dtype:
+      if data.dtype._is_ref_dtype:  # pylint: disable=protected-access
         return ref_switch(data, pred, name=name)
     return switch(data, pred, name=name)
 
@@ -412,10 +412,10 @@ def merge(inputs, name=None):
   if any([inp is None for inp in inputs]):
     raise ValueError("At least one of the merge inputs is None: %s" % inputs)
   with ops.name_scope(name, "Merge", inputs) as name:
-    inputs = [ops.convert_to_tensor_or_indexed_slices(inp, as_ref=True)
+    inputs = [ops.internal_convert_to_tensor_or_indexed_slices(inp, as_ref=True)
               for inp in inputs]
     if all([isinstance(v, ops.Tensor) for v in inputs]):
-      if all([v.dtype.is_ref_dtype for v in inputs]):
+      if all([v.dtype._is_ref_dtype for v in inputs]):  # pylint: disable=protected-access
         return gen_control_flow_ops._ref_merge(inputs, name)
       else:
         return gen_control_flow_ops._merge(inputs, name)
@@ -1748,7 +1748,7 @@ def cond(pred, fn1, fn2, name=None):
     y = tf.constant(5)
     def f1(): return tf.mul(x, 17)
     def f2(): return tf.add(y, 23)
-    r = cond(tf.less(x, y), f1, f2)
+    r = tf.cond(tf.less(x, y), f1, f2)
     # r is set to f1().
     # Operations in f2 (e.g., tf.add) are not executed.
   ```
@@ -2236,7 +2236,9 @@ class WhileContext(ControlFlowContext):
       if self.outer_context: self.outer_context.Exit()
     else:
       value = op.inputs[0]
-      if self.outer_context:
+      if (isinstance(self.outer_context, WhileContext) and
+          self.outer_context.grad_state is not None):
+        # We are in a nested while loop.
         forward_ctxt = self.grad_state.forward_context
         forward_ctxt.outer_context.Enter()
         zeros_shape = array_ops.shape_internal(value, optimize=False)
@@ -2250,8 +2252,10 @@ class WhileContext(ControlFlowContext):
         acc = array_ops.zeros(real_shape, grad.dtype)
         self.outer_context.Exit()
       else:
+        if self.outer_context: self.outer_context.Enter()
         zeros_shape = array_ops.shape_internal(value, optimize=False)
         acc = array_ops.zeros(zeros_shape, grad.dtype)
+        if self.outer_context: self.outer_context.Exit()
       acc._shape = grad.get_shape()  # pylint: disable=protected-access
 
     self.Enter()
@@ -3007,68 +3011,6 @@ def case(pred_fn_pairs, default, exclusive=False, name="case"):
       case_seq = _build_case()
 
     return case_seq
-
-
-ops.RegisterShape("Enter")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("Exit")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("NextIteration")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("RefEnter")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("RefExit")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("RefNextIteration")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("ControlTrigger")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("NoOp")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("Abort")(common_shapes.call_cpp_shape_fn)
-
-
-@ops.RegisterShape("LoopCond")
-def _LoopCondShape(op):
-  """Shape function for the LoopCond op."""
-  return [op.inputs[0].get_shape().merge_with(tensor_shape.scalar())]
-
-
-ops.RegisterShape("Merge")(common_shapes.call_cpp_shape_fn)
-
-
-def _MergeShape(op):
-  """Shape function for the Merge op.
-
-  The Merge op takes many inputs of arbitrary shapes, and produces a
-  first output that is one of those inputs, and a second scalar
-  output.
-
-  If all input shapes are known and have the same rank, the output
-  shape must have that rank, otherwise the output shape is unknown.
-  Each output dimension is specified only if that dimension in all
-  inputs are the same.
-
-  Args:
-    op: A Merge Operation.
-
-  Returns:
-    A single-element list containing the Shape of the Merge op.
-
-  """
-  output_shape = op.inputs[0].get_shape()
-  if output_shape.dims is None:
-    return [tensor_shape.unknown_shape(), tensor_shape.scalar()]
-  else:
-    for input_ in op.inputs[1:]:
-      input_shape = input_.get_shape()
-      if input_shape.dims is None or input_shape.ndims != output_shape.ndims:
-        return [tensor_shape.unknown_shape(), tensor_shape.scalar()]
-      else:
-        output_shape = tensor_shape.TensorShape(
-            [input_dim.value if input_dim.value == output_dim.value else None
-             for input_dim, output_dim in zip(input_shape.dims,
-                                              output_shape.dims)])
-    return [output_shape, tensor_shape.scalar()]
-
-ops.RegisterShape("RefMerge")(_MergeShape)
-
-
-ops.RegisterShape("RefSelect")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("RefSwitch")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("Switch")(common_shapes.call_cpp_shape_fn)
 
 
 ops.register_proto_function(ops.GraphKeys.COND_CONTEXT,

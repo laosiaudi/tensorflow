@@ -12,6 +12,7 @@ licenses(["notice"])  # Apache 2.0
 
 load("//tensorflow:tensorflow.bzl", "tf_py_test")
 load("//tensorflow:tensorflow.bzl", "cuda_py_test")
+load("//tensorflow:tensorflow.bzl", "sycl_py_test")
 
 # CPU only tests should use tf_py_test, GPU tests use cuda_py_test
 # Please avoid the py_tests and cuda_py_tests (plural) while we
@@ -113,6 +114,14 @@ tf_py_test(
     size = "small",
     srcs = ["decode_png_op_test.py"],
     additional_deps = ["//tensorflow:tensorflow_py"],
+)
+
+tf_py_test(
+    name = "decode_image_op_test",
+    size = "small",
+    srcs = ["decode_image_op_test.py"],
+    additional_deps = ["//tensorflow:tensorflow_py"],
+    data = ["//tensorflow/core:image_testdata"],
 )
 
 tf_py_test(
@@ -1214,6 +1223,7 @@ cuda_py_test(
     additional_deps = [
         "//tensorflow:tensorflow_py",
     ],
+    shard_count = 10,
 )
 
 cuda_py_test(
@@ -1354,12 +1364,28 @@ cuda_py_test(
 )
 
 cuda_py_test(
+    name = "qr_op_test",
+    size = "medium",
+    srcs = ["qr_op_test.py"],
+    additional_deps = ["//tensorflow:tensorflow_py"],
+    shard_count = 20,
+    tags = ["nomsan"],  # fails in msan from numpy calls
+)
+
+cuda_py_test(
     name = "svd_op_test",
     size = "medium",
     srcs = ["svd_op_test.py"],
     additional_deps = ["//tensorflow:tensorflow_py"],
     shard_count = 20,
     tags = ["nomsan"],  # fails in msan from numpy calls
+)
+
+sycl_py_test(
+    name = "basic_gpu_test",
+    size = "small",
+    srcs = ["basic_gpu_test.py"],
+    additional_deps = ["//tensorflow:tensorflow_py"],
 )
 
 filegroup(

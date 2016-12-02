@@ -139,8 +139,8 @@ arguments as your `input_fn` and use it to invoke your input function
 with the desired parameters. For example:
 
 ```python
-def my_input_function_training_set:
-  my_input_function(training_set)
+def my_input_function_training_set():
+  return my_input_function(training_set)
 
 classifier.fit(input_fn=my_input_fn_training_set, steps=2000)
 ```
@@ -286,7 +286,7 @@ accept a _pandas_ `Dataframe` and return feature column and label values as
 
 ```python
 def input_fn(data_set):
-  feature_cols = {k: tf.constant(data_set[k].values
+  feature_cols = {k: tf.constant(data_set[k].values)
                   for k in FEATURES}
   labels = tf.constant(data_set[LABEL].values)
   return feature_cols, labels

@@ -29,6 +29,7 @@ from six.moves import xrange  # pylint: disable=redefined-builtin
 from tensorflow.core.lib.core import error_codes_pb2
 from tensorflow.core.protobuf import config_pb2
 from tensorflow.python.client import session
+from tensorflow.python.framework import common_shapes
 from tensorflow.python.framework import constant_op
 from tensorflow.python.framework import dtypes
 from tensorflow.python.framework import errors
@@ -47,8 +48,9 @@ from tensorflow.python.platform import googletest
 from tensorflow.python.util import compat
 
 
-# NOTE(mrry): Dummy shape registration for op used in the tests.
-ops.RegisterShape('ConstructionFails')(None)
+# NOTE(mrry): Dummy shape registration for ops used in the tests, since they
+# don't have C++ op registrations on which to attach C++ shape fns.
+ops.RegisterShape('ConstructionFails')(common_shapes.unknown_shape)
 
 
 class SessionTest(test_util.TensorFlowTestCase):
@@ -251,6 +253,18 @@ class SessionTest(test_util.TensorFlowTestCase):
       self.assertEqual(42.0, res['a'])
       self.assertEqual(None, res['b'])
       self.assertEqual(44.0, res['c'])
+
+  def testFetchOrderedDict(self):
+    with session.Session() as sess:
+      a = constant_op.constant(42.0)
+      b = control_flow_ops.no_op()  # An op, not a tensor.
+      c = constant_op.constant(44.0)
+      res = sess.run(collections.OrderedDict([(3, a), (2, b), (1, c)]))
+      self.assertTrue(isinstance(res, collections.OrderedDict))
+      self.assertEqual([3, 2, 1], list(res.keys()))
+      self.assertEqual(42.0, res[3])
+      self.assertEqual(None, res[2])
+      self.assertEqual(44.0, res[1])
 
   def testFetchNestingEmptyOneLevel(self):
     with session.Session() as sess:

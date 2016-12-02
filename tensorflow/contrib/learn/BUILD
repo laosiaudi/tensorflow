@@ -21,6 +21,10 @@ py_library(
         "//tensorflow/contrib/session_bundle:exporter",
         "//tensorflow/contrib/tensor_forest:client_lib",
         "//tensorflow/python:framework",
+        "//tensorflow/python/saved_model:builder",
+        "//tensorflow/python/saved_model:loader",
+        "//tensorflow/python/saved_model:signature_def_utils",
+        "//tensorflow/python/saved_model:tag_constants",
     ],
 )
 
@@ -273,7 +277,7 @@ py_test(
 
 py_test(
     name = "experiment_test",
-    size = "small",
+    size = "medium",
     srcs = ["python/learn/experiment_test.py"],
     srcs_version = "PY2AND3",
     deps = [
@@ -384,7 +388,7 @@ py_test(
 
 py_test(
     name = "dnn_linear_combined_test",
-    size = "medium",
+    size = "large",
     srcs = ["python/learn/estimators/dnn_linear_combined_test.py"],
     shard_count = 4,
     srcs_version = "PY2AND3",
@@ -413,6 +417,26 @@ py_test(
     srcs = ["python/learn/estimators/dnn_test.py"],
     shard_count = 4,
     srcs_version = "PY2AND3",
+    tags = [
+        "manual",
+        "notap",  # TODO(b/31934515,b/32718315)
+    ],
+    deps = [
+        ":learn",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/python:framework_test_lib",
+    ],
+)
+
+py_test(
+    name = "dnn_linear_combined_benchmark_test",
+    size = "medium",
+    srcs = ["python/learn/estimators/dnn_linear_combined_benchmark_test.py"],
+    srcs_version = "PY2AND3",
+    visibility = [
+        "//learning/brain/google/guitar:__subpackages__",
+        "//tensorflow:__subpackages__",
+    ],
     deps = [
         ":learn",
         "//tensorflow:tensorflow_py",
@@ -615,6 +639,18 @@ py_test(
 )
 
 py_test(
+    name = "pandas_io_test",
+    size = "small",
+    srcs = ["python/learn/learn_io/pandas_io_test.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":learn",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/python:framework_test_lib",
+    ],
+)
+
+py_test(
     name = "export_test",
     size = "small",
     srcs = ["python/learn/utils/export_test.py"],
@@ -622,6 +658,32 @@ py_test(
     tags = [
         "manual",  # http://b/31032996
     ],
+    deps = [
+        ":learn",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/python:framework",
+        "//tensorflow/python:framework_test_lib",
+    ],
+)
+
+py_test(
+    name = "gc_test",
+    size = "small",
+    srcs = ["python/learn/utils/gc_test.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":learn",
+        "//tensorflow:tensorflow_py",
+        "//tensorflow/python:framework",
+        "//tensorflow/python:framework_test_lib",
+    ],
+)
+
+py_test(
+    name = "saved_model_export_utils_test",
+    size = "small",
+    srcs = ["python/learn/utils/saved_model_export_utils_test.py"],
+    srcs_version = "PY2AND3",
     deps = [
         ":learn",
         "//tensorflow:tensorflow_py",

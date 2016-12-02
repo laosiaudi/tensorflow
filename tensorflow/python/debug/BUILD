@@ -22,6 +22,7 @@ py_library(
     deps = [
         ":debug_data",
         ":debug_utils",
+        ":hooks",
         ":local_cli_wrapper",
     ],
 )
@@ -80,6 +81,17 @@ py_library(
 )
 
 py_library(
+    name = "cli_shared",
+    srcs = ["cli/cli_shared.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":debugger_cli_common",
+        "//tensorflow/python:framework",
+        "//tensorflow/python:variables",
+    ],
+)
+
+py_library(
     name = "analyzer_cli",
     srcs = ["cli/analyzer_cli.py"],
     srcs_version = "PY2AND3",
@@ -108,10 +120,21 @@ py_library(
     srcs_version = "PY2AND3",
     deps = [
         ":analyzer_cli",
+        ":cli_shared",
         ":curses_ui",
         ":debug_data",
         ":debugger_cli_common",
         ":framework",
+        "//tensorflow/python:session",
+    ],
+)
+
+py_library(
+    name = "hooks",
+    srcs = ["wrappers/hooks.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":local_cli_wrapper",
         "//tensorflow/python:session",
     ],
 )
@@ -138,6 +161,13 @@ py_binary(
         "//tensorflow:tensorflow_py",
         "//tensorflow/examples/tutorials/mnist:input_data",
     ],
+)
+
+py_binary(
+    name = "debug_tflearn_iris",
+    srcs = ["examples/debug_tflearn_iris.py"],
+    srcs_version = "PY2AND3",
+    deps = ["//tensorflow:tensorflow_py"],
 )
 
 py_test(
@@ -217,19 +247,27 @@ py_test(
     ],
 )
 
-cuda_py_test(
-    name = "session_debug_test",
-    size = "small",
-    srcs = [
-        "session_debug_test.py",
-    ],
-    additional_deps = [
+py_library(
+    name = "session_debug_testlib",
+    srcs = ["session_debug_testlib.py"],
+    srcs_version = "PY2AND3",
+    deps = [
         ":debug_data",
         ":debug_utils",
         "//tensorflow:tensorflow_py",
         "//tensorflow/python:framework",
         "//tensorflow/python:framework_test_lib",
         "//tensorflow/python:session",
+    ],
+)
+
+cuda_py_test(
+    name = "session_debug_file_test",
+    size = "small",
+    srcs = ["session_debug_file_test.py"],
+    additional_deps = [
+        ":session_debug_testlib",
+        "//tensorflow/python:framework_test_lib",
     ],
 )
 
@@ -268,6 +306,19 @@ py_test(
     srcs_version = "PY2AND3",
     deps = [
         ":tensor_format",
+        "//tensorflow/python:framework_test_lib",
+    ],
+)
+
+py_test(
+    name = "cli_shared_test",
+    size = "small",
+    srcs = [
+        "cli/cli_shared_test.py",
+    ],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":cli_shared",
         "//tensorflow/python:framework_test_lib",
     ],
 )

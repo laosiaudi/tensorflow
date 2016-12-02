@@ -82,6 +82,7 @@ from tensorflow.python.ops.standard_ops import *
 # pylint: enable=wildcard-import
 
 # Bring in subpackages.
+from tensorflow.python.layers import layers
 from tensorflow.python.ops import nn
 from tensorflow.python.ops import resources
 from tensorflow.python.ops import sdca_ops as sdca
@@ -158,6 +159,9 @@ _allowed_symbols = [
 _allowed_symbols.extend([
     'arg_max',
     'arg_min',
+    'mul',  # use tf.multiply instead.
+    'neg',  # use tf.negative instead.
+    'sub',  # use tf.subtract instead.
     'create_partitioned_variables',
     'deserialize_many_sparse',
     'lin_space',
@@ -180,49 +184,27 @@ _allowed_symbols.extend([
 _allowed_symbols.extend([
     'QUANTIZED_DTYPES',
     'bfloat16',
-    'bfloat16_ref',
     'bool',
-    'bool_ref',
     'complex64',
-    'complex64_ref',
     'complex128',
-    'complex128_ref',
     'double',
-    'double_ref',
     'half',
-    'half_ref',
     'float16',
-    'float16_ref',
     'float32',
-    'float32_ref',
     'float64',
-    'float64_ref',
     'int16',
-    'int16_ref',
     'int32',
-    'int32_ref',
     'int64',
-    'int64_ref',
     'int8',
-    'int8_ref',
     'qint16',
-    'qint16_ref',
     'qint32',
-    'qint32_ref',
     'qint8',
-    'qint8_ref',
     'quint16',
-    'quint16_ref',
     'quint8',
-    'quint8_ref',
     'string',
-    'string_ref',
     'uint16',
-    'uint16_ref',
     'uint8',
-    'uint8_ref',
     'resource',
-    'resource_ref',
 ])
 
 # Export modules and constants.
@@ -246,6 +228,7 @@ _allowed_symbols.extend([
     'test',
     'train',
     'user_ops',
+    'layers',
 ])
 
 # Variables framework.versions:
@@ -262,7 +245,7 @@ remove_undocumented(__name__, _allowed_symbols,
                      compat, constant_op, control_flow_ops, functional_ops,
                      histogram_ops, io_ops, math_ops, nn, resource_loader,
                      resources, script_ops, session_ops, sparse_ops, state_ops,
-                     string_ops, summary, tensor_array_ops, train])
+                     string_ops, summary, tensor_array_ops, train, layers])
 
 # Special dunders that we choose to export:
 _exported_dunders = set([

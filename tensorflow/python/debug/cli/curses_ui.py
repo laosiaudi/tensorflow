@@ -208,8 +208,10 @@ class CursesUI(object):
 
         self._color_pairs[color_name] = curses.color_pair(color_index)
 
-    # A_BOLD is not really a "color". But place it here for convenience.
+    # A_BOLD or A_BLINK is not really a "color". But place it here for
+    # convenience.
     self._color_pairs["bold"] = curses.A_BOLD
+    self._color_pairs["blink"] = curses.A_BLINK
 
     # Default color pair to use when a specified color pair does not exist.
     self._default_color_pair = self._color_pairs["white"]
@@ -310,7 +312,7 @@ class CursesUI(object):
     """Set an introductory message to the help output of the command registry.
 
     Args:
-      help_intro: (list of str) Text lines appended to the beginning of the
+      help_intro: (RichTextLines) Rich text lines appended to the beginning of
         the output of the command "help", as introductory information.
     """
 
@@ -937,10 +939,19 @@ class CursesUI(object):
 
     if self._output_pad_height > self._output_pad_screen_height + 1:
       # Display information about the scrolling of tall screen output.
-      self._scroll_info = "--- Scroll: %.2f%% " % (100.0 * (min(
+      scroll_percentage = 100.0 * (min(
           1.0,
           float(self._output_pad_row) /
-          (self._output_pad_height - self._output_pad_screen_height - 1))))
+          (self._output_pad_height - self._output_pad_screen_height - 1)))
+      if self._output_pad_row == 0:
+        scroll_directions = " (PgDn)"
+      elif self._output_pad_row >= (
+          self._output_pad_height - self._output_pad_screen_height - 1):
+        scroll_directions = " (PgUp)"
+      else:
+        scroll_directions = " (PgDn/PgUp)"
+      self._scroll_info = "--- Scroll%s: %.2f%% " % (scroll_directions,
+                                                     scroll_percentage)
 
       self._output_array_pointer_indices = self._show_array_indices()
 

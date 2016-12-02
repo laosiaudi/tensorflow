@@ -155,6 +155,11 @@ fill([2, 3], 9) ==> [[9, 9, 9]
 *  <b>`dims`</b>: A `Tensor` of type `int32`.
     1-D. Represents the shape of the output tensor.
 *  <b>`value`</b>: A `Tensor`. 0-D (scalar). Value to fill the returned tensor.
+
+    @compatibility(numpy)
+    Equivalent to np.full
+    @end_compatibility
+
 *  <b>`name`</b>: A name for the operation (optional).
 
 ##### Returns:
@@ -165,7 +170,7 @@ fill([2, 3], 9) ==> [[9, 9, 9]
 
 - - -
 
-### `tf.constant(value, dtype=None, shape=None, name='Const')` {#constant}
+### `tf.constant(value, dtype=None, shape=None, name='Const', verify_shape=False)` {#constant}
 
 Creates a constant tensor.
 
@@ -210,6 +215,9 @@ Creates a constant tensor.
 
 
 *  <b>`name`</b>: Optional name for the tensor.
+
+
+*  <b>`verify_shape`</b>: Boolean that enables verification of a shape of values.
 
 ##### Returns:
 
@@ -301,6 +309,10 @@ tf.range(limit) ==> [0, 1, 2, 3, 4]
 ##### Returns:
 
   An 1-D `Tensor` of type `dtype`.
+
+@compatibility(numpy)
+Equivalent to np.arange
+@end_compatibility
 
 
 

@@ -28,6 +28,7 @@ from tensorflow.python.framework import ops
 from tensorflow.python.framework import sparse_tensor
 from tensorflow.python.framework import tensor_shape
 from tensorflow.python.framework import test_ops
+from tensorflow.python.framework import test_ops_2
 from tensorflow.python.framework import test_util
 from tensorflow.python.framework import versions
 # Import gradients to register _IndexedSlicesToTensor.
@@ -40,10 +41,7 @@ import tensorflow.python.ops.gradients  # pylint: disable=unused-import
 from tensorflow.python.platform import googletest
 from tensorflow.python.util import compat
 
-ops.RegisterShape("ResourceOp")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("ResourceUsingOp")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("ResourceInitializedOp")(common_shapes.call_cpp_shape_fn)
-ops.RegisterShape("ResourceCreateOp")(common_shapes.call_cpp_shape_fn)
+ops._set_call_cpp_shape_fn(common_shapes.call_cpp_shape_fn)
 
 
 class ResourceTest(test_util.TensorFlowTestCase):
@@ -129,20 +127,21 @@ class NodeDefConstructorTest(test_util.TensorFlowTestCase):
     self.assertProtoEquals("op:'foo' name:'bar' device:'/job:j'", nodedef)
 
 
-# NOTE(mrry): Dummy shape registrations for ops used in the tests.
-ops.RegisterShape("a")(None)
-ops.RegisterShape("b")(None)
-ops.RegisterShape("c")(None)
-ops.RegisterShape("add")(None)
-ops.RegisterShape("an_op")(None)
-ops.RegisterShape("const")(None)
-ops.RegisterShape("copy")(None)
-ops.RegisterShape("foo")(None)
-ops.RegisterShape("identity")(None)
-ops.RegisterShape("mul")(None)
-ops.RegisterShape("nonrefop")(None)
-ops.RegisterShape("noop")(None)
-ops.RegisterShape("refop")(None)
+# NOTE(mrry): Dummy shape registrations for ops used in the tests, since they
+# don't have C++ op registrations on which to attach C++ shape fns.
+ops.RegisterShape("a")(common_shapes.unknown_shape)
+ops.RegisterShape("b")(common_shapes.unknown_shape)
+ops.RegisterShape("c")(common_shapes.unknown_shape)
+ops.RegisterShape("add")(common_shapes.unknown_shape)
+ops.RegisterShape("an_op")(common_shapes.unknown_shape)
+ops.RegisterShape("const")(common_shapes.unknown_shape)
+ops.RegisterShape("copy")(common_shapes.unknown_shape)
+ops.RegisterShape("foo")(common_shapes.unknown_shape)
+ops.RegisterShape("identity")(common_shapes.unknown_shape)
+ops.RegisterShape("mul")(common_shapes.unknown_shape)
+ops.RegisterShape("nonrefop")(common_shapes.unknown_shape)
+ops.RegisterShape("noop")(common_shapes.unknown_shape)
+ops.RegisterShape("refop")(common_shapes.unknown_shape)
 
 
 def _apply_op(g, *args, **kwargs):
@@ -270,11 +269,6 @@ class OperationTest(test_util.TensorFlowTestCase):
       ops.Operation(ops._NodeDef("op", "/invalid"), g)
     with self.assertRaises(ValueError):
       ops.Operation(ops._NodeDef("op", "invalid:0"), g)
-
-  def testShapeFunctionAbsence(self):
-    g = ops.Graph()
-    with self.assertRaises(RuntimeError):
-      g.create_op("shapeless_op", [], [dtypes.float32])
 
   def testNoShapeFunction(self):
     g = ops.Graph()
@@ -1494,6 +1488,25 @@ class ColocationGroupTest(test_util.TensorFlowTestCase):
       with ops.colocate_with(b.op, ignore_existing=True):
         c = constant_op.constant(4.0)
     self.assertEqual(set([b"loc:@b"]), set(c.op.colocation_groups()))
+
+  def testColocateWithReset(self):
+    a = constant_op.constant([2.0], name="a")
+    with ops.colocate_with(a.op):
+      b = constant_op.constant(3.0, name="b")
+      with ops.colocate_with(None, ignore_existing=True):
+        c = constant_op.constant(4.0, name="c")
+    self.assertEqual([b"loc:@a"], b.op.colocation_groups())
+    self.assertEqual([b"loc:@c"], c.op.colocation_groups())
+
+  def testColocateWithInitialNoneThenNested(self):
+    a = constant_op.constant([2.0], name="a")
+    with ops.colocate_with(a.op):
+      with ops.colocate_with(None, ignore_existing=True):
+        b = constant_op.constant(3.0, name="b")
+        with ops.colocate_with(b.op):
+          c = constant_op.constant(4.0, name="c")
+    self.assertEqual([b"loc:@b"], b.op.colocation_groups())
+    self.assertEqual([b"loc:@b"], c.op.colocation_groups())
 
   def testColocateVariables(self):
     a = variables.Variable([2.0], name="a")

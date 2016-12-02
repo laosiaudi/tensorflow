@@ -15,6 +15,7 @@ limitations under the License.
 import {State} from './data';
 import {DataProvider, EmbeddingInfo} from './data-provider';
 import * as logging from './logging';
+import {ProjectorEventContext} from './projectorEventContext';
 import {Projector} from './vz-projector';
 // tslint:disable-next-line:no-unused-variable
 import {PolymerElement, PolymerHTMLElement} from './vz-projector-util';
@@ -33,12 +34,12 @@ export let BookmarkPanelPolymer = PolymerElement({
 
 export class BookmarkPanel extends BookmarkPanelPolymer {
   private projector: Projector;
-  private dataProvider: DataProvider;
 
   // A list containing all of the saved states.
   private savedStates: State[];
   private hasStates = false;
   private selectedState: number;
+  private ignoreNextProjectionEvent: boolean;
 
   private dom: d3.Selection<any>;
 
@@ -46,19 +47,29 @@ export class BookmarkPanel extends BookmarkPanelPolymer {
     this.dom = d3.select(this);
     this.savedStates = [];
     this.setupUploadButton();
+    this.ignoreNextProjectionEvent = false;
   }
 
-  initialize(projector: Projector, dataProvider: DataProvider) {
+  initialize(
+      projector: Projector, projectorEventContext: ProjectorEventContext) {
     this.projector = projector;
-    this.dataProvider = dataProvider;
+    projectorEventContext.registerProjectionChangedListener(() => {
+      if (this.ignoreNextProjectionEvent) {
+        this.ignoreNextProjectionEvent = false;
+      } else {
+        this.clearStateSelection();
+      }
+    });
   }
 
-  setSelectedTensor(run: string, tensorInfo: EmbeddingInfo) {
+  setSelectedTensor(
+      run: string, tensorInfo: EmbeddingInfo, dataProvider: DataProvider) {
+    // Clear any existing bookmarks.
+    this.addStates(null);
     if (tensorInfo && tensorInfo.bookmarksPath) {
-      this.loadAllStates([]);
       // Get any bookmarks that may come when the projector starts up.
-      this.dataProvider.getBookmarks(run, tensorInfo.tensorName, bookmarks => {
-        this.loadAllStates(bookmarks);
+      dataProvider.getBookmarks(run, tensorInfo.tensorName, bookmarks => {
+        this.addStates(bookmarks);
       });
     }
   }
@@ -135,7 +146,7 @@ export class BookmarkPanel extends BookmarkPanelPolymer {
 
         // Verify the bookmarks match.
         if (this.savedStatesValid(savedStates)) {
-          this.loadAllStates(savedStates);
+          this.addStates(savedStates);
           this.loadSavedState(0);
         } else {
           logging.setWarningMessage(
@@ -147,10 +158,14 @@ export class BookmarkPanel extends BookmarkPanelPolymer {
     });
   }
 
-  loadAllStates(savedStates: State[]) {
-    for (let i = 0; i < savedStates.length; i++) {
-      savedStates[i].isSelected = false;
-      this.push('savedStates', savedStates[i] as any);
+  addStates(savedStates?: State[]) {
+    if (savedStates == null) {
+      this.savedStates = [];
+    } else {
+      for (let i = 0; i < savedStates.length; i++) {
+        savedStates[i].isSelected = false;
+        this.push('savedStates', savedStates[i] as any);
+      }
     }
     this.updateHasStates();
   }
@@ -158,32 +173,33 @@ export class BookmarkPanel extends BookmarkPanelPolymer {
   /** Deselects any selected state selection. */
   clearStateSelection() {
     for (let i = 0; i < this.savedStates.length; i++) {
-      if (this.savedStates[i].isSelected) {
-        this.savedStates[i].isSelected = false;
-        this.notifyPath('savedStates.' + i + '.isSelected', false, false);
-        return;
-      }
+      this.setSelectionState(i, false);
     }
   }
 
   /** Handles a radio button click on a saved state. */
   _radioButtonHandler(evt: Event) {
-    this.loadSavedState(this.getParentDataIndex(evt));
+    const index = this.getParentDataIndex(evt);
+    this.loadSavedState(index);
+    this.setSelectionState(index, true);
   }
 
   loadSavedState(index: number) {
     for (let i = 0; i < this.savedStates.length; i++) {
       if (this.savedStates[i].isSelected) {
-        this.savedStates[i].isSelected = false;
-        this.notifyPath('savedStates.' + i + '.isSelected', false, false);
+        this.setSelectionState(i, false);
       } else if (index === i) {
-        this.savedStates[i].isSelected = true;
-        this.notifyPath('savedStates.' + i + '.isSelected', true, false);
-
-        // Update the world to this state.
+        this.setSelectionState(i, true);
+        this.ignoreNextProjectionEvent = true;
         this.projector.loadState(this.savedStates[i]);
       }
     }
+  }
+
+  private setSelectionState(stateIndex: number, selected: boolean) {
+    this.savedStates[stateIndex].isSelected = selected;
+    const path = 'savedStates.' + stateIndex + '.isSelected';
+    this.notifyPath(path, selected, false);
   }
 
   /**

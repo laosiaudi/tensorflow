@@ -3,28 +3,13 @@ Estimator class is the basic TensorFlow model trainer/evaluator.
 
 #### `tf.contrib.learn.Estimator.__init__(model_fn=None, model_dir=None, config=None, params=None, feature_engineering_fn=None)` {#Estimator.__init__}
 
-Constructs an Estimator instance.
+Constructs an `Estimator` instance.
 
 ##### Args:
 
 
-*  <b>`model_fn`</b>: Model function, takes features and labels tensors or dicts of
-            tensors and returns tuple of:
-
-      * predictions: `Tensor`, `SparseTensor` or dictionary of same.
-          Can also be any type that is convertible to a `Tensor` or
-          `SparseTensor`, or dictionary of same.
-      * loss: Scalar loss `Tensor`.
-      * train_op: Training update `Tensor` or `Operation`.
-
-     Supports next three signatures for the function:
-
-      * `(features, labels) -> (predictions, loss, train_op)`
-      * `(features, labels, mode) -> (predictions, loss, train_op)`
-      * `(features, labels, mode, params) -> (predictions, loss, train_op)`
-
-    Where
-
+*  <b>`model_fn`</b>: Model function. Follows the signature:
+    * Args:
       * `features` are single `Tensor` or `dict` of `Tensor`s
              (depending on data passed to `fit`),
       * `labels` are `Tensor` or `dict` of `Tensor`s (for multi-head
@@ -32,11 +17,28 @@ Constructs an Estimator instance.
              passed. If the `model_fn`'s signature does not accept
              `mode`, the `model_fn` must still be able to handle
              `labels=None`.
-      * `mode` represents if this training, evaluation or
+      * `mode` specifies if this training, evaluation or
              prediction. See `ModeKeys`.
       * `params` is a `dict` of hyperparameters. Will receive what
              is passed to Estimator in `params` parameter. This allows
-             to configure Estimators from hyper parameter tunning.
+             to configure Estimators from hyper parameter tuning.
+
+    * Returns:
+      `ModelFnOps`
+
+    Also supports a legacy signature which returns tuple of:
+
+      * predictions: `Tensor`, `SparseTensor` or dictionary of same.
+          Can also be any type that is convertible to a `Tensor` or
+          `SparseTensor`, or dictionary of same.
+      * loss: Scalar loss `Tensor`.
+      * train_op: Training update `Tensor` or `Operation`.
+
+    Supports next three signatures for the function:
+
+      * `(features, labels) -> (predictions, loss, train_op)`
+      * `(features, labels, mode) -> (predictions, loss, train_op)`
+      * `(features, labels, mode, params) -> (predictions, loss, train_op)`
 
 
 *  <b>`model_dir`</b>: Directory to save model parameters, graph and etc. This can
@@ -134,6 +136,39 @@ The signature of the input_fn accepted by export is changing to be consistent wi
       added ca. 2016/09/25; clients that depend on the return value may need
       to handle the case where this function returns None because subclasses
       are not returning a value.
+
+
+- - -
+
+#### `tf.contrib.learn.Estimator.export_savedmodel(*args, **kwargs)` {#Estimator.export_savedmodel}
+
+Exports inference graph as a SavedModel into given dir. (experimental)
+
+THIS FUNCTION IS EXPERIMENTAL. It may change or be removed at any time, and without warning.
+
+
+    Args:
+      export_dir_base: A string containing a directory to write the exported
+        graph and checkpoints.
+      input_fn: A function that takes no argument and
+        returns an `InputFnOps`.
+      default_output_alternative_key: the name of the head to serve when none is
+        specified.
+      assets_extra: A dict specifying how to populate the assets.extra directory
+        within the exported SavedModel.  Each key should give the destination
+        path (including the filename) relative to the assets.extra directory.
+        The corresponding value gives the full path of the source file to be
+        copied.  For example, the simple case of copying a single file without
+        renaming it is specified as
+        `{'my_asset_file.txt': '/path/to/my_asset_file.txt'}`.
+      as_text: whether to write the SavedModel proto in text format.
+      exports_to_keep: Number of exports to keep.
+
+    Returns:
+      The string path to the exported directory.
+
+    Raises:
+      ValueError: if an unrecognized export_type is requested.
 
 
 - - -
