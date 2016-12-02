@@ -1747,8 +1747,8 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
       graph_logger_->add_step_stats(stats, node);
       stats_collector_->Save(impl_->params_.device->name(), stats);
     } else {
-      graph_logger_->add_step_stats(stats, node);
-      stats_collector_->Save(impl_->params_.device->name(), stats);
+      //graph_logger_->add_step_stats(stats, node);
+      //stats_collector_->Save(impl_->params_.device->name(), stats);
       delete stats;
     }
   }
