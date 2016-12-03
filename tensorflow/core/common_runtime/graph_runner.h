@@ -30,7 +30,7 @@ limitations under the License.
 #include "tensorflow/core/platform/thread_annotations.h"
 #include "tensorflow/core/platform/types.h"
 #include "tensorflow/core/public/session.h"
-#include "tensorflow/core/common_runtime/graph_logger.h"
+#include "tensorflow/core/common_runtime/step_stats_collector.h"
 
 namespace tensorflow {
 

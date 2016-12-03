@@ -4,19 +4,15 @@
 #include "tensorflow/core/platform/thread_annotations.h"
 #include "tensorflow/core/platform/types.h"
 namespace tensorflow {
-    class Node;
+    /*class Node;
     class NodeExecStats;
     class GraphLogger
     {
         public:
             void add_step_stats(tensorflow::NodeExecStats* stats, const Node *node);
-            /*GraphLogger() {
-		memory = 0;
-		work = new vmap();
-	    }*/
         private:
-            tensorflow::mutex moo_;
-    };
+            mutex moo_;
+    };*/
 }
 
 #endif

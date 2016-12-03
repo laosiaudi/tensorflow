@@ -902,6 +902,7 @@ class ExecutorState {
 
   std::atomic_int_fast32_t num_outstanding_ops_;
 
+  mutex _mu;
   mutex mu_;
   Status status_ GUARDED_BY(mu_);
 
@@ -1740,6 +1741,7 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
     if (!SetTimelineLabel(node, stats)) {
       // Sudev Changed
       // Only record non-transfer nodes.
+      mutex_lock l(_mu); 
       graph_logger_->add_step_stats(stats, node);
       stats_collector_->Save(impl_->params_.device->name(), stats);
     } else {

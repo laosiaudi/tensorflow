@@ -13,6 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
+#include "tensorflow/core/common_runtime/step_stats_collector.h"
 #include "tensorflow/core/common_runtime/graph_runner.h"
 
 #include "tensorflow/core/common_runtime/device_factory.h"
@@ -33,7 +34,6 @@ limitations under the License.
 namespace tensorflow {
 
 namespace {
-
 std::unique_ptr<Device> GetCPUDevice(Env* env) {
   std::vector<Device*> devices;
   SessionOptions session_options;
@@ -164,14 +164,14 @@ Status GraphRunner::Run(Graph* graph, FunctionLibraryRuntime* function_library,
   args.runner = runner;
   args.rendezvous = rendez;
 
-  GraphLogger *graph_logger;
+  GraphLogger *graph_logger = new GraphLogger();
   // create graph logger
-  if (delay_saver.count(args.step_id) == 0) {
+ /* if (delay_saver.count(args.step_id) == 0) {
     graph_logger = new GraphLogger();
     delay_saver[args.step_id] = graph_logger;
   } else {
     graph_logger = delay_saver[args.step_id];
-  }
+  }*/
 
   args.graph_logger = graph_logger;
 

@@ -213,5 +213,18 @@ void StepStatsCollector::Swap(StepStats* ss) {
   ss->Swap(step_stats_);
   collectedNodes = 0;
 }
+    void GraphLogger::add_step_stats(NodeExecStats* nt, const Node *node)
+    {
+	//{	
+	    //std::lock_guard<std::mutex> guard(moo_);
+       //mutex_lock l(moo_);
+	//}
+	FILE *file =fopen("/tmp/ttt", "a+");
+	fprintf(file, "pass lock\n");
+	fflush(file);
+	fclose(file);
+       //moo_.lock();
+       //moo_.unlock();
+    }
 
 }  // namespace tensorflow
