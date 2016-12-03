@@ -902,7 +902,7 @@ class ExecutorState {
 
   std::atomic_int_fast32_t num_outstanding_ops_;
 
-  mutex _mu;
+  mutex &logger_mu;
   mutex mu_;
   Status status_ GUARDED_BY(mu_);
 
@@ -993,6 +993,7 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
     : vlog_(VLOG_IS_ON(1)),
       log_memory_(LogMemory::IsEnabled()),
       step_id_(args.step_id),
+      logger_mu(args.logger_mutex),
       graph_logger_(args.graph_logger),
       rendezvous_(args.rendezvous),
       session_state_(args.session_state),
@@ -1741,8 +1742,10 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
     if (!SetTimelineLabel(node, stats)) {
       // Sudev Changed
       // Only record non-transfer nodes.
-      mutex_lock l(_mu); 
-      graph_logger_->add_step_stats(stats, node);
+      {
+      	mutex_lock l(logger_mu); 
+      	graph_logger_->add_step_stats(stats, node);
+      }
       stats_collector_->Save(impl_->params_.device->name(), stats);
     } else {
       //graph_logger_->add_step_stats(stats, node);

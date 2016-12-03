@@ -56,17 +56,6 @@ class StepStatsCollector {
   uint64 collectedNodes GUARDED_BY(mu_) = 0;
 };
 
-class GraphLogger
-{
-    public:
-        void add_step_stats(tensorflow::NodeExecStats* stats, const Node *node);
-        /*GraphLogger() {
-    	memory = 0;
-    	work = new vmap();
-        }*/
-    private:
-        mutex moo_;
-};
 }  // namespace tensorflow
 
 #endif  // TENSORFLOW_CORE_DISTRIBUTED_RUNTIME_STEP_STATS_COLLECTOR_H_

@@ -30,6 +30,7 @@ limitations under the License.
 #include "tensorflow/core/platform/mutex.h"
 #include "tensorflow/core/platform/types.h"
 #include "tensorflow/core/protobuf/config.pb.h"
+#include "tensorflow/core/common_runtime/graph_logger.h"
 
 namespace tensorflow {
 
@@ -87,6 +88,8 @@ class GraphMgr {
 
   // Deregister all graphs.
   Status DeregisterAll();
+  GraphLogger graph_logger;
+  mutex logger_lock;
 
  private:
   typedef GraphMgr ME;

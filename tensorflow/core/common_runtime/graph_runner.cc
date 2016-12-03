@@ -164,7 +164,7 @@ Status GraphRunner::Run(Graph* graph, FunctionLibraryRuntime* function_library,
   args.runner = runner;
   args.rendezvous = rendez;
 
-  GraphLogger *graph_logger = new GraphLogger();
+  //GraphLogger *graph_logger = new GraphLogger();
   // create graph logger
  /* if (delay_saver.count(args.step_id) == 0) {
     graph_logger = new GraphLogger();
@@ -173,7 +173,7 @@ Status GraphRunner::Run(Graph* graph, FunctionLibraryRuntime* function_library,
     graph_logger = delay_saver[args.step_id];
   }*/
 
-  args.graph_logger = graph_logger;
+  //args.graph_logger = graph_logger;
 
   // Run the graph.
   TF_RETURN_IF_ERROR(executor->Run(args));
