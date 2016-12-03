@@ -750,6 +750,9 @@ Status AddControlFlow(const PartitionOptions& opts, Graph* g,
 
 Status AddControlEdges(const PartitionOptions& opts,
                        std::unordered_map<string, GraphDef>* partitions) {
+  FILE *file = fopen("/tmp/addCtronlEdges.txt", "a+");
+  fprintf(file, "hhhahahaha");
+  fclose(file);
   Status status;
   // TODO(yuanbyu): Very naive for now. To be improved.
   const int num_epochs = 100;
