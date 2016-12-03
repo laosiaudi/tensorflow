@@ -374,6 +374,9 @@ void GraphMgr::StartParallelExecutors(const string& handle, int64 step_id,
                                       CostGraphDef* cost_graph,
                                       CancellationManager* cancellation_manager,
                                       StatusCallback done) {
+  FILE *file = fopen("/tmp/startlog", "a+");
+  fprintf(file, "in startpara\n");
+  fclose(file);
   const int num_units = item->units.size();
   CHECK_GE(num_units, 1);
   ScopedStepContainer* step_container =
