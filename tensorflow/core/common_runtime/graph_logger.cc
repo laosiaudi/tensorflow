@@ -160,7 +160,7 @@ namespace tensorflow {
                 vertex *v_parent = addvertex(new_str);
                 //no gap_mtx is needed here currently
                 //v_parent->gap_mtx.lock();
-                v_parent->minimum_gap = min(v->all_start_micros - v_parent->all_start_micros, v_parent->minimum_gap);
+                v_parent->minimum_gap = std::min(v->all_start_micros - v_parent->all_start_micros, v_parent->minimum_gap);
                 //v_parent->gap_mtx.unlock();
             }
             fclose(file);

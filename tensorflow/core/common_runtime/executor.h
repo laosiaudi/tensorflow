@@ -17,6 +17,7 @@ limitations under the License.
 #define TENSORFLOW_COMMON_RUNTIME_EXECUTOR_H_
 
 #include "tensorflow/core/common_runtime/device.h"
+#include "tensorflow/core/common_runtime/graph_logger.h"
 #include "tensorflow/core/common_runtime/step_stats_collector.h"
 #include "tensorflow/core/framework/rendezvous.h"
 #include "tensorflow/core/framework/session_state.h"
