@@ -334,7 +334,6 @@ class GrpcWorkerService : public AsyncServiceInterface {
       collector = new StepStatsCollector(call->response.mutable_step_stats());
       // TODO(mrry,pbar): GPU tracing for distributed steps.
     }
-    collector = new StepStatsCollector(call->response.mutable_step_stats());
     CancellationManager* cm = new CancellationManager;
     call->SetCancelCallback([this, cm, step_id]() {
       cm->StartCancel();
