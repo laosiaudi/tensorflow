@@ -1263,6 +1263,10 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
     params.track_allocations = false;
     stats = nullptr;
+    FILE *file = fopen("/tmp/stepcollector.log", "a+");  
+    if (stats_collector_)
+	fprintf(file, "stats collector is not null\n");
+    fclose(file);
     if (stats_collector_ && !tagged_node.is_dead) {
       // track allocations if and only if we are collecting statistics
       params.track_allocations = true;
