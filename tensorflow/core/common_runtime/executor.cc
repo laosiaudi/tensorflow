@@ -1009,6 +1009,10 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
   // We start the entire execution in iteration 0 of the root frame
   // so let us create the root frame and the state for iteration 0.
   // We assume root_frame_->frame_name.empty().
+  FILE *file = fopen("/tmp/executorstate.log", "a+");
+  if (stats_collector_)
+  	fprintf(file, "stats collector is not null\n");
+  fclose(file);
   root_frame_ = new FrameState(impl_, 1);
   root_frame_->frame_id = 0;  // must be 0
   root_frame_->InitializeFrameInfo(root_frame_->frame_name);
