@@ -1730,9 +1730,14 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
 
   fclose(file);
   }*/
-
+  FILE* file = fopen("/tmp/nodedone-log", "a+");
+  fprintf(file, "nodedone called\n");
+  fclose(file);
 
   if (stats) {
+  	file = fopen("/tmp/nodedone-log", "a+");
+  	fprintf(file, "stats is not null\n");
+  	fclose(file);
 
     nodestats::SetAllEnd(stats);
 
