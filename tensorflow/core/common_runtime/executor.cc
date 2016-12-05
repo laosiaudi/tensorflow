@@ -1015,7 +1015,15 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
   	fprintf(file, "graph logger passed in through args is not null \n");
   else 
         fprintf(file, "graph logger passed in through args ES null \n");
-        fprintf(file, backtrace_symbols(3));
+
+  if (args.stats_collector)
+        fprintf(file, "stat collector passed in through args is not null \n");
+  else
+        fprintf(file, "stat collector passed in through args ES null \n");
+
+  fprintf(file, "Step Id:");
+  fprintf(file, args.step_id);
+fprintf(file, "\n");
   fclose(file);
   root_frame_ = new FrameState(impl_, 1);
   root_frame_->frame_id = 0;  // must be 0
