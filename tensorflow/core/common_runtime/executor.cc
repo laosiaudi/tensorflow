@@ -993,7 +993,6 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
     : vlog_(VLOG_IS_ON(1)),
       log_memory_(LogMemory::IsEnabled()),
       step_id_(args.step_id),
-      graph_logger_(args.graph_logger),
       rendezvous_(args.rendezvous),
       session_state_(args.session_state),
       tensor_store_(args.tensor_store),
@@ -1009,9 +1008,14 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
   // We start the entire execution in iteration 0 of the root frame
   // so let us create the root frame and the state for iteration 0.
   // We assume root_frame_->frame_name.empty().
+  
+  graph_logger_ = args.graph_logger;
   FILE *file = fopen("/tmp/executorstate.log", "a+");
-  if (stats_collector_)
-  	fprintf(file, "stats collector is not null\n");
+  if (args.graph_logger)
+  	fprintf(file, "graph logger passed in through args is not null \n");
+  else 
+        fprintf(file, "graph logger passed in through args ES null \n");
+        fprintf(file, backtrace_symbols(3));
   fclose(file);
   root_frame_ = new FrameState(impl_, 1);
   root_frame_->frame_id = 0;  // must be 0
@@ -1757,6 +1761,10 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
       if (graph_logger_) {
           mutex_lock l(_mu);
           graph_logger_->add_step_stats(stats, node);
+      } else {
+          FILE *file = fopen("/tmp/executor.log", "a+");
+            fprintf(file, "graph_logger is null");
+          fclose(file);
       }
       stats_collector_->Save(impl_->params_.device->name(), stats);
     } else {
