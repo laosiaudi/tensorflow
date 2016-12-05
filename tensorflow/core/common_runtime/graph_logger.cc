@@ -161,6 +161,7 @@ namespace tensorflow {
                 //no gap_mtx is needed here currently
                 //v_parent->gap_mtx.lock();
                 v_parent->minimum_gap = std::min(v->all_start_micros - v_parent->all_start_micros, v_parent->minimum_gap);
+                fprintf(file, "Minimum gap %s %d", new_str.c_str(), v_parent->minimum_gap);
                 //v_parent->gap_mtx.unlock();
             }
             fclose(file);

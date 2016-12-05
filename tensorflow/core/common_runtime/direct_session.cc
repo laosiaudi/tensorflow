@@ -27,6 +27,7 @@ limitations under the License.
 #include "tensorflow/core/common_runtime/memory_types.h"
 #include "tensorflow/core/common_runtime/simple_placer.h"
 #include "tensorflow/core/common_runtime/step_stats_collector.h"
+#include "tensorflow/core/common_runtime/graph_logger.h"
 #include "tensorflow/core/framework/function.h"
 #include "tensorflow/core/framework/graph.pb.h"
 #include "tensorflow/core/framework/graph.pb_text.h"
@@ -457,6 +458,7 @@ Status DirectSession::Run(const RunOptions& run_options,
     run_state.collector.reset(
         new StepStatsCollector(run_metadata->mutable_step_stats()));
     args.stats_collector = run_state.collector.get();
+    args.graph_logger = new GraphLogger();
   }
 
 #if GOOGLE_CUDA
