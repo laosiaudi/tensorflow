@@ -990,9 +990,9 @@ MasterSession::MasterSession(const SessionOptions& opt, const MasterEnv* env,
     }
     num_local_devices++;
   }
-  LOG(INFO) << "Start master session " << handle_
-            << " with config: " << std::endl
-            << session_opts_.config.DebugString();
+  //LOG(INFO) << "Start master session " << handle_
+   //         << " with config: " << std::endl
+    //        << session_opts_.config.DebugString();
 }
 
 MasterSession::~MasterSession() {

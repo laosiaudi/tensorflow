@@ -22,6 +22,7 @@ limitations under the License.
 #include "tensorflow/core/common_runtime/device_mgr.h"
 #include "tensorflow/core/common_runtime/function.h"
 #include "tensorflow/core/common_runtime/graph_optimizer.h"
+#include "tensorflow/core/common_runtime/graph_logger.h"
 #include "tensorflow/core/common_runtime/memory_types.h"
 #include "tensorflow/core/common_runtime/process_util.h"
 #include "tensorflow/core/common_runtime/step_stats_collector.h"
@@ -484,6 +485,7 @@ void GraphMgr::StartParallelExecutors(const string& handle, int64 step_id,
   args.rendezvous = rendezvous;
   args.cancellation_manager = cancellation_manager;
   args.stats_collector = collector;
+  args.graph_logger = new GraphLogger();
   args.step_container = step_container;
   args.sync_on_finish = true;
   if (LogMemory::IsEnabled()) {
