@@ -1858,14 +1858,14 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
       // Sudev Changed
       // Only record non-transfer nodes.
       if (graph_logger_) {
+          
           mutex_lock l(_mu);
           graph_logger_->add_step_stats(stats, node);
-      } else {
           FILE *file = fopen("/tmp/executor.log", "a+");
-            fprintf(file, "graph_logger is null");
+            fprintf(file, "Graph logger id" );
+            fprintf(file, "Hash code %d", typeid(graph_logger_).hash_code());
           fclose(file);
       }
-      stats_collector_->Save(impl_->params_.device->name(), stats);
     } else {
       //graph_logger_->add_step_stats(stats, node);
       //stats_collector_->Save(impl_->params_.device->name(), stats);
