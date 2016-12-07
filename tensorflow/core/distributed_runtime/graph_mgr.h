@@ -90,7 +90,7 @@ class GraphMgr {
 
  private:
   typedef GraphMgr ME;
-
+  GraphLogger* _graph_logger;
   struct ExecutionUnit {
     Graph* graph = nullptr;
     Device* device = nullptr;

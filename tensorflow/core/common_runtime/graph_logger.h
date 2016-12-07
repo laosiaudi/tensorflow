@@ -53,7 +53,19 @@ namespace tensorflow {
 		memory = 0;
 		work = new vmap();
 	    }*/
+            int getCount(){
+                return count;
+            }
+            int getId(){
+                return id;
+            }
+            GraphLogger(){
+                count++;
+                id = count;
+            }
         private:
+            static int count;
+            int id;
             typedef std::unordered_map<tensorflow::string, vertex*> vmap;
             vmap work GUARDED_BY(moo_);
             tensorflow::mutex moo_;

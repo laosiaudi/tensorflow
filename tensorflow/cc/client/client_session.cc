@@ -17,6 +17,7 @@ limitations under the License.
 
 #include <unordered_map>
 #include <vector>
+#include <chrono>
 
 #include "tensorflow/core/platform/env.h"
 #include "tensorflow/core/protobuf/config.pb.h"
@@ -95,8 +96,16 @@ Status ClientSession::Run(const RunOptions& run_options, const FeedType& inputs,
     target_node_names.push_back(output.node()->name());
   }
   TF_RETURN_IF_ERROR(MaybeExtendGraph());
-  return session_->Run(run_options, feeds, output_tensor_names,
+  high_resolution_clock::time_point t1 = high_resolution_clock::now();
+ 
+  auto result = session_->Run(run_options, feeds, output_tensor_names,
                        target_node_names, outputs, run_metadata);
+  high_resolution_clock::time_point t2 = high_resolution_clock::now();
+  auto duration = duration_cast<microseconds>( t2 - t1 ).count();
+  FILE *f = fopen("/tmp/run_client.log","a+");
+  fprintf(f,"Run duration: %dms \n", duration);
+  fclose(f);
+  return result;
 }
 
 }  // end namespace tensorflow

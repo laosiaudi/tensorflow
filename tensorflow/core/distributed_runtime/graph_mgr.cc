@@ -130,7 +130,7 @@ static inline void print_stacktrace(FILE *out = stderr, unsigned int max_frames 
 namespace tensorflow {
 
 GraphMgr::GraphMgr(const WorkerEnv* worker_env)
-    : worker_env_(worker_env), table_(5) {}
+    : worker_env_(worker_env), table_(5),_graph_logger(nullptr) {}
 
 GraphMgr::~GraphMgr() {
   for (auto p : table_) p.second->Unref();
@@ -485,7 +485,10 @@ void GraphMgr::StartParallelExecutors(const string& handle, int64 step_id,
   args.rendezvous = rendezvous;
   args.cancellation_manager = cancellation_manager;
   args.stats_collector = collector;
-  args.graph_logger = new GraphLogger();
+  if (_graph_logger == nullptr) {
+     _graph_logger = new GraphLogger();
+  }
+  args.graph_logger = _graph_logger;
   args.step_container = step_container;
   args.sync_on_finish = true;
   if (LogMemory::IsEnabled()) {

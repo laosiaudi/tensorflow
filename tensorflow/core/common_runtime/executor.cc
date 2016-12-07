@@ -1862,8 +1862,8 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
           mutex_lock l(_mu);
           graph_logger_->add_step_stats(stats, node);
           FILE *file = fopen("/tmp/executor.log", "a+");
-            fprintf(file, "Graph logger id" );
-            fprintf(file, "Hash code %d", typeid(graph_logger_).hash_code());
+            fprintf(file, "Graph logger id -" );
+            fprintf(file, "Hash code %d \n", graph_logger_->getId());
           fclose(file);
       }
     } else {
