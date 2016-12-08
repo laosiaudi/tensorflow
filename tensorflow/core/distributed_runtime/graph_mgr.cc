@@ -488,6 +488,9 @@ void GraphMgr::StartParallelExecutors(const string& handle, int64 step_id,
   args.graph_logger = new GraphLogger();
   args.step_container = step_container;
   args.sync_on_finish = true;
+  args.delay_mtx = &delay_mtx;
+  args.delay_saver = &delay_saver;
+
   if (LogMemory::IsEnabled()) {
     LogMemory::RecordStep(args.step_id, handle);
   }

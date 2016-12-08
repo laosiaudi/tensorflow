@@ -81,12 +81,16 @@ class GraphMgr {
 
   Status SendInputs(const int64 step_id, const NamedTensors& in);
   Status RecvOutputs(const int64 step_id, NamedTensors* out);
+   
 
   // Deregisters a graph.
   Status Deregister(const string& handle);
 
   // Deregister all graphs.
   Status DeregisterAll();
+
+  mutex delay_mtx;
+  std::unordered_map<tensorflow::string, std::vector<int>> delay_saver;
 
  private:
   typedef GraphMgr ME;

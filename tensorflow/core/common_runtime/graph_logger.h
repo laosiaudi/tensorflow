@@ -49,10 +49,6 @@ namespace tensorflow {
             void addnodes(string node_name);
             void add_step_stats(tensorflow::NodeExecStats* stats, const Node *node);
             size_t get_memory();
-            /*GraphLogger() {
-		memory = 0;
-		work = new vmap();
-	    }*/
         private:
             typedef std::unordered_map<tensorflow::string, vertex*> vmap;
             vmap work GUARDED_BY(moo_);
