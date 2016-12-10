@@ -27,6 +27,7 @@ limitations under the License.
 #include "tensorflow/core/lib/core/status.h"
 #include "tensorflow/core/platform/logging.h"
 #include "tensorflow/core/platform/macros.h"
+#include "tensorflow/core/platform/mutex.h"
 
 namespace tensorflow {
 
@@ -92,6 +93,8 @@ class Executor {
     SessionState* session_state = nullptr;
     TensorStore* tensor_store = nullptr;
     ScopedStepContainer* step_container = nullptr;
+    std::unordered_map<tensorflow::string, vector<int>>* delay_saver;
+    mutex* delay_mtx;
 
     // If true, calls Sync() on the device.
     bool sync_on_finish = false;

@@ -973,6 +973,8 @@ class ExecutorState {
   CancellationManager* cancellation_manager_;
   Executor::Args::Runner runner_;
   GraphLogger* graph_logger_;
+  std::unordered_map<tensorflow::string, vector<int>>* delay_saver_;
+  mutex* delay_mtx_; 
   bool sync_on_finish_;
 
   // Owned.
