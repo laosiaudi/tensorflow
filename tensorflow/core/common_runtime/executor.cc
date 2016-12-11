@@ -973,8 +973,9 @@ class ExecutorState {
   CancellationManager* cancellation_manager_;
   Executor::Args::Runner runner_;
   GraphLogger* graph_logger_;
-  std::unordered_map<tensorflow::string, vector<int>>* delay_saver_;
+  std::unordered_map<tensorflow::string, std::vector<int64_t>>* delay_saver_;
   mutex* delay_mtx_; 
+
   bool sync_on_finish_;
 
   // Owned.
@@ -1099,6 +1100,8 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
   // We assume root_frame_->frame_name.empty().
   
   graph_logger_ = args.graph_logger;
+  delay_saver_ = args.delay_saver;
+  delay_mtx_ = args.delay_mtx;
   FILE *file = fopen("/tmp/executorstate.log", "a+");
   if (args.graph_logger)
   	fprintf(file, "graph logger passed in through args is not null \n");
@@ -2089,6 +2092,32 @@ void ExecutorState::DumpState() {
 }
 
 void ExecutorState::Finish() {
+  mutex_lock l(*delay_mtx_);
+  if (delay_saver_ != nullptr && graph_logger_ != nullptr) {
+    FILE *file = fopen("/tmp/Finish.txt", "a+");
+    fprintf(file, "start of recording the global delay-------\n");
+    for (std::vector<struct vertex *>::iterator it = graph_logger_->recv_nodes.begin() ; it != graph_logger_->recv_nodes.end(); ++it) {
+      fprintf(file, "name and delay are %s %ld", (*it)->name.c_str(), (*it)->minimum_gap);
+      if ((*it)->minimum_gap != LONG_MAX) {
+        // assume name is not null
+      	auto delay_it = (delay_saver_->find((*it)->name));
+      	if (delay_it == delay_saver_->end()) {
+          std::vector<int64_t> temp;
+	  temp.push_back((*it)->minimum_gap);
+          (*delay_saver_)[(*it)->name] = temp;
+        } else {
+          fprintf(file, "before\n");
+          fflush(file);
+      	  delay_it->second.push_back((*it)->minimum_gap);
+          fprintf(file, "after\n");
+          fflush(file);
+        }
+      }
+    }
+    fprintf(file, "end of recording the global delay-----------\n");
+    fclose(file);
+  }
+
   mu_.lock();
   auto status = status_;
   auto done_cb = std::move(done_cb_);

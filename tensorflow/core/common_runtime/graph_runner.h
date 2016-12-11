@@ -53,7 +53,8 @@ class GraphRunner {
   // `function_library` may be nullptr.
 
   // map from step id to graph logger, which saves the dynamic delay information
-  static std::map<int64, GraphLogger *> delay_saver;
+  static mutex delay_mtx;
+  static std::unordered_map<tensorflow::string, std::vector<int64_t>> delay_saver;
   typedef std::vector<std::pair<string, Tensor>> NamedTensorList;
   static Status Run(Graph* graph, FunctionLibraryRuntime* function_library,
                     Env* env, const NamedTensorList& inputs,

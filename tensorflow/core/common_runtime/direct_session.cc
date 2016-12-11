@@ -352,6 +352,9 @@ Status DirectSession::ExtendLocked(const GraphDef& graph) {
   return Status::OK();
 }
 
+static mutex delay_mtx;
+static std::unordered_map<tensorflow::string, std::vector<int64_t>> delay_saver; 
+
 // TODO(yuanbyu): Simplify by treating Run() as "PRunSetup(); PRun()".
 Status DirectSession::Run(const NamedTensorList& inputs,
                           const std::vector<string>& output_names,
@@ -440,7 +443,9 @@ Status DirectSession::Run(const RunOptions& run_options,
     LogMemory::RecordStep(args.step_id, run_state_args.handle);
   }
   args.sync_on_finish = true;
-
+  
+  args.delay_mtx = &delay_mtx;
+  args.delay_saver = &delay_saver;
   const bool do_trace = (run_options.trace_level() > RunOptions::NO_TRACE);
 
   bool update_cost_model = false;

@@ -90,7 +90,7 @@ class GraphMgr {
   Status DeregisterAll();
 
   mutex delay_mtx;
-  std::unordered_map<tensorflow::string, std::vector<int>> delay_saver;
+  std::unordered_map<tensorflow::string, std::vector<int64_t>> delay_saver;
 
  private:
   typedef GraphMgr ME;

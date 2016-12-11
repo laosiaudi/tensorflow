@@ -95,7 +95,9 @@ class SimpleRendezvous : public Rendezvous {
 };
 
 }  // namespace
-std::map<int64, GraphLogger *> GraphRunner::delay_saver;
+
+mutex GraphRunner::delay_mtx;
+std::unordered_map<tensorflow::string, std::vector<int64_t>> GraphRunner::delay_saver;
 
 // static
 Status GraphRunner::Run(Graph* graph, FunctionLibraryRuntime* function_library,
@@ -164,6 +166,9 @@ Status GraphRunner::Run(Graph* graph, FunctionLibraryRuntime* function_library,
   args.step_id = LogMemory::CONSTANT_FOLDING_STEP_ID;
   args.runner = runner;
   args.rendezvous = rendez;
+  args.delay_saver = &delay_saver;
+  mutex mtx;
+  args.delay_mtx = &mtx;
 
   GraphLogger *graph_logger = new GraphLogger();
   // create graph logger
@@ -175,6 +180,7 @@ Status GraphRunner::Run(Graph* graph, FunctionLibraryRuntime* function_library,
   }*/
 
   args.graph_logger = graph_logger;
+  
 
   // Run the graph.
   TF_RETURN_IF_ERROR(executor->Run(args));
