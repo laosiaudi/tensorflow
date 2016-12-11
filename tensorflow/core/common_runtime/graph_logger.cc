@@ -45,10 +45,10 @@ namespace tensorflow {
         //v->adj_mtx.unlock();
     }
 
-    void GraphLogger::addnodes(string node_name) {
+  //  void GraphLogger::addnodes(string node_name) {
         //mutex_lock l(recv_nodes_mtx);
-        recv_nodes.push_back(node_name);
-    }
+  //      recv_nodes.push_back(node_name);
+   // }
 
     size_t GraphLogger::get_memory() {
         memory_mtx.lock();
@@ -109,14 +109,11 @@ namespace tensorflow {
             fprintf(file, "\n");
             fprintf(file, "WE DID COMPILE ");
             fprintf(file, "\n");
-            fprintf(file, "checkpoint001\n");
             //fflush(file);
 
             // update the information
-            fprintf(file, "checkpoint002\n");
             fflush(file);
             vertex *v = addvertex(nt->node_name());
-            fprintf(file, "checkpoint0\n");
             fflush(file);
             v->all_start_micros = nt->all_start_micros();
             v->op_start_rel_micros = nt->op_start_rel_micros();
@@ -127,7 +124,6 @@ namespace tensorflow {
             v->timeline_label = nt->timeline_label();
             v->scheduled_micros = nt->scheduled_micros();
             v->thread_id = nt->thread_id();
-            fprintf(file, "checkpoint1\n");
             fflush(file);
             // add informaion in node for
             // 1. sender inforamtion of receiver
@@ -143,10 +139,9 @@ namespace tensorflow {
                 v->sender = send_device;
                 //currently no mutex lock is needed now
                 //recv_nodes_mtx.lock();
-                addnodes(nt->node_name());
+		recv_nodes.push_back(v);
                 //recv_nodes_mtx.unlock();
             }
-            fprintf(file, "checkpoint2\n");
             std::vector<StringPiece> inputs = std::vector<StringPiece>(def.input().begin(), def.input().end());
             for (auto& str : inputs) {
                 string new_str = str.ToString();

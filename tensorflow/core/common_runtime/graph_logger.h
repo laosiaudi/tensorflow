@@ -40,7 +40,7 @@ namespace tensorflow {
     class GraphLogger
     {
         public:
-            std::vector<string> recv_nodes;
+            std::vector<struct vertex *> recv_nodes;
             mutex recv_nodes_mtx;
             mutex log_mtx;
             vertex *addvertex(const string&);
