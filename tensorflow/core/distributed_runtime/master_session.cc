@@ -48,6 +48,8 @@ limitations under the License.
 #include "tensorflow/core/platform/tracing.h"
 #include "tensorflow/core/public/session_options.h"
 
+using namespace std;
+using namespace std::chrono;
 namespace tensorflow {
 
 // MasterSession wraps SimpleClientGraph in a reference counted object.
@@ -1149,6 +1151,8 @@ Status MasterSession::PartialRunSetup(const PartialRunSetupRequest* req,
 
 Status MasterSession::Run(CallOptions* opts, const RunStepRequest* req,
                           RunStepResponse* resp) {
+  std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+
   UpdateLastAccessTime();
   {
     mutex_lock l(mu_);
@@ -1167,6 +1171,12 @@ Status MasterSession::Run(CallOptions* opts, const RunStepRequest* req,
       num_running_is_zero_.notify_all();
     }
   }
+   high_resolution_clock::time_point t2 = high_resolution_clock::now();
+
+    auto duration = duration_cast<microseconds>( t2 - t1 ).count();
+  FILE *f = fopen("/tmp/run_client.log","a+");
+  fprintf(f,"Master Run duration: %dms \n", duration);
+  fclose(f); 
   return status;
 }
 
