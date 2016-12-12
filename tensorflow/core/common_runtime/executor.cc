@@ -1439,9 +1439,9 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           fprintf(file, "accumulate %ld \n", delay);
 
           if (delay_saver2_ != nullptr) {
-          auto it = delay_saver2_.find(node->name());
+          auto it = delay_saver2_-≥find(node->name());
 
-          if (it != delay_saver2_.end()) {	
+          if (it != delay_saver2_-≥end()) {	
 	  int64_t previous_delay = (*delay_saver2_)[node->name()];
 
           fprintf(file, "previous delay %ld \n", previous_delay);
