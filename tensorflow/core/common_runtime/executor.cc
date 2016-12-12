@@ -1434,28 +1434,32 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
         if (it != delay_saver_->end() && it->second.size() > 10) {
           //int64_t delay = it->second.back();
           FILE* file = fopen("/tmp/delay.log", "a+");
-             
-	  int64_t previous_delay = (*delay_saver2_)[node->name()];
-          fprintf(file, "previous delay %ld \n", previous_delay);
-          auto result = std::min_element(it->second.begin()+1, it->second.end()); 
-          int64_t delay = std::accumulate(it->second.end() - 9,it->second.end(), 0);
+          auto result = std::min_element(it->second.begin()+1, it->second.end());
+          int64_t delay = std::accumulate(it->second.end() - 9,it->second.end(), 0)/9;
           fprintf(file, "accumulate %ld \n", delay);
 
-          if (previous_delay > 0 && previous_delay/2 < delay/9) {
-		previous_delay = -1;
-		(*delay_saver2_)[node->name()] = -1;
-	  }
+          if (delay_saver2_ != nullptr) {
+          auto it = delay_saver2_.find(node->name());
 
-	  if (previous_delay == -1) {
-	    delay = 0;
+          if (it != delay_saver2_.end()) {	
+	  int64_t previous_delay = (*delay_saver2_)[node->name()];
 
-	  } else {
+          fprintf(file, "previous delay %ld \n", previous_delay);
+	  if (previous_delay > 0 && previous_delay/2 < delay/9) {
+                previous_delay = -1;
+                (*delay_saver2_)[node->name()] = -1;
+          }
 
-            delay = delay / 9;
+          if (previous_delay == -1) {
+            delay = 0;
+
+          } else {
 
             (*delay_saver2_)[node->name()] = delay;
+          }
 	  }
-          //if (*result < 1000) {
+	  }
+
 	  //	delay = 0;
           //}
           /*int64_t sum = 0;
