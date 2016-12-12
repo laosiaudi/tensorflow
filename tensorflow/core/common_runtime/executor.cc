@@ -1433,7 +1433,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           //int64_t delay = it->second.back();
           auto result = std::min_element(it->second.begin()+1, it->second.end()); 
           int64_t delay = std::accumulate(it->second.begin()+1, it->second.begin() + 6, 0);
-          delay = delay / 9;
+          delay = delay / 5;
           //if (*result < 1000) {
 	  //	delay = 0;
           //}
@@ -1452,7 +1452,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 	  FILE* file = fopen("/tmp/delay.log", "a+");
           
 	  if (it->second.size() > 10) {
-		auto se = std::accumulate(it->second.begin()+6, it->second.begin() + 10,0);
+		auto se = std::accumulate(it->second.begin()+6, it->second.begin() + 11,0);
                 se = se/5;
 
                 fprintf(file, "average of first 10 %ld \n", delay);
