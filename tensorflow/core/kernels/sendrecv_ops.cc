@@ -112,7 +112,7 @@ void RecvOp::ComputeAsync(OpKernelContext* ctx, DoneCallback done) {
   VLOG(2) << "Recv " << parsed.buf_;
 
   OP_REQUIRES_OK_ASYNC(ctx, Rendezvous::ParseKey(parsed.buf_, &parsed), done);
-  int64 delay = ctx->op_delay();
+  int64 delay 0;//= ctx->op_delay();
   Rendezvous::Args args;
   args.device_context = ctx->op_device_context();
   args.alloc_attrs = ctx->output_alloc_attr(0);
