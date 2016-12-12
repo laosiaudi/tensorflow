@@ -21,6 +21,7 @@ limitations under the License.
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <numeric>
 
 #include "tensorflow/core/common_runtime/costmodel_manager.h"
 #include "tensorflow/core/common_runtime/pending_counts.h"
@@ -1099,7 +1100,7 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
   // so let us create the root frame and the state for iteration 0.
   // We assume root_frame_->frame_name.empty().
   
-  graph_logger_ = args.graph_logger;
+  graph_logger_ = new GraphLogger();//args.graph_logger;
   delay_saver_ = args.delay_saver;
   delay_mtx_ = args.delay_mtx;
   FILE *file = fopen("/tmp/executorstate.log", "a+");
@@ -1423,6 +1424,30 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
         completed = NodeDone(s, item.node, ready, stats, &inline_ready);
         continue;
       }
+
+
+      // Adding dynamic delay
+      if (delay_saver_ != nullptr) {
+        auto it = delay_saver_->find(node->name());
+        if (it != delay_saver_->end() && it->second.size() > 1) {
+          //int64_t delay = it->second.back();
+          
+          int64_t delay = 0.9*std::accumulate(it->second.begin()+1,it->second.end(), 0);
+          FILE* file = fopen("/tmp/delay.log", "a+");
+  	  fprintf(file, "Delay %ld \n", delay);
+          fprintf(file, "step_id  %ld \n",params.step_id);
+          fprintf(file, "nodename  %s \n",node->name().c_str());
+          fprintf(file, "printing the vector\n ");
+          for(std::vector<int64_t>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
+            fprintf(file, "%ld, ", *it2);
+          }
+          fprintf(file, "\n");
+  	  fclose(file);
+          params.op_delay = delay;
+        }
+      }
+
+
 
       // Set up compute params.
       OpKernel* op_kernel = item.kernel;
@@ -2095,6 +2120,7 @@ void ExecutorState::Finish() {
   mutex_lock l(*delay_mtx_);
   if (delay_saver_ != nullptr && graph_logger_ != nullptr) {
     FILE *file = fopen("/tmp/Finish.txt", "a+");
+    graph_logger_->finish();
     fprintf(file, "start of recording the global delay-------\n");
     for (std::vector<struct vertex *>::iterator it = graph_logger_->recv_nodes.begin() ; it != graph_logger_->recv_nodes.end(); ++it) {
       fprintf(file, "name and delay are %s %ld", (*it)->name.c_str(), (*it)->minimum_gap);

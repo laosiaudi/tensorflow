@@ -137,6 +137,10 @@ void RecvOp::ComputeAsync(OpKernelContext* ctx, DoneCallback done) {
       },
       std::move(done), _1, _2, _3, _4, _5);
   Env::Default()->SleepForMicroseconds(delay);
+  FILE *file = fopen("/tmp/delay_in_kernel.log", "a+");
+  fprintf(file, "step id is %ld\n", ctx->step_id());
+  fprintf(file, "delay in kernel is %ld\n", delay);
+  fclose(file);
   ctx->rendezvous()->RecvAsync(parsed, args, std::move(done_cb));
 }
 

@@ -10,6 +10,7 @@
 #include "tensorflow/core/platform/mutex.h"
 #include "tensorflow/core/platform/thread_annotations.h"
 #include "tensorflow/core/platform/types.h"
+#include <ctime>
 #ifndef _GRAPH_LOG_
 #define _GRAPH_LOG_
 namespace tensorflow {
@@ -49,6 +50,21 @@ namespace tensorflow {
             void addnodes(string node_name);
             void add_step_stats(tensorflow::NodeExecStats* stats, const Node *node);
             size_t get_memory();
+            int64_t elapsed;
+            int64_t start;
+	    bool start_flag;
+	    GraphLogger() {
+	        elapsed = 0;
+		start_flag = false;	
+            }
+            void finish() {
+                char filename[1024];
+                sprintf(filename, "/tmp/graphlogger_%d.log", work.size()); 
+	        FILE* file = fopen(filename, "a+");
+		fprintf(file, "the elaspsed time is %ld\n", elapsed);
+		fflush(file);
+		fclose(file);	
+	    }
         private:
             typedef std::unordered_map<tensorflow::string, vertex*> vmap;
             vmap work GUARDED_BY(moo_);

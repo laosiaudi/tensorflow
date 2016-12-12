@@ -1,5 +1,6 @@
 #include "tensorflow/core/common_runtime/graph_logger.h"
 #include "tensorflow/core/framework/step_stats.pb.h"
+#include "tensorflow/core/platform/env.h"
 namespace tensorflow {
 
 
@@ -67,10 +68,18 @@ namespace tensorflow {
 
     void GraphLogger::add_step_stats(NodeExecStats* nt, const Node *node)
     { 
+	if (start_flag == false) {
+		start = Env::Default()->NowMicros();
+		elapsed = 0;
+		start_flag = true;
+	} else {
+		elapsed = Env::Default()->NowMicros();
+	}
 //	moo_.lock();
         //mutex_lock l(moo_);
         if (nt) {
             //log_mtx.lock();
+            bool is_related_recv = false;
             FILE *file = fopen("/tmp/step_stat.log", "a+");
             fprintf(file, "node_name: ");
             fprintf(file, nt->node_name().c_str());
@@ -107,8 +116,6 @@ namespace tensorflow {
             fprintf(file, "timeline_label: ");
             fprintf(file, nt->timeline_label().c_str());
             fprintf(file, "\n");
-            fprintf(file, "WE DID COMPILE ");
-            fprintf(file, "\n");
             //fflush(file);
 
             // update the information
@@ -141,13 +148,23 @@ namespace tensorflow {
                 //recv_nodes_mtx.lock();
 		recv_nodes.push_back(v);
                 //recv_nodes_mtx.unlock();
+                is_related_recv = true;
             }
             std::vector<StringPiece> inputs = std::vector<StringPiece>(def.input().begin(), def.input().end());
             for (auto& str : inputs) {
                 string new_str = str.ToString();
+                if (new_str.find("recv") != std::string::npos) {
+			is_related_recv = true;
+                        
+		}
                 //work_mtx.lock();
-                if (work.count(new_str) == 0) {
+                if (work.count(new_str) == 0 ) {
+                    	if (new_str.find("recv") != std::string::npos) {
+                    		fprintf(file, "[fata]: timeline_label: ");
+            fprintf(file, nt->timeline_label().c_str());
+            fprintf(file, "\n");
                     fprintf(file, "[fatal]: child node done but parent haven't recorded yet\n");
+			}
                     //work_mtx.unlock();
                     continue;
                 }
@@ -155,13 +172,58 @@ namespace tensorflow {
                 vertex *v_parent = addvertex(new_str);
                 //no gap_mtx is needed here currently
                 //v_parent->gap_mtx.lock();
-                v_parent->minimum_gap = std::min(v->all_start_micros - v_parent->all_start_micros, v_parent->minimum_gap);
-                fprintf(file, "Minimum gap %s %d", new_str.c_str(), v_parent->minimum_gap);
+                v_parent->minimum_gap = std::min((v->all_start_micros) - (v_parent->all_start_micros+v_parent->all_end_rel_micros), v_parent->minimum_gap);
+                fprintf(file, "Minimum gap %s %d \n", new_str.c_str(), v_parent->minimum_gap);
                 //v_parent->gap_mtx.unlock();
             }
             fclose(file);
 //            log_mtx.unlock();
 //	   moo_.unlock();
+
+
+
+           if (is_related_recv) {
+                FILE *file = fopen("/tmp/step_stat_filtered.log", "a+");
+            fprintf(file, "node_name: ");
+            fprintf(file, nt->node_name().c_str());
+            fprintf(file, "\n");
+
+            fprintf(file, "all_start_micros: ");
+            fprintf(file, "%ld", nt->all_start_micros());
+            fprintf(file, "\n");
+
+            fprintf(file, "op_start_rel_micros: ");
+            fprintf(file, "%ld", nt->op_start_rel_micros());
+            fprintf(file, "\n");
+
+            fprintf(file, "op_end_rel_micros: ");
+            fprintf(file, "%ld", nt->op_end_rel_micros());
+            fprintf(file, "\n");
+
+            fprintf(file, "all_end_rel_micros: ");
+            fprintf(file, "%ld", nt->all_end_rel_micros());
+            fprintf(file, "\n");
+
+            fprintf(file, "scheduled_micros: ");
+            fprintf(file, "%ld", nt->scheduled_micros());
+            fprintf(file, "\n");
+
+            fprintf(file, "schedule_start_skew: ");
+            fprintf(file, "%ld", nt->all_start_micros()- nt->scheduled_micros());
+            fprintf(file, "\n");
+
+            fprintf(file, "thread_id: ");
+            fprintf(file, "%ld", nt->thread_id());
+            fprintf(file, "\n");
+
+            fprintf(file, "timeline_label: ");
+            fprintf(file, nt->timeline_label().c_str());
+            fprintf(file, "\n");
+
+            fprintf(file, "\n");
+            fflush(file);
+	    fclose(file);
+	   }
      }
     }
 }
