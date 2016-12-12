@@ -91,6 +91,8 @@ class GraphMgr {
 
   mutex delay_mtx;
   std::unordered_map<tensorflow::string, std::vector<int64_t>> delay_saver;
+  std::unordered_map<tensorflow::string, int64_t> delay_saver2;
+  
 
  private:
   typedef GraphMgr ME;
