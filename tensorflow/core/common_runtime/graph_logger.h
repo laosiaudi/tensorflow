@@ -31,6 +31,8 @@ namespace tensorflow {
         bool is_recv;
         string sender;
         int64_t minimum_gap;
+        string consume_node;
+	int64_t consume_gap;
         mutex gap_mtx;
         vertex(string s) : name(s) {
             is_recv = false;
