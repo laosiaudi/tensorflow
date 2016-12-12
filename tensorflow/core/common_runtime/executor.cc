@@ -1431,8 +1431,22 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
         auto it = delay_saver_->find(node->name());
         if (it != delay_saver_->end() && it->second.size() > 1) {
           //int64_t delay = it->second.back();
-          
-          int64_t delay = 0.9*std::accumulate(it->second.begin()+1,it->second.end(), 0);
+          auto result = std::min_element(it->second.begin()+1, it->second.end()); 
+          int64_t delay = 0.9*std::accumulate(it->second.begin()+1,result, 0);
+          //if (*result < 1000) {
+	  //	delay = 0;
+          //}
+          int64_t sum = 0;
+          for (auto itn = it->second.begin()+1; itn != it->second.end(); ++itn) {
+    		auto num = *itn;
+                if (num < 1000) {
+                	break;
+		}
+		sum += num;
+	  }
+
+
+          delay = sum;
           FILE* file = fopen("/tmp/delay.log", "a+");
   	  fprintf(file, "Delay %ld \n", delay);
           fprintf(file, "step_id  %ld \n",params.step_id);

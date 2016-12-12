@@ -73,7 +73,7 @@ namespace tensorflow {
 		elapsed = 0;
 		start_flag = true;
 	} else {
-		elapsed = Env::Default()->NowMicros();
+		elapsed = Env::Default()->NowMicros()-start;
 	}
 //	moo_.lock();
         //mutex_lock l(moo_);
@@ -172,8 +172,13 @@ namespace tensorflow {
                 vertex *v_parent = addvertex(new_str);
                 //no gap_mtx is needed here currently
                 //v_parent->gap_mtx.lock();
-                v_parent->minimum_gap = std::min((v->all_start_micros) - (v_parent->all_start_micros+v_parent->all_end_rel_micros), v_parent->minimum_gap);
-                fprintf(file, "Minimum gap %s %d \n", new_str.c_str(), v_parent->minimum_gap);
+		if (((v->all_start_micros) - (v_parent->all_start_micros+v_parent->all_end_rel_micros)) < v_parent->minimum_gap) {
+                	v_parent->minimum_gap = (v->all_start_micros) - (v_parent->all_start_micros+v_parent->all_end_rel_micros);
+                	v_parent->consume_gap = v->all_start_micros - v_parent->all_start_micros;
+                	v_parent->consume_node = nt->node_name();	
+		}
+                //v_parent->minimum_gap = std::min((v->all_start_micros) - (v_parent->all_start_micros+v_parent->all_end_rel_micros), v_parent->minimum_gap);
+                fprintf(file, "==child %s update the ==parent %s with the \nminimum_gap: %ld \n====the consume gap is %ld\nthe diff of two gap is %ld\n", nt->node_name().c_str(), new_str.c_str(), v_parent->minimum_gap, v_parent->consume_gap, v_parent->consume_gap - v_parent->minimum_gap);
                 //v_parent->gap_mtx.unlock();
             }
             fclose(file);
