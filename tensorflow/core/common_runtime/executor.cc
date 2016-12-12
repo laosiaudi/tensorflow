@@ -1464,7 +1464,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
                 
           }
-          delay = delay/2;
+          delay = (int)(delay*0.7);
           /*sum = *(it->second.begin()+1);
 
           if (sum < 1000) {
