@@ -1429,10 +1429,10 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
       // Adding dynamic delay
       if (delay_saver_ != nullptr) {
         auto it = delay_saver_->find(node->name());
-        if (it != delay_saver_->end() && it->second.size() > 10) {
+        if (it != delay_saver_->end() && it->second.size() > 5) {
           //int64_t delay = it->second.back();
           auto result = std::min_element(it->second.begin()+1, it->second.end()); 
-          int64_t delay = std::accumulate(it->second.begin()+1, it->second.begin() + 10, 0);
+          int64_t delay = std::accumulate(it->second.begin()+1, it->second.begin() + 6, 0);
           delay = delay / 9;
           //if (*result < 1000) {
 	  //	delay = 0;
@@ -1451,8 +1451,8 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
 	  FILE* file = fopen("/tmp/delay.log", "a+");
           
-	  if (it->second.size() > 15) {
-		auto se = std::accumulate(it->second.begin()+10, it->second.begin() + 15,0);
+	  if (it->second.size() > 10) {
+		auto se = std::accumulate(it->second.begin()+6, it->second.begin() + 10,0);
                 se = se/5;
 
                 fprintf(file, "average of first 10 %ld \n", delay);
@@ -1464,6 +1464,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
                 
           }
+          delay = delay/2;
           /*sum = *(it->second.begin()+1);
 
           if (sum < 1000) {
