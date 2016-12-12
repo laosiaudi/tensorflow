@@ -1437,6 +1437,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 	  //	delay = 0;
           //}
           int64_t sum = 0;
+          /*
           for (auto itn = it->second.begin()+1; itn != it->second.end(); ++itn) {
     		auto num = *itn;
                 if (num < 1000) {
@@ -1444,7 +1445,13 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 		}
 		sum += num;
 	  }
+          */
 
+          sum = *(it->second.begin()+1);
+
+          if (sum < 1000) {
+ 		sum = 0;
+          }
 
           delay = sum;
           FILE* file = fopen("/tmp/delay.log", "a+");
