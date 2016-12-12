@@ -94,6 +94,7 @@ class Executor {
     TensorStore* tensor_store = nullptr;
     ScopedStepContainer* step_container = nullptr;
     std::unordered_map<tensorflow::string, std::vector<int64_t>>* delay_saver;
+    std::unordered_map<tensorflow::string, int64_t>* delay_saver2;
     mutex* delay_mtx;
 
     // If true, calls Sync() on the device.
