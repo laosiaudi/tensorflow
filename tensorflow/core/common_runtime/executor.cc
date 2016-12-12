@@ -1431,7 +1431,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
       // Adding dynamic delay
       if (delay_saver_ != nullptr) {
         auto it = delay_saver_->find(node->name());
-        if (it != delay_saver_->end() && it->second.size() > 1 && it->second.size() % 10 == 0) {
+        if (it != delay_saver_->end() && it->second.size() > 10) {
           //int64_t delay = it->second.back();
           FILE* file = fopen("/tmp/delay.log", "a+");
              
@@ -1451,7 +1451,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
 	  } else {
 
-            delay = delay / 9 + previous_delay;
+            delay = delay / 9;
 
             (*delay_saver2_)[node->name()] = delay;
 	  }
