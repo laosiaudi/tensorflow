@@ -1439,13 +1439,13 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           fprintf(file, "accumulate %ld \n", delay);
 
           if (delay_saver2_ != nullptr) {
-          auto it = delay_saver2_-≥find(node->name());
+          auto it = delay_saver2_->find(node->name());
 
-          if (it != delay_saver2_-≥end()) {	
+          if (it != delay_saver2_->end()) {	
 	  int64_t previous_delay = (*delay_saver2_)[node->name()];
 
           fprintf(file, "previous delay %ld \n", previous_delay);
-	  if (previous_delay > 0 && previous_delay/2 < delay/9) {
+	  if (previous_delay > 0 && previous_delay/2 < delay) {
                 previous_delay = -1;
                 (*delay_saver2_)[node->name()] = -1;
           }
@@ -1477,25 +1477,11 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           fprintf(file, "step_id  %ld \n",params.step_id);
           fprintf(file, "nodename  %s \n",node->name().c_str());
           fprintf(file, "printing the vector\n ");
-          for(std::vector<int64_t>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
-            fprintf(file, "%ld, ", *it2);
-          }
           fprintf(file, "\n");
   	  fclose(file);
           params.op_delay = delay;
         }
-      } else {
-	if (delay_saver2_ != nullptr) {
-          if (delay_saver2_->count(node->name()) != 0) {
-
-	    params.op_delay = (*delay_saver2_)[node->name()];
-	  }
-
-	}
-
       }
-
-
 
       // Set up compute params.
       OpKernel* op_kernel = item.kernel;
