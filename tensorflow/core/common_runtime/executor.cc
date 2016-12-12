@@ -975,6 +975,7 @@ class ExecutorState {
   Executor::Args::Runner runner_;
   GraphLogger* graph_logger_;
   std::unordered_map<tensorflow::string, std::vector<int64_t>>* delay_saver_;
+  std::unordered_map<tensorflow::string, int64_t> *delay_saver2_;
   mutex* delay_mtx_; 
 
   bool sync_on_finish_;
@@ -1102,6 +1103,7 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
   
   graph_logger_ = new GraphLogger();//args.graph_logger;
   delay_saver_ = args.delay_saver;
+  delay_saver2_ = args.delay_saver2;
   delay_mtx_ = args.delay_mtx;
   FILE *file = fopen("/tmp/executorstate.log", "a+");
   if (args.graph_logger)
@@ -1429,14 +1431,34 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
       // Adding dynamic delay
       if (delay_saver_ != nullptr) {
         auto it = delay_saver_->find(node->name());
-        if (it != delay_saver_->end() && it->second.size() > 1) {
+        if (it != delay_saver_->end() && it->second.size() > 1 && it->second.size() % 10 == 0) {
           //int64_t delay = it->second.back();
+          FILE* file = fopen("/tmp/delay.log", "a+");
+             
+	  int64_t previous_delay = (*delay_saver2_)[node->name()];
+          fprintf(file, "previous delay %ld \n", previous_delay);
           auto result = std::min_element(it->second.begin()+1, it->second.end()); 
-          int64_t delay = 0.9*std::accumulate(it->second.begin()+1,result, 0);
+          int64_t delay = std::accumulate(it->second.end() - 9,it->second.end(), 0);
+          fprintf(file, "accumulate %ld \n", delay);
+
+          if (previous_delay > 0 && previous_delay/2 < delay/9) {
+		previous_delay = -1;
+		(*delay_saver2_)[node->name()] = -1;
+	  }
+
+	  if (previous_delay == -1) {
+	    delay = 0;
+
+	  } else {
+
+            delay = delay / 9 + previous_delay;
+
+            (*delay_saver2_)[node->name()] = delay;
+	  }
           //if (*result < 1000) {
 	  //	delay = 0;
           //}
-          int64_t sum = 0;
+          /*int64_t sum = 0;
           for (auto itn = it->second.begin()+1; itn != it->second.end(); ++itn) {
     		auto num = *itn;
                 if (num < 1000) {
@@ -1446,8 +1468,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 	  }
 
 
-          delay = sum;
-          FILE* file = fopen("/tmp/delay.log", "a+");
+          delay = sum;*/
   	  fprintf(file, "Delay %ld \n", delay);
           fprintf(file, "step_id  %ld \n",params.step_id);
           fprintf(file, "nodename  %s \n",node->name().c_str());
@@ -1459,6 +1480,15 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
   	  fclose(file);
           params.op_delay = delay;
         }
+      } else {
+	if (delay_saver2_ != nullptr) {
+          if (delay_saver2_->count(node->name()) != 0) {
+
+	    params.op_delay = (*delay_saver2_)[node->name()];
+	  }
+
+	}
+
       }
 
 
@@ -2145,6 +2175,7 @@ void ExecutorState::Finish() {
           std::vector<int64_t> temp;
 	  temp.push_back((*it)->minimum_gap);
           (*delay_saver_)[(*it)->name] = temp;
+          (*delay_saver2_)[(*it)->name] = 0; 
         } else {
           fprintf(file, "before\n");
           fflush(file);
