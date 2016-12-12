@@ -1429,7 +1429,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
       // Adding dynamic delay
       if (delay_saver_ != nullptr) {
         auto it = delay_saver_->find(node->name());
-        if (it != delay_saver_->end() && it->second.size() > 1) {
+        if (it != delay_saver_->end() && it->second.size() > 11) {
           //int64_t delay = it->second.back();
           auto result = std::min_element(it->second.begin()+1, it->second.end()); 
           int64_t delay = std::accumulate(it->second.begin()+1, it->second.begin() + 10, 0);
