@@ -1477,6 +1477,9 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           fprintf(file, "step_id  %ld \n",params.step_id);
           fprintf(file, "nodename  %s \n",node->name().c_str());
           fprintf(file, "printing the vector\n ");
+          for(std::vector<int64_t>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
+            fprintf(file, "%ld, ", *it2);
+          }
           fprintf(file, "\n");
   	  fclose(file);
           params.op_delay = delay;
