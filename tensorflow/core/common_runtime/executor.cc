@@ -1451,7 +1451,9 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
 	  FILE* file = fopen("/tmp/delay.log", "a+");
           
-	  if (it->second.size() > 10) {
+	  auto r = ((double) rand() / (RAND_MAX));
+          delay = (int)(delay*0.6+(r)*0.1);
+	  if (it->second.size() > 10 && delay > 5000) {
 		auto se = std::accumulate(it->second.begin()+6, it->second.begin() + 11,0);
                 se = se/5;
 
@@ -1464,8 +1466,6 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
                 
           }
-	  auto r = ((double) rand() / (RAND_MAX));
-          delay = (int)(delay*0.6+(r)*0.1);
           if (delay < 5000)
 		delay = 0;
           /*sum = *(it->second.begin()+1);
