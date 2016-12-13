@@ -84,6 +84,17 @@ namespace tensorflow {
             fprintf(file, "node_name: ");
             fprintf(file, nt->node_name().c_str());
             fprintf(file, "\n");
+		
+	    for (const auto& mem : nt->memory()) {
+
+            fprintf(file, "allocator_name: ");
+            fprintf(file, mem.allocator_name().c_str());
+            fprintf(file, "\n");
+
+            fprintf(file, "peak memory: ");
+            fprintf(file, "%ld", mem.peak_bytes());
+            fprintf(file, "\n");
+                }
 
             fprintf(file, "all_start_micros: ");
             fprintf(file, "%ld", nt->all_start_micros());

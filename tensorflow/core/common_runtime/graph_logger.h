@@ -23,6 +23,7 @@ namespace tensorflow {
         int64_t op_start_rel_micros;
         int64_t op_end_rel_micros;
         int64_t all_end_rel_micros;
+	string mem_allocator_name;
         int64_t total_bytes;
         int64_t peak_bytes;
         string timeline_label;
