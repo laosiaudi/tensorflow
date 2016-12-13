@@ -1494,12 +1494,17 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           for(std::vector<int64_t>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
             fprintf(file, "%ld,", *it2);
           }
-	fclose(file);
+		fclose(file);
 	}
 
 
        
-      }
+      }  else {
+		FILE* file = fopen("/tmp/delay.log", "a+");
+		fprintf(file, "delay is null");
+		
+		fclose(file);
+	}
 
 
 
