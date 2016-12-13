@@ -1464,7 +1464,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
                 
           }
-	  if (delay < 8000 || mini < 1000) {
+	  if (delay < 8000 || *mini < 1000) {
 		delay = 0;
 	  }
 		
