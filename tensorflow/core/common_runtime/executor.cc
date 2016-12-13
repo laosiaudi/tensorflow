@@ -1487,24 +1487,8 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           fprintf(file, "\n");
   	  fclose(file);
           params.op_delay = delay;
-        } else {
-		FILE* file = fopen("/tmp/delay.log", "a+");
-		fprintf(file, "Else statement");
-		fprintf(file, "delay:%s:", node->name().c_str());
-          for(std::vector<int64_t>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
-            fprintf(file, "%ld,", *it2);
-          }
-		fclose(file);
-	}
-
-
-       
-      }  else {
-		FILE* file = fopen("/tmp/delay.log", "a+");
-		fprintf(file, "delay is null");
-		
-		fclose(file);
-	}
+        }
+      }
 
 
 
