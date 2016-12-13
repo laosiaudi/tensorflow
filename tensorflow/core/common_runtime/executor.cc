@@ -1457,14 +1457,14 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
                 fprintf(file, "average of first 10 %ld \n", delay);
                 fprintf(file, "avg next 5 of se %ld \n", se);
-                if (delay/2 < se) {
+                if (delay*0.6 < se) {
 
 			delay = 0;
                 }
 
                 
           }
-	  if (delay < 8000 || *mini < 1000) {
+	  if (delay < 5000 || *mini < 1000) {
 		delay = 0;
 	  }
 		
@@ -1474,7 +1474,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 		
 		
           auto r = ((double) rand() / (RAND_MAX));
-          delay = (int)(delay*(0.65+(r)*0.05));
+          delay = (int)(delay*(0.60+(r)*0.1));
           
 		
 	  
