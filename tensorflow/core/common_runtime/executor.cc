@@ -1461,7 +1461,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
                 fprintf(file, "avg next 5 of se %ld \n", se);
                 if (delay/2 < se) {
 
-			delay = 0;
+			//delay = 0;
                 }
 
                 
