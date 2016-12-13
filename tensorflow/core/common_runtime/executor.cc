@@ -1464,11 +1464,20 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
                 
           }
-          auto r = ((double) rand() / (RAND_MAX));
-          delay = (int)(delay*(0.65+(r)*0.05));
-          if (delay < 8000 || mini < 1000) {
+	  if (delay < 8000 || mini < 1000) {
 		delay = 0;
 	  }
+		
+	  if (delay != 0 && it->second.size() > 15) {
+		  delay = std::accumulate(it->second.end()-5, it->second.end(), 0)/5;
+	  }
+		
+		
+          auto r = ((double) rand() / (RAND_MAX));
+          delay = (int)(delay*(0.65+(r)*0.05));
+          
+		
+	  
           /*sum = *(it->second.begin()+1);
 
           if (sum < 1000) {
