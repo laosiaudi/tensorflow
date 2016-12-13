@@ -975,6 +975,8 @@ class ExecutorState {
   Executor::Args::Runner runner_;
   GraphLogger* graph_logger_;
   std::unordered_map<tensorflow::string, std::vector<int64_t>>* delay_saver_;
+  std::unordered_map<tensorflow::string, std::vector<int64_t>>* delay_saver2_;
+  int64_t *graph_logger_overhead_;
   mutex* delay_mtx_; 
 
   bool sync_on_finish_;
@@ -1102,6 +1104,8 @@ ExecutorState::ExecutorState(const Executor::Args& args, ExecutorImpl* impl)
   
   graph_logger_ = new GraphLogger();//args.graph_logger;
   delay_saver_ = args.delay_saver;
+  delay_saver2_ = args.delay_saver2;
+  graph_logger_overhead_ = args.graph_logger_overhead;
   delay_mtx_ = args.delay_mtx;
   FILE *file = fopen("/tmp/executorstate.log", "a+");
   if (args.graph_logger)
@@ -1478,10 +1482,18 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           fprintf(file, "step_id  %ld \n",params.step_id);
           fprintf(file, "nodename  %s \n",node->name().c_str());
           fprintf(file, "printing the vector\n ");
+          fprintf(file, "delay:%s:", node->name().c_str()); 
           for(std::vector<int64_t>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
-            fprintf(file, "%ld, ", *it2);
+            fprintf(file, "%ld,", *it2);
           }
           fprintf(file, "\n");
+	   
+          auto it3 = delay_saver2_->find(node->name());
+          fprintf(file, "consume_gap:%s:", node->name().c_str()); 
+          for(std::vector<int64_t>::iterator it4 = it3->second.begin(); it4 != it3->second.end(); ++it4) {
+            fprintf(file, "%ld,", *it4);
+          }
+          fprintf(file, "\n"); 
   	  fclose(file);
           params.op_delay = delay;
         }
@@ -2159,7 +2171,9 @@ void ExecutorState::DumpState() {
 void ExecutorState::Finish() {
   mutex_lock l(*delay_mtx_);
   if (delay_saver_ != nullptr && graph_logger_ != nullptr) {
+    *graph_logger_overhead_ += graph_logger_->total_time;
     FILE *file = fopen("/tmp/Finish.txt", "a+");
+    fprintf(file, "the overhead of graph logger so far is %ld\n", *graph_logger_overhead_);
     graph_logger_->finish();
     fprintf(file, "start of recording the global delay-------\n");
     for (std::vector<struct vertex *>::iterator it = graph_logger_->recv_nodes.begin() ; it != graph_logger_->recv_nodes.end(); ++it) {
@@ -2175,6 +2189,18 @@ void ExecutorState::Finish() {
           fprintf(file, "before\n");
           fflush(file);
       	  delay_it->second.push_back((*it)->minimum_gap);
+          fprintf(file, "after\n");
+          fflush(file);
+        }
+      	auto delay_it2 = (delay_saver2_->find((*it)->name));
+      	if (delay_it2 == delay_saver2_->end()) {
+          std::vector<int64_t> temp;
+	  temp.push_back((*it)->consume_gap);
+          (*delay_saver2_)[(*it)->name] = temp;
+        } else {
+          fprintf(file, "before\n");
+          fflush(file);
+      	  delay_it2->second.push_back((*it)->consume_gap);
           fprintf(file, "after\n");
           fflush(file);
         }

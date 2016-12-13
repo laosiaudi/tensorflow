@@ -68,6 +68,7 @@ namespace tensorflow {
 
     void GraphLogger::add_step_stats(NodeExecStats* nt, const Node *node)
     { 
+	int64_t total_start = Env::Default()->NowMicros();
 	if (start_flag == false) {
 		start = Env::Default()->NowMicros();
 		elapsed = 0;
@@ -240,6 +241,7 @@ namespace tensorflow {
             fflush(file);
 	    fclose(file);
 	   }
+	total_time += Env::Default()->NowMicros();
      }
     }
 }

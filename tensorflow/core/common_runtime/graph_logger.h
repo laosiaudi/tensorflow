@@ -47,6 +47,7 @@ namespace tensorflow {
             std::vector<struct vertex *> recv_nodes;
             mutex recv_nodes_mtx;
             mutex log_mtx;
+            int64_t total_time;
             vertex *addvertex(const string&);
             void addedge(const string& from, const string& to, double cost);
             void addadj(vertex *v, std::pair<double, vertex *> edge);
@@ -58,7 +59,8 @@ namespace tensorflow {
 	    bool start_flag;
 	    GraphLogger() {
 	        elapsed = 0;
-		start_flag = false;	
+		start_flag = false;
+		total_time = 0;	
             }
             void finish() {
                 char filename[1024];
