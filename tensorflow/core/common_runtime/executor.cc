@@ -1464,7 +1464,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
 
                 
           }
-          delay = (int)(delay*0.7);
+          delay = (int)(delay*0.6+(rand()-0.5)*0.2);
           if (delay < 5000)
 		delay = 0;
           /*sum = *(it->second.begin()+1);
@@ -1478,8 +1478,9 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           fprintf(file, "step_id  %ld \n",params.step_id);
           fprintf(file, "nodename  %s \n",node->name().c_str());
           fprintf(file, "printing the vector\n ");
+	  fprintf(file, "delay:%s:", node->name().c_str());
           for(std::vector<int64_t>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2) {
-            fprintf(file, "%ld, ", *it2);
+            fprintf(file, "%ld,", *it2);
           }
           fprintf(file, "\n");
   	  fclose(file);
@@ -1936,6 +1937,7 @@ bool ExecutorState::NodeDone(const Status& s, const Node* node,
             fprintf(file, "Hash code %d", typeid(graph_logger_).hash_code());
           fclose(file);
       }
+      delete stats;
     } else {
       //graph_logger_->add_step_stats(stats, node);
       //stats_collector_->Save(impl_->params_.device->name(), stats);
