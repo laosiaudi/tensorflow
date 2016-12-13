@@ -1431,7 +1431,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
         auto it = delay_saver_->find(node->name());
         if (it != delay_saver_->end() && it->second.size() > 10) {
           //int64_t delay = it->second.back();
-          auto mini = std::min_element(it->second.begin()+1, it->second.end()+11); 
+          auto mini = std::min_element(it->second.begin()+1, it->second.begin()+11); 
           int64_t delay = std::accumulate(it->second.begin()+1, it->second.begin() + 11, 0);
           delay = delay / (10*2);
           //if (*result < 1000) {
