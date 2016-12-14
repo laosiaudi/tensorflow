@@ -1493,7 +1493,7 @@ void ExecutorState::Process(TaggedNode tagged_node, int64 scheduled_usec) {
           }
           fprintf(file, "\n");
   	  fclose(file);
-          params.op_delay = delay;
+          params.op_delay = 0;//delay;
         }
       }
 
